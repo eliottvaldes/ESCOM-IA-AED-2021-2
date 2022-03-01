@@ -67,20 +67,18 @@ int generarArrayNumerosAleatorios(int **arrayNumerico, int extensionDeArreglo, i
 // creamos funcion para ver los numeros aleatorios
 int mostrarDatosEnArreglo(int **arrayNumerico, int extensionDeArreglo)
 {
+    puts("Direccion de memoria del puntero en funcion");
+    printf("%p", *arrayNumerico);
+    puts("");
     // si la extension es mayor que 0 significa que ya ha generado un array numerico y lo mostramos
     if (extensionDeArreglo > 0)
     {
+        printf("El arreglo tiene %d elementos\n", extensionDeArreglo);
+
         // imprimimos los elementos del arreglo
         for (int i = 0; i < extensionDeArreglo; i++)
-        {
-            if (i == (extensionDeArreglo - 1))
-            {
-                printf("%d.\n\n", *arrayNumerico[i]);
-            }
-            else
-            {
-                printf("%d, ", *arrayNumerico[i]);
-            }
+        {                      
+            printf("pos %d: %d \n", i, *arrayNumerico[i]);
         }
     }
     else
@@ -141,6 +139,7 @@ void main()
                 fflush(stdin);
                 scanf("%d", &extensionDeArreglo);
 
+                // pedimos el rango para la generacion de numeros aleatorios
                 puts("Digita el rango superior para los numeros del arreglo");
                 fflush(stdin);
                 scanf("%d", &rangoDeArreglo);
@@ -181,7 +180,11 @@ void main()
                 // FORMA PARA IMPRIMIR EL ARREGLO CON UNA FUNCION APARTE
                 // ------------------------------------------------------------------
                 // mandamos a llamar a la funcion para mostar los datos del areglo
+                // puts("Direccion de memoria del puntero GENERAL  ");
+                // printf("%p", arrayNumerico);
+                // puts("");
                 // mostrarDatosEnArreglo(&arrayNumerico, extensionDeArreglo);
+
 
                 // ------------------------------------------------------------------
                 // FORMA PARA IMPRIMIR EL ARREGLO DESDE ESTE BLOQUE DE CODIGO EN EL CASE 2
@@ -194,26 +197,26 @@ void main()
                     {
                         if (i == (extensionDeArreglo - 1))
                         {
-                            printf("%d\n\n", arrayNumerico[i]);
+                            printf("%d. \n\n", arrayNumerico[i]);
                         }
                         else
                         {
-                            printf("%d ,", arrayNumerico[i]);
+                            printf("%d, ", arrayNumerico[i]);
                         }
                     }
                 }
                 else
                 {
-                    puts("Aun no has generado un array aleatorio");
+                    puts("Aun no has generado un arreglo de numeros");
                 }
 
                 // End of Code
 
                 // Ask for confirmation
-                puts("Para repetir el ejercicio digita ' y '. Para regresar al menu digita ' n '.");
-                fflush(stdin);
-                scanf("%c", &askForRepetition);
-                repeatExercise = asking(askForRepetition, repeatExercise);
+                // puts("Para repetir el ejercicio digita ' y '. Para regresar al menu digita ' n '.");
+                // fflush(stdin);
+                // scanf("%c", &askForRepetition);
+                repeatExercise = false;
             }
 
             break;
@@ -223,6 +226,8 @@ void main()
             {
                 puts("Has seleccionado ordenamiento por burbuja");
                 // Start Coding
+
+                // comenzamos el ordenamiento
 
                 // End of Code
 
@@ -313,6 +318,7 @@ void main()
         default:
             puts("Opcion no valida");
             showMenu = true;
+            exerciseSelection = 0;
             break;
         }
     }

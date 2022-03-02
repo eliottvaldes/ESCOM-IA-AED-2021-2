@@ -22,7 +22,7 @@ int loading()
     for (int i = 0; i < 3; i++)
     {
         printf(".");
-        sleep(1 / 2);
+        sleep(1);
     }
     puts("\n");
     return 0;
@@ -37,7 +37,6 @@ void ordenamientoSeleccion(int *, int);
 void ordenamientoQuickSort(int *, int, int);
 
 // int BuscaMenor(int *arrayNumerico, int , int );
-
 
 // funcion para creacion de numeros aleatorios
 int *generarArrayNumerosAleatorios(int extensionDeArreglo, int rangoDeArreglo)
@@ -179,6 +178,83 @@ void ordenamientoQuickSort(int *arrayNumerico, int primerElemento, int ultimoEle
     }
 }
 
+// funcion para ordenamiento Merge (union de las partes)
+void ordenamientoMerge_union(int *arrayNumerico, int posicionDePartida, int posicionIntermedia, int posicionDeFinalizacion)
+{
+    // creamos nuestras variables
+    int i;
+    int j;
+    int k;
+    // obtenemos la longitud de los arreglos
+    int longitudArregloIzquierdo = (posicionIntermedia - posicionDePartida) + 1;
+    int longitudArregloDerecho = (posicionDeFinalizacion - posicionIntermedia);
+    int *bloqueIzquierdo, *bloqueDerecho;
+
+    // asignamos la memoria dinamica a los arreglos
+    bloqueIzquierdo = (int *)malloc(longitudArregloIzquierdo * sizeof(int));
+    bloqueDerecho = (int *)malloc(longitudArregloDerecho * sizeof(int));
+
+    // copiamos datos de arrayNumerico en subarreglos / subgrupos bloqueIzquierdo y bloqueDerecho
+    // creamos el bloque izquierdo
+    for (i = 0; i < longitudArregloIzquierdo; i++)
+    {
+        bloqueIzquierdo[i] = *(arrayNumerico + posicionDePartida + i);
+    }
+    // creamos el bloque derecho
+    for (j = 0; j < longitudArregloDerecho; j++)
+    {
+        bloqueDerecho[j] = *(arrayNumerico + posicionIntermedia + j + 1);
+    }
+
+    i = 0;
+    j = 0;
+
+    // realizamos la union de los dos subgrupos de la division merge
+    for (k = posicionDePartida; k < posicionDeFinalizacion + 1; k++)
+    {
+        if (i == longitudArregloIzquierdo)
+        {
+            *(arrayNumerico + k) = *(bloqueDerecho + j);
+            j = j + 1;
+        }
+        else if (j == longitudArregloDerecho)
+        {
+            *(arrayNumerico + k) = *(bloqueIzquierdo + i);
+            i = i + 1;
+        }
+        else
+        {
+            if (*(bloqueIzquierdo + i) <= *(bloqueDerecho + j))
+            {
+                *(arrayNumerico + k) = *(bloqueIzquierdo + i);
+                i = i + 1;
+            }
+            else
+            {
+                *(arrayNumerico + k) = *(bloqueDerecho + j);
+                j = j + 1;
+            }
+        }
+    }
+}
+
+// funcion para ordenamiento Merge (division del array)
+void ordenamientoMergeSort_division(int *arrayNumerico, int posicionDePartida, int posicionDeFinalizacion)
+{
+    // verificamos que asdasd sea menor a asdasd
+    if (posicionDePartida < posicionDeFinalizacion)
+    {
+        // dividimos el arreglo a la mitad
+        int posicionIntermedia = (posicionDePartida + posicionDeFinalizacion) / 2;
+
+        // usamos la recursividad del arreglo para crear los subgrupos
+        ordenamientoMergeSort_division(arrayNumerico, posicionDePartida, posicionIntermedia);
+        ordenamientoMergeSort_division(arrayNumerico, posicionIntermedia + 1, posicionDeFinalizacion);
+
+        // hacemos la union de los subgrupos
+        ordenamientoMerge_union(arrayNumerico, posicionDePartida, posicionIntermedia, posicionDeFinalizacion);
+    }
+}
 
 // main function
 void main()
@@ -318,7 +394,7 @@ void main()
             loading();
 
             // ejecutamos funcion del ordenamiento insercion
-            ordenamientoSeleccion(arrayNumerico, extensionDeArreglo);            
+            ordenamientoSeleccion(arrayNumerico, extensionDeArreglo);
 
             puts("*** Ordenamiento completado ***\n");
 
@@ -336,6 +412,11 @@ void main()
 
             // iniciamos codigo para el algoritmo de Merge
 
+            int posicionDePartida = 0;
+            int posicionDeFinalizacion = extensionDeArreglo - 1;
+            // ejecutamos la funcion del ordenamiento Merge
+            ordenamientoMergeSort_division(arrayNumerico, posicionDePartida, posicionDeFinalizacion);
+
             puts("*** Ordenamiento completado ***\n");
             // End of Code
 
@@ -349,7 +430,6 @@ void main()
             printf("Iniciando ordenamiento Quick Sort ");
             loading();
 
-            
             // siempre tomamos el primer elemento el que se encuentra en la pos 0
             int primerElemento = 0;
             // siempre tomamos el primer elemento el que se encuentra en la pos long arreglo -1 para mantenernos en el for

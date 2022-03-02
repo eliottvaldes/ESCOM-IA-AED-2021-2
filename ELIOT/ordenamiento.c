@@ -16,7 +16,7 @@
 // print animation
 int sleep();
 int time();
-int loading()
+void animacion()
 {
     int i;
     for (int i = 0; i < 3; i++)
@@ -25,7 +25,6 @@ int loading()
         sleep(1);
     }
     puts("\n");
-    return 0;
 }
 
 // CREAMOS PROTOTIPOS DE FUNCIONES
@@ -34,9 +33,9 @@ void mostrarDatosEnArreglo(int *, int, int);
 void ordenamientoBurbuja(int *, int);
 void ordenamientoInsercion(int *, int);
 void ordenamientoSeleccion(int *, int);
+void ordenamientoMergeSort_division(int *, int, int);
+void ordenamientoMerge_union(int *, int, int, int);
 void ordenamientoQuickSort(int *, int, int);
-
-// int BuscaMenor(int *arrayNumerico, int , int );
 
 // funcion para creacion de numeros aleatorios
 int *generarArrayNumerosAleatorios(int extensionDeArreglo, int rangoDeArreglo)
@@ -357,7 +356,7 @@ void main()
 
             // mostramos mensaje
             printf("Iniciando ordenamiento burbuja ");
-            loading();
+            animacion();
 
             // ejecutamos funcion del ordenamiento burbuja
             ordenamientoBurbuja(arrayNumerico, extensionDeArreglo);
@@ -374,7 +373,7 @@ void main()
             // Start Coding
 
             printf("Iniciando ordenamiento insercion ");
-            loading();
+            animacion();
 
             // ejecutamos funcion del ordenamiento insercion
             ordenamientoInsercion(arrayNumerico, extensionDeArreglo);
@@ -391,7 +390,7 @@ void main()
             // Start Coding
 
             printf("Iniciando ordenamiento seleccion ");
-            loading();
+            animacion();
 
             // ejecutamos funcion del ordenamiento insercion
             ordenamientoSeleccion(arrayNumerico, extensionDeArreglo);
@@ -408,7 +407,7 @@ void main()
             // Start Coding
 
             printf("Iniciando ordenamiento merge ");
-            loading();
+            animacion();
 
             // iniciamos codigo para el algoritmo de Merge
 
@@ -428,7 +427,7 @@ void main()
             // Start Coding
 
             printf("Iniciando ordenamiento Quick Sort ");
-            loading();
+            animacion();
 
             // siempre tomamos el primer elemento el que se encuentra en la pos 0
             int primerElemento = 0;
@@ -446,7 +445,7 @@ void main()
 
         case 8:
             printf("\nSaliendo del programa ");
-            loading();
+            animacion();
             puts("\n *** ADIOS *** :)");
             showMenu = false;
             break;

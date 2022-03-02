@@ -31,8 +31,14 @@ int loading()
 // CREAMOS PROTOTIPOS DE FUNCIONES
 int *generarArrayNumerosAleatorios(int, int);
 void mostrarDatosEnArreglo(int *, int, int);
+void ordenamientoBurbuja(int *, int);
+void ordenamientoInsercion(int *, int);
+void ordenamientoSeleccion(int *, int);
 
-// create random data in array
+// int BuscaMenor(int *arrayNumerico, int , int );
+
+
+// funcion para creacion de numeros aleatorios
 int *generarArrayNumerosAleatorios(int extensionDeArreglo, int rangoDeArreglo)
 {
 
@@ -47,7 +53,7 @@ int *generarArrayNumerosAleatorios(int extensionDeArreglo, int rangoDeArreglo)
     return arrayNumerico;
 }
 
-// creamos funcion para ver los numeros aleatorios
+// funcion para ver los numeros aleatorios
 void mostrarDatosEnArreglo(int *arrayNumerico, int extensionDeArreglo, int i)
 {
     if (i == (extensionDeArreglo - 1))
@@ -57,6 +63,66 @@ void mostrarDatosEnArreglo(int *arrayNumerico, int extensionDeArreglo, int i)
     else
     {
         printf("%d, ", arrayNumerico[i]);
+    }
+}
+
+// funcion para ordenamiento de burbuja
+void ordenamientoBurbuja(int *arrayNumerico, int extensionDeArreglo)
+{
+    for (int i = 0; i < extensionDeArreglo; i++)
+    {
+        // recorremos los elementos x veces en el arreglo - i
+        for (int j = 0; j < (extensionDeArreglo - i); j++)
+        {
+            // hacemos la comparacion
+            if (arrayNumerico[j] > arrayNumerico[j + 1])
+            {
+                // hacemos el intercambio de valores
+                int temp = arrayNumerico[j];
+                arrayNumerico[j] = arrayNumerico[j + 1];
+                arrayNumerico[j + 1] = temp;
+            }
+        }
+    }
+}
+
+// funcion para ordenamiento insercion
+void ordenamientoInsercion(int *arrayNumerico, int extensionDeArreglo)
+{
+    for (int i = 0; i < extensionDeArreglo; i++)
+    {
+
+        int temp = arrayNumerico[i];
+        int j = (i - 1);
+        while ((arrayNumerico[j] > temp) && (j >= 0))
+        {
+            arrayNumerico[j + 1] = arrayNumerico[j];
+            j--;
+        }
+        arrayNumerico[j + 1] = temp;
+    }
+}
+
+// funcion para ordenamiento de Seleccion
+void ordenamientoSeleccion(int *arrayNumerico, int extensionDeArreglo)
+{
+    for (int i = 0; i < extensionDeArreglo; i++)
+    {
+        int pos_menor = i;
+        // buscamos el valor menor
+        for (int j = i + 1; j < extensionDeArreglo; j++)
+        {
+            // comparamos el valor de la pos j  para ver si es menor
+            if (arrayNumerico[j] < arrayNumerico[pos_menor])
+            {
+                // cambiamos la pos_menor por el valor menor que es j
+                pos_menor = j;
+            }
+        }
+        // realizamos el cambio de valores
+        int temp = arrayNumerico[pos_menor];
+        arrayNumerico[pos_menor] = arrayNumerico[i];
+        arrayNumerico[i] = temp;
     }
 }
 
@@ -107,8 +173,6 @@ void main()
     int rangoDeArreglo = 0;
     int *arrayNumerico;
     bool showMenu = true;
-    int valorTemporal;
-    int temp;
     int j;
 
     // print greetings
@@ -156,13 +220,14 @@ void main()
             puts("Digita el rango superior para los numeros del arreglo");
             fflush(stdin);
             scanf("%d", &rangoDeArreglo);
+            fflush(stdin);
 
             // creamos semilla para generacion de numeros random
             // usamos srand(time()); para no obtener los mismos numeros aleatorios en cada ejecucion ya que la semilla es la hora actual
             srand(time(NULL));
 
             // mandamos a llamar a la funcion de crear numeros de datos aleatorios
-            arrayNumerico = generarArrayNumerosAleatorios(extensionDeArreglo, rangoDeArreglo);            
+            arrayNumerico = generarArrayNumerosAleatorios(extensionDeArreglo, rangoDeArreglo);
 
             // mostramos mensaje de exito
             puts("\n*** Arreglo generado exitosamente ***\n");
@@ -202,24 +267,8 @@ void main()
             printf("Iniciando ordenamiento burbuja ");
             loading();
 
-            // comenzamos el ordenamiento burbuja
-            // recorremos el arreglo
-            for (int i = 0; i < extensionDeArreglo; i++)
-            {
-                // recorremos los elementos x veces en el arreglo - i
-                for (int j = 0; j < (extensionDeArreglo - i); j++)
-                {
-                    // hacemos la comparacion
-                    if (arrayNumerico[j] > arrayNumerico[j + 1])
-                    {
-                        // hacemos el intercambio de valores
-                        temp = arrayNumerico[j];
-                        arrayNumerico[j] = arrayNumerico[j + 1];
-                        arrayNumerico[j + 1] = temp;
-                    }
-                }
-            }
-            // fin de ordenamiento burbuja
+            // ejecutamos funcion del ordenamiento burbuja
+            ordenamientoBurbuja(arrayNumerico, extensionDeArreglo);
 
             puts("*** Ordenamiento completado ***\n");
 
@@ -235,19 +284,8 @@ void main()
             printf("Iniciando ordenamiento insercion ");
             loading();
 
-            // iniciamos el ordenamiento por insercion
-            for (int i = 0; i < extensionDeArreglo; i++)
-            {
-
-                temp = arrayNumerico[i];
-                j = (i - 1);
-                while ((arrayNumerico[j] > temp) && (j >= 0))
-                {
-                    arrayNumerico[j + 1] = arrayNumerico[j];
-                    j--;
-                }
-                arrayNumerico[j + 1] = temp;
-            }
+            // ejecutamos funcion del ordenamiento insercion
+            ordenamientoInsercion(arrayNumerico, extensionDeArreglo);
 
             puts("*** Ordenamiento completado ***\n");
 
@@ -263,26 +301,9 @@ void main()
             printf("Iniciando ordenamiento seleccion ");
             loading();
 
-            // iniciando algoritmo de ordenamiento por seleccion
-            for (int i = 0; i < extensionDeArreglo; i++)
-            {
-                int pos_menor = i;
-                // buscamos el valor menor
-                for (int j = i + 1; j < extensionDeArreglo; j++)
-                {
-                    // comparamos el valor de la pos j  para ver si es menor
-                    if (arrayNumerico[j] < arrayNumerico[pos_menor])
-                    {
-                        // cambiamos la pos_menor por el valor menor que es j
-                        pos_menor = j;
-                    }
-                }
-                // realizamos el cambio de valores
-                temp = arrayNumerico[pos_menor];
-                arrayNumerico[pos_menor] = arrayNumerico[i];
-                arrayNumerico[i] = temp;
-            }
-
+            // ejecutamos funcion del ordenamiento insercion
+            ordenamientoSeleccion(arrayNumerico, extensionDeArreglo);            
+           
             // for (int i = 0; i < (extensionDeArreglo -1); i++)
             // {
             //     // obtenemos el dato menor de la lista desde el indice i

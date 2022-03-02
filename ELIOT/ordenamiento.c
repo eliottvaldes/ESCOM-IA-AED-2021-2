@@ -206,7 +206,7 @@ void main()
             // Start Coding
 
             // mostramos mensaje
-            puts("Iniciando ordenamiento burbuja ");
+            printf("Iniciando ordenamiento burbuja ");
             loading();
 
             // comenzamos el ordenamiento burbuja

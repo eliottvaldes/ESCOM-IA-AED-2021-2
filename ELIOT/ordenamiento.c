@@ -18,7 +18,6 @@ int sleep();
 int time();
 void animacion()
 {
-    int i;
     for (int i = 0; i < 3; i++)
     {
         printf(".");

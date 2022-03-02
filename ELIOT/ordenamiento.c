@@ -24,6 +24,7 @@ int loading()
         printf(".");
         sleep(1);
     }
+    puts("\n");
     return 0;
 }
 // ask for confirmation
@@ -77,7 +78,7 @@ int mostrarDatosEnArreglo(int **arrayNumerico, int extensionDeArreglo)
 
         // imprimimos los elementos del arreglo
         for (int i = 0; i < extensionDeArreglo; i++)
-        {                      
+        {
             printf("pos %d: %d \n", i, *arrayNumerico[i]);
         }
     }
@@ -128,7 +129,7 @@ void main()
         case 1:
             while (repeatExercise == true)
             {
-                puts("Has seleccionado la opcion de generar array de numeros aleatorios");
+                puts("\nHas seleccionado la opcion de generar array de numeros aleatorios\n");
                 // Start Coding
 
                 // liberamos memoria del arreglo dinamico usando free
@@ -158,7 +159,7 @@ void main()
                     arrayNumerico[i] = rand() % rangoDeArreglo;
                 }
 
-                puts("Arreglo generado exitosamente\n");
+                puts("\n*** Arreglo generado exitosamente ***\n");
 
                 // End of Code
 
@@ -173,7 +174,7 @@ void main()
         case 2:
             while (repeatExercise == true)
             {
-                puts("Has seleccionado la opcion de imprimir datos");
+                puts("\nHas seleccionado la opcion de imprimir datos\n");
                 // Start Coding
 
                 // ------------------------------------------------------------------
@@ -184,7 +185,6 @@ void main()
                 // printf("%p", arrayNumerico);
                 // puts("");
                 // mostrarDatosEnArreglo(&arrayNumerico, extensionDeArreglo);
-
 
                 // ------------------------------------------------------------------
                 // FORMA PARA IMPRIMIR EL ARREGLO DESDE ESTE BLOQUE DE CODIGO EN EL CASE 2
@@ -203,19 +203,18 @@ void main()
                         {
                             printf("%d, ", arrayNumerico[i]);
                         }
+                        // printf("-%p-", arrayNumerico[i]);
+                        // printf(" DIR/%p/\n", arrayNumerico);
                     }
                 }
                 else
                 {
-                    puts("Aun no has generado un arreglo de numeros");
+                    puts("\n*** Aun no has generado un arreglo de numeros aleatorios *** \n");
                 }
 
                 // End of Code
 
-                // Ask for confirmation
-                // puts("Para repetir el ejercicio digita ' y '. Para regresar al menu digita ' n '.");
-                // fflush(stdin);
-                // scanf("%c", &askForRepetition);
+                // no preguntamos para repetir el ejercicio
                 repeatExercise = false;
             }
 
@@ -224,10 +223,13 @@ void main()
         case 3:
             while (repeatExercise == true)
             {
-                puts("Has seleccionado ordenamiento por burbuja");
+                puts("\nHas seleccionado ordenamiento por burbuja\n");
                 // Start Coding
 
                 // comenzamos el ordenamiento
+                printf("Iniciando ordenamiento burbuja ");
+                loading();
+                puts("*** Ordenamiento completado ***\n");
 
                 // End of Code
 
@@ -243,9 +245,12 @@ void main()
         case 4:
             while (repeatExercise == true)
             {
-                puts("Has seleccionado ordenamiento por insercion");
+                puts("\nHas seleccionado ordenamiento por insercion\n");
                 // Start Coding
 
+                printf("Iniciando ordenamiento burbuja ");
+                loading();
+                puts("*** Ordenamiento completado ***\n");
                 // End of Code
 
                 // Ask for confirmation
@@ -260,8 +265,12 @@ void main()
         case 5:
             while (repeatExercise == true)
             {
-                puts("Has seleccionado ordenamiento por seleccion");
+                puts("\nHas seleccionado ordenamiento por seleccion\n");
                 // Start Coding
+
+                printf("Iniciando ordenamiento burbuja ");
+                loading();
+                puts("*** Ordenamiento completado ***\n");
 
                 // End of Code
 
@@ -277,9 +286,12 @@ void main()
         case 6:
             while (repeatExercise == true)
             {
-                puts("Has seleccionado ordenamiento por merge");
+                puts("\nHas seleccionado ordenamiento por merge\n");
                 // Start Coding
 
+                printf("Iniciando ordenamiento burbuja ");
+                loading();
+                puts("*** Ordenamiento completado ***\n");
                 // End of Code
 
                 // Ask for confirmation
@@ -294,8 +306,12 @@ void main()
         case 7:
             while (repeatExercise == true)
             {
-                puts("Has seleccionado ordenamiento por quick sort");
+                puts("\nHas seleccionado ordenamiento por quick sort\n");
                 // Start Coding
+
+                printf("Iniciando ordenamiento burbuja ");
+                loading();
+                puts("*** Ordenamiento completado ***\n");
 
                 // End of Code
 
@@ -311,7 +327,7 @@ void main()
         case 8:
             printf("\nSaliendo del programa ");
             loading();
-            puts("\nADIOS");
+            puts("\n *** ADIOS *** :)");
             showMenu = false;
             break;
 

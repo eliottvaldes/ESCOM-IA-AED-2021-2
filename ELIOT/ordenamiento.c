@@ -34,6 +34,7 @@ void mostrarDatosEnArreglo(int *, int, int);
 void ordenamientoBurbuja(int *, int);
 void ordenamientoInsercion(int *, int);
 void ordenamientoSeleccion(int *, int);
+void ordenamientoQuickSort(int *, int, int);
 
 // int BuscaMenor(int *arrayNumerico, int , int );
 
@@ -126,6 +127,56 @@ void ordenamientoSeleccion(int *arrayNumerico, int extensionDeArreglo)
     }
 }
 
+void ordenamientoQuickSort(int *arrayNumerico, int primerElemento, int ultimoElemento)
+{
+    // asignamos la posicion de inicio y la final con la que se va a iterar el ciclo
+    int posicionInicio = primerElemento;
+    int posicionFinal = ultimoElemento;
+    // variable para intercambios
+    int tmp;
+    // variable para obtener el valor medio
+    int valorIntermedio = arrayNumerico[(primerElemento + ultimoElemento) / 2];
+    // usamos do-while para iniciar con una ejecucion antes de parar si es el caso
+    do
+    {
+        // recorremos el numerico solo si el valor de la pos i es menor a x y el f es <= a final
+        // f <= final se va a cumplir siempre en la primer iteracion
+        while ((arrayNumerico[posicionInicio] < valorIntermedio) && (posicionFinal <= ultimoElemento))
+        {
+            // incrementamos el contador de inicio
+            posicionInicio++;
+        }
+        while ((valorIntermedio < arrayNumerico[posicionFinal]) && (posicionFinal > primerElemento))
+        {
+            // decrementamos el contador de final
+            posicionFinal--;
+        }
+        // hacemos la comparacion para intercambiar lso valores en caso de ser necesario
+        if (posicionInicio <= posicionFinal)
+        {
+            // hacemos el intercambio SWAP
+            tmp = arrayNumerico[posicionInicio];
+            arrayNumerico[posicionInicio] = arrayNumerico[posicionFinal];
+            arrayNumerico[posicionFinal] = tmp;
+            // incrementamos inicio y decrementamos el final
+            posicionInicio++;
+            posicionFinal--;
+        }
+    } while (posicionInicio <= posicionFinal); // evaluamos el do para ver si se repite o no
+
+    // hacemos la comparacion para ver que aprametros le pasamos a nuestra misma funcion
+    if (primerElemento < posicionFinal)
+    {
+        // usamos la recursividad para que se siga ejecutando el ordenamiento cambiando la variable del final
+        ordenamientoQuickSort(arrayNumerico, primerElemento, posicionFinal);
+    }
+    // hacemos la comparacion para ver que aprametros le pasamos a nuestra misma funcion
+    if (posicionInicio < ultimoElemento)
+    {
+        // usamos la recursividad para que se siga ejecutando el ordenamiento cambiando la variable del inicio
+        ordenamientoQuickSort(arrayNumerico, posicionInicio, ultimoElemento);
+    }
+}
 /*
 // creamos funcion swap para intercambio de valores
 void swap(int *posj, int *posj1)
@@ -302,8 +353,8 @@ void main()
             loading();
 
             // ejecutamos funcion del ordenamiento insercion
-            ordenamientoSeleccion(arrayNumerico, extensionDeArreglo);            
-           
+            ordenamientoSeleccion(arrayNumerico, extensionDeArreglo);
+
             // for (int i = 0; i < (extensionDeArreglo -1); i++)
             // {
             //     // obtenemos el dato menor de la lista desde el indice i
@@ -338,11 +389,21 @@ void main()
 
         case 7:
 
-            puts("\nHas seleccionado ordenamiento por quick sort\n");
+            puts("\nHas seleccionado ordenamiento por Quick Sort\n");
             // Start Coding
 
-            printf("Iniciando ordenamiento burbuja ");
+            printf("Iniciando ordenamiento Quick Sort ");
             loading();
+
+            
+            // siempre tomamos el primer elemento el que se encuentra en la pos 0
+            int primerElemento = 0;
+            // siempre tomamos el primer elemento el que se encuentra en la pos long arreglo -1 para mantenernos en el for
+            int ultimoElemento = extensionDeArreglo - 1;
+
+            // ejecutamos funcion del ordenamiento quick sort
+            ordenamientoQuickSort(arrayNumerico, primerElemento, ultimoElemento);
+
             puts("*** Ordenamiento completado ***\n");
 
             // End of Code

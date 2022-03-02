@@ -127,6 +127,7 @@ void ordenamientoSeleccion(int *arrayNumerico, int extensionDeArreglo)
     }
 }
 
+// funcion para ordenamiento de Quick Sort
 void ordenamientoQuickSort(int *arrayNumerico, int primerElemento, int ultimoElemento)
 {
     // asignamos la posicion de inicio y la final con la que se va a iterar el ciclo
@@ -177,43 +178,7 @@ void ordenamientoQuickSort(int *arrayNumerico, int primerElemento, int ultimoEle
         ordenamientoQuickSort(arrayNumerico, posicionInicio, ultimoElemento);
     }
 }
-/*
-// creamos funcion swap para intercambio de valores
-void swap(int *posj, int *posj1)
-{
-    int *posTemporal;
 
-    free(posTemporal);
-
-    posTemporal = malloc(2 * sizeof(int));
-
-    *posTemporal = *posj;
-    *posj = *posj1;
-    *posj1 = *posTemporal;
-}
-
-// funcion para buscar el valor menor
-int BuscaMenor(int *arrayNumerico, int tam, int inicio)
-{
-    int posicion, menor;
-
-    menor = arrayNumerico[inicio];
-    posicion = inicio;
-
-    // recorremos lista buscando al elemento menor
-    for (int i = (inicio + 1); i < tam; i++)
-    {
-        // comparamos si el dato en la pos i < menor
-        if (arrayNumerico[i] < menor)
-        {
-            menor = arrayNumerico[i];
-            posicion = i;
-        }
-    }
-
-    return posicion;
-}
-*/
 
 // main function
 void main()
@@ -353,18 +318,7 @@ void main()
             loading();
 
             // ejecutamos funcion del ordenamiento insercion
-            ordenamientoSeleccion(arrayNumerico, extensionDeArreglo);
-
-            // for (int i = 0; i < (extensionDeArreglo -1); i++)
-            // {
-            //     // obtenemos el dato menor de la lista desde el indice i
-            //     int pos_menor = BuscaMenor(arrayNumerico, extensionDeArreglo, i);
-            //     // intercambiamos datos
-            //     temp = arrayNumerico[i];
-            //     arrayNumerico[i] = pos_menor;
-            //     arrayNumerico[pos_menor] = temp;
-
-            // }
+            ordenamientoSeleccion(arrayNumerico, extensionDeArreglo);            
 
             puts("*** Ordenamiento completado ***\n");
 

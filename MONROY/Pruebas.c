@@ -2,32 +2,27 @@
 #include <stdlib.h>
 #include <time.h>
 
-int main()
+void main()
 {
-    int CadenaNum[4];
-    CadenaNum[0] = 6;
-    CadenaNum[1] = 9;
-    CadenaNum[2] = 1;
-    CadenaNum[3] = 7;
+    int CadenaNum[4] = {4, 2, 9, 10};
     int Caract = 4;
-    int temp, i, j;
-        for(int i=0; i<Caract; i ++)
+    int temp, aux;
+    for (int i = 0; i < 4; i++)
     {
-        printf("%d\n", CadenaNum[i]);
-    }
-    for (i = 0; i < 4; i++)
-    {
-        j=i;
-        temp = CadenaNum[i];
-        while((j > 0) && (temp<CadenaNum[j-1]))
+        temp = i;
+        aux = CadenaNum[i];
+        while ((temp > 0) && (CadenaNum[temp - 1] > aux))
         {
-            CadenaNum[j] = CadenaNum[j - 1];
-            j --;
+            CadenaNum[temp] = CadenaNum[temp - 1];
+            temp--;
         }
-        CadenaNum[j] = temp;
+        CadenaNum[temp] = aux;
     }
-    for(int i=0; i<Caract; i ++)
+    puts("La utima serie registrada es:");
+    printf("[");
+    for (int i = 0; i < Caract; i++)
     {
-        printf("%d", CadenaNum[i]);
+        printf("%d, ", CadenaNum[i]);
     }
+    printf("]\n");
 }

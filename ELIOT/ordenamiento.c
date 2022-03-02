@@ -162,14 +162,7 @@ void main()
             srand(time(NULL));
 
             // mandamos a llamar a la funcion de crear numeros de datos aleatorios
-            // arrayNumerico = generarArrayNumerosAleatorios(extensionDeArreglo, rangoDeArreglo);
-            arrayNumerico = malloc(extensionDeArreglo * sizeof(int));
-
-            for (int i = 0; i <= extensionDeArreglo; i++)
-            {
-                // creamos numeros aleatorios y los vamos agregando al array
-                arrayNumerico[i] = rand() % rangoDeArreglo;
-            }
+            arrayNumerico = generarArrayNumerosAleatorios(extensionDeArreglo, rangoDeArreglo);            
 
             // mostramos mensaje de exito
             puts("\n*** Arreglo generado exitosamente ***\n");

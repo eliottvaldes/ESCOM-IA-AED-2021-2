@@ -8,16 +8,114 @@ Inteligencia artificial
 #include <stdlib.h>
 #include <time.h>
 
+void merge(int *arrayNum, int numcad, int splitcad, int half)
+{
+    int string1 = (splitcad - numcad) + 1;
+    int string2 = (half - splitcad);
+    int *left, *right;
+    // Memory asignation
+    left = (int*)malloc(string1 * sizeof(int));
+    right = (int*)malloc(string2 * sizeof(int));
+    // Save dates of first part
+    for (int i = 0; i < string1; i++)
+    {
+        left[i] = *(arrayNum + numcad + i);
+    }
+    for (int j = 0; j < string2; j++)
+    {
+        right[j] = *(arrayNum + splitcad + j + 1);
+    }
+    // merge
+    int i = 0, j = 0;
+    for (int k = numcad; k < half + 1; k++)
+    {
+        if (i == string1)
+        {
+            *(arrayNum + k) = *(right + j);
+            j = j + 1;
+        }
+        else if (j == string2)
+        {
+            *(arrayNum + k) = *(left + i);
+            i = i + 1;
+        }
+        else
+        {
+            if (*(left + i) <= *(right + j))
+            {
+                *(arrayNum + k) = *(left + i);
+                i = i + 1;
+            }
+            else
+            {
+                *(arrayNum + k) = *(right + j);
+                j = j + 1;
+            }
+        }
+    }
+}
+void sort(int *ArrNum, int numcad, int half)
+{
+    if (numcad < half)
+    {
+        // split string
+        int splitcad = (numcad + half) / 2;
+        // slipt
+        sort(ArrNum, numcad, splitcad);
+        sort(ArrNum, splitcad + 1, half);
+        // Merge
+        merge(ArrNum, numcad, splitcad, half);
+    }
+}
+
+void Quick(int *ptrCadenaNum, int inicio, int final)
+{
+    int tempini = inicio, tempfin = final, temp;
+    int temparr = ptrCadenaNum[(inicio + final) / 2];
+    do
+    {
+        while (ptrCadenaNum[tempini] < temparr && tempfin <= final)
+        {
+            tempini++;
+        }
+        while (temparr < ptrCadenaNum[tempfin] && tempfin > inicio)
+        {
+            tempfin++;
+        }
+        if (tempini <= tempfin)
+        {
+            temp = ptrCadenaNum[tempini];
+            ptrCadenaNum[tempini] = ptrCadenaNum[tempfin];
+            ptrCadenaNum[tempfin] = temp;
+            tempini++;
+            tempfin--;
+        }
+    } while (tempini <= tempfin);
+    if (inicio < tempfin)
+    {
+        Quick(ptrCadenaNum, inicio, tempfin);
+    }
+    if (tempini < final)
+    {
+        Quick(ptrCadenaNum, tempini, final);
+    }
+}
 void main()
 {
     int opcionUsuario;
-    int Range, Caract;
-    int *CadenaNum;
+    int Range;
+    int Caract;
+    int CadenaNum[]={0};
+    int *ptrCadenaNum = NULL;
+    int posicion, minposition, temp, half;
+    ptrCadenaNum = CadenaNum;
     do
     {
-        puts("Seleccione una opcion");
-        puts("1.-Generar datos");
-        puts("2.-Imprimir la ultima cadena registrada");
+        printf("\n\n");
+        printf("-----------------------------------------");
+        puts("\nSeleccione una opcion");
+        puts("1.- Generar datos");
+        puts("2.- Imprimir la ultima cadena registrada");
         puts("3.- Ordenar datos con Bubble");
         puts("4.- Ordenar datos con Insercion");
         puts("5.- Ordenar datos con Selection");
@@ -31,30 +129,37 @@ void main()
         case 1:
             // Random Numbers
             // Clear memory
-            free(CadenaNum);
+            free(ptrCadenaNum);
             // Random Seed
             srand(time(NULL));
             puts("Porfavor digite cuantos digitos habra en la cadena");
+            fflush(stdin);
             scanf("%d", &Caract);
             puts("Porfavor digite el limite del rango para obtener los numeros aleatorios");
+            fflush(stdin);
             scanf("%d", &Range);
             // Dinamic memory reservation
-            CadenaNum = malloc(Caract * sizeof(int));
+            ptrCadenaNum = malloc(Caract * sizeof(int));
             // Save numbers
             for (int i = 0; i < Caract; i++)
             {
-                CadenaNum[i] = rand() % Range;
+                ptrCadenaNum[i] = rand() % Range;
             }
+            printf("Cadena Generada con exito es: \n(");
+            for (int i = 0; i < Caract; i++)
+            {
+                printf("%d, ", ptrCadenaNum[i]);
+            }
+            puts(")");
             break;
         case 2:
             // Print String
-            puts("La utima serie registrada es:");
-            printf("[");
+            printf("La utima serie registrada es: \n(");
             for (int i = 0; i < Caract; i++)
             {
-                printf("%d, ", CadenaNum[i]);
+                printf("%d, ", ptrCadenaNum[i]);
             }
-            printf("]");
+            puts(")\n");
             break;
         case 3:
             // BUbble
@@ -62,32 +167,63 @@ void main()
             {
                 for (int j = 0; j < Caract - i; j++)
                 {
-                    if (CadenaNum[j] > CadenaNum[j + 1])
+                    if (ptrCadenaNum[j] > ptrCadenaNum[j + 1])
                     {
-                        int temp = CadenaNum[j];
-                        CadenaNum[j] = CadenaNum[j + 1];
-                        CadenaNum[j + 1] = temp;
+                        fflush(stdin);
+                        int temp = ptrCadenaNum[j];
+                        ptrCadenaNum[j] = ptrCadenaNum[j + 1];
+                        ptrCadenaNum[j + 1] = temp;
                     }
                 }
             }
+            puts("Orden hecho correctamente");
             break;
         case 4:
             // Insercion
-            int j, temp;
-            for (int i = 0; i < 4; i++)
+            for (int i = 0; i < Caract; i++)
             {
-                j = i;
-                temp = CadenaNum[i];
-                while ((j > 0) && (temp < CadenaNum[j - 1]))
+                temp = i;
+                posicion = ptrCadenaNum[i];
+                while ((temp > 0) && (ptrCadenaNum[temp - 1] > posicion))
                 {
-                    CadenaNum[j] = CadenaNum[j - 1];
-                    j--;
+                    ptrCadenaNum[temp] = ptrCadenaNum[temp - 1];
+                    temp--;
                 }
-                CadenaNum[j] = temp;
+                ptrCadenaNum[temp] = posicion;
             }
+            printf("Ordenamiento correcto");
             break;
         case 5:
+            // Selection
+            for (int i = 0; i < Caract; i++)
+            {
+                minposition = i;
+                for (int j = i + 1; j < Caract; j++)
+                {
+                    if (ptrCadenaNum[minposition] > ptrCadenaNum[j])
+                    {
+                        minposition = j;
+                    }
+                }
+                // Swap
+                temp = ptrCadenaNum[minposition];
+                ptrCadenaNum[minposition] = ptrCadenaNum[i];
+                ptrCadenaNum[i] = temp;
+            }
+            puts("Orden hecho correctamente");
             break;
+        case 6:
+            // Merge
+            half = sizeof(CadenaNum) / sizeof(CadenaNum[0]) - 1;
+            int numcad = 0;
+            sort(CadenaNum, numcad, half);
+            printf("Ordenamiento hecho");
+            break;
+        case 7:
+        /*
+            Quick(ptrCadenaNum, 0, Caract - 1);
+            break;
+        */
         default:
             // End Of The Program
             puts("Fin del programa");

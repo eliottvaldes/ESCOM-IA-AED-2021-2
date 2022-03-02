@@ -48,46 +48,39 @@ bool asking(char askForRepetition, bool repeatExercise)
     return repeatExercise;
 }
 
-/*
 // CREAMOS PROTOTIPOS DE FUNCIONES
-// generarArrayNumerosAleatorios(int, int, int);
-// mostrarDatosEnArreglo(int, int);
+int * generarArrayNumerosAleatorios(int, int);
+void mostrarDatosEnArreglo(int *, int, int);
 
 // create random data in array
-int generarArrayNumerosAleatorios(int **arrayNumerico, int extensionDeArreglo, int rangoDeArreglo)
+int * generarArrayNumerosAleatorios(int extensionDeArreglo, int rangoDeArreglo)
 {
 
-    *arrayNumerico = malloc(extensionDeArreglo * sizeof(int));
+    int *arrayNumerico = malloc(extensionDeArreglo * sizeof(int));
 
     for (int i = 0; i <= extensionDeArreglo; i++)
     {
         // creamos numeros aleatorios y los vamos agregando al array
-        *arrayNumerico[i] = rand() % rangoDeArreglo;
+        arrayNumerico[i] = rand() % rangoDeArreglo;
     }
+
+    return arrayNumerico;
 }
 
 // creamos funcion para ver los numeros aleatorios
-int mostrarDatosEnArreglo(int **arrayNumerico, int extensionDeArreglo)
+void mostrarDatosEnArreglo(int *arrayNumerico, int extensionDeArreglo, int i)
 {
-    puts("Direccion de memoria del puntero en funcion");
-    printf("%p", *arrayNumerico);
-    puts("");
-    // si la extension es mayor que 0 significa que ya ha generado un array numerico y lo mostramos
-    if (extensionDeArreglo > 0)
+    if (i == (extensionDeArreglo - 1))
     {
-        printf("El arreglo tiene %d elementos\n", extensionDeArreglo);
-
-        // imprimimos los elementos del arreglo
-        for (int i = 0; i < extensionDeArreglo; i++)
-        {
-            printf("pos %d: %d \n", i, *arrayNumerico[i]);
-        }
+        printf("%d. \n\n", arrayNumerico[i]);
     }
     else
     {
-        puts("Aun no has generado un array aleatorio");
-    }
+        printf("%d, ", arrayNumerico[i]);
+    }    
 }
+
+/*
 // creamos funcion swap para intercambio de valores
 void swap(int *posj, int *posj1)
 {
@@ -190,7 +183,7 @@ void main()
                 srand(time(NULL));
 
                 // mandamos a llamar a la funcion de crear numeros de datos aleatorios
-                // generarArrayNumerosAleatorios(&arrayNumerico, extensionDeArreglo, rangoDeArreglo);
+                // arrayNumerico = generarArrayNumerosAleatorios(extensionDeArreglo, rangoDeArreglo);
                 arrayNumerico = malloc(extensionDeArreglo * sizeof(int));
 
                 for (int i = 0; i <= extensionDeArreglo; i++)
@@ -199,6 +192,7 @@ void main()
                     arrayNumerico[i] = rand() % rangoDeArreglo;
                 }
 
+                // mostramos mensaje de exito
                 puts("\n*** Arreglo generado exitosamente ***\n");
 
                 // End of Code
@@ -214,38 +208,18 @@ void main()
                 puts("\nHas seleccionado la opcion de imprimir datos\n");
                 // Start Coding
 
-                // ------------------------------------------------------------------
-                // FORMA PARA IMPRIMIR EL ARREGLO CON UNA FUNCION APARTE
-                // ------------------------------------------------------------------
-                // mandamos a llamar a la funcion para mostar los datos del areglo
-                // puts("Direccion de memoria del puntero GENERAL  ");
-                // printf("%p", arrayNumerico);
-                // puts("");
-                // mostrarDatosEnArreglo(&arrayNumerico, extensionDeArreglo);
-
-                // ------------------------------------------------------------------
-                // FORMA PARA IMPRIMIR EL ARREGLO DESDE ESTE BLOQUE DE CODIGO EN EL CASE 2
-                // ------------------------------------------------------------------
-                // verificamos que ya existan elementos en el array numerico
+                // verificamos que el usuario ya haya creado un arredo de datos numericos aleatorios
                 if (extensionDeArreglo > 0)
                 {
-                    // imprimimos los elementos del arreglo
                     for (int i = 0; i < extensionDeArreglo; i++)
                     {
-                        if (i == (extensionDeArreglo - 1))
-                        {
-                            printf("%d. \n\n", arrayNumerico[i]);
-                        }
-                        else
-                        {
-                            printf("%d, ", arrayNumerico[i]);
-                        }
+                        mostrarDatosEnArreglo(arrayNumerico, extensionDeArreglo, i);
                     }
                 }
                 else
                 {
                     puts("\n*** Aun no has generado un arreglo de numeros aleatorios *** \n");
-                }
+                }                
 
                 // End of Code
 

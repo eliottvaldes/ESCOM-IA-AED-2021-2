@@ -33,6 +33,7 @@ int *generarArrayNumerosAleatorios(int, int);
 void mostrarDatosEnArreglo(int *, int, int);
 void ordenamientoQuickSort(int *, int, int);
 int busquedaSecuencial(int *, int, int);
+int busquedaBinaria(int *, int , int );
 
 // funcion para creacion de numeros aleatorios
 int *generarArrayNumerosAleatorios(int extensionDeArreglo, int rangoDeArreglo)

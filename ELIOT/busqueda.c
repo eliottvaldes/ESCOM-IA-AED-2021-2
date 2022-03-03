@@ -19,10 +19,10 @@ int time();
 void animacion()
 {
     printf("[");
-    for (int i = 0; i < 3; i++)
+    for (int i = 0; i < 5; i++)
     {
         printf("#");
-        sleep(1 / 2);
+        sleep(1);
     }
     printf("]");
     puts("\n");
@@ -118,13 +118,14 @@ void ordenamientoQuickSort(int *arrayNumerico, int primerElemento, int ultimoEle
 int pedirNumeroABuscar()
 {
 
-    int numeroABuscar;
+    int numeroABuscar = 0;
 
     // pedimos la cantidad de numeros en el array
     puts("Digita el numero que quieres buscar en el arreglo");
     fflush(stdin);
     scanf("%d", &numeroABuscar);
     fflush(stdin);
+    puts("");
 
     return numeroABuscar;
 }
@@ -136,10 +137,43 @@ int busquedaSecuencial(int *arrayNumerico, int extensionDeArreglo, int numeroABu
     {
         if (arrayNumerico[i] == numeroABuscar)
         {
-            printf("Se ha encontrado el numero a buscar (%d) en la posicion [%d] de arreglo\n\n", arrayNumerico[i], i + 1);
+            printf("Se ha encontrado el numero a buscar (%d) en la posicion [%d] del arreglo\n\n", arrayNumerico[i], i + 1);
             return 1;
         }
     }
+    puts("El numero a buscar no se encontro dentro del arreglo numerico\n\n");
+    return 0;
+}
+
+// funcion para busqueda Binaria
+int busquedaBinaria(int *arrayNumerico, int extensionDeArreglo, int numeroABuscar)
+{
+
+    int inf = 0;
+    int sup = (extensionDeArreglo - 1);
+    while (inf <= sup)
+    {
+        // obtenemos el elemento central
+        int centro = ((sup - inf) / 2) + inf;
+        // si el elemento a buscar es el numero del centro lo mostramos y terminamos el ciclo
+        if (arrayNumerico[centro] == numeroABuscar)
+        {
+            printf("Se ha encontrado el numero a buscar (%d) en la posicion [%d] del arreglo\n\n", arrayNumerico[centro], centro + 1);
+            return 1;
+        }
+        else
+        {
+            if (numeroABuscar < arrayNumerico[centro])
+            {
+                sup = centro - 1;
+            }
+            else
+            {
+                inf = centro + 1;
+            }
+        }
+    }
+
     puts("El numero a buscar no se encontro dentro del arreglo numerico\n\n");
     return 0;
 }
@@ -153,7 +187,7 @@ void main()
     int rangoDeArreglo = 0;
     int *arrayNumerico;
     bool showMenu = true;
-    int j;
+    int numeroABuscar = 0;
 
     // print greetings
     puts("**************************************");
@@ -250,7 +284,8 @@ void main()
             puts("\nHas seleccionado Busqueda Secuencial\n");
             // Start Coding
 
-            int numeroABuscar = pedirNumeroABuscar();
+            // ejecutamos funcion para pedirle a usuario un nuemro
+            numeroABuscar = pedirNumeroABuscar();
 
             // mostramos mensaje
             printf("Iniciando busqueda secuencial ");
@@ -270,8 +305,14 @@ void main()
             puts("\nHas seleccionado Busqueda Binaria\n");
             // Start Coding
 
+            // ejecutamos funcion para pedirle a usuario un nuemro
+            numeroABuscar = pedirNumeroABuscar();
+
             printf("Iniciando busqueda binaria ");
             animacion();
+
+            // ejecutamos la funcion para la busqueda binaria
+            busquedaBinaria(arrayNumerico, extensionDeArreglo, numeroABuscar);
 
             puts("*** Busqueda completa ***\n");
 

@@ -8,14 +8,19 @@ Inteligencia artificial
 #include <stdlib.h>
 #include <time.h>
 
+void merge( int *, int, int, int);
+void sort(int *, int, int);
+void Quick(int*, int, int);
+
+
 void merge(int *arrayNum, int numcad, int splitcad, int half)
 {
     int string1 = (splitcad - numcad) + 1;
     int string2 = (half - splitcad);
     int *left, *right;
     // Memory asignation
-    left = (int*)malloc(string1 * sizeof(int));
-    right = (int*)malloc(string2 * sizeof(int));
+    left = (int *)malloc(string1 * sizeof(int));
+    right = (int *)malloc(string2 * sizeof(int));
     // Save dates of first part
     for (int i = 0; i < string1; i++)
     {
@@ -54,17 +59,17 @@ void merge(int *arrayNum, int numcad, int splitcad, int half)
         }
     }
 }
-void sort(int *ArrNum, int numcad, int half)
+void sort(int *ArrNum, int start, int end)
 {
-    if (numcad < half)
+    if (start < end)
     {
         // split string
-        int splitcad = (numcad + half) / 2;
+        int splitcad = (start + end) / 2;
         // slipt
-        sort(ArrNum, numcad, splitcad);
-        sort(ArrNum, splitcad + 1, half);
+        sort(ArrNum, start, splitcad);
+        sort(ArrNum, splitcad + 1, end);
         // Merge
-        merge(ArrNum, numcad, splitcad, half);
+        merge(ArrNum, start, splitcad, end);
     }
 }
 
@@ -80,7 +85,7 @@ void Quick(int *ptrCadenaNum, int inicio, int final)
         }
         while (temparr < ptrCadenaNum[tempfin] && tempfin > inicio)
         {
-            tempfin++;
+            tempfin--;
         }
         if (tempini <= tempfin)
         {
@@ -105,10 +110,8 @@ void main()
     int opcionUsuario;
     int Range;
     int Caract;
-    int CadenaNum[]={0};
-    int *ptrCadenaNum = NULL;
+    int *ptrCadenaNum;
     int posicion, minposition, temp, half;
-    ptrCadenaNum = CadenaNum;
     do
     {
         printf("\n\n");
@@ -163,23 +166,24 @@ void main()
             break;
         case 3:
             // BUbble
+            printf("Iniciando arreglo");
             for (int i = 0; i < Caract; i++)
             {
                 for (int j = 0; j < Caract - i; j++)
                 {
                     if (ptrCadenaNum[j] > ptrCadenaNum[j + 1])
                     {
-                        fflush(stdin);
                         int temp = ptrCadenaNum[j];
                         ptrCadenaNum[j] = ptrCadenaNum[j + 1];
                         ptrCadenaNum[j + 1] = temp;
                     }
                 }
             }
-            puts("Orden hecho correctamente");
+            puts("\nOrden hecho correctamente");
             break;
         case 4:
             // Insercion
+            printf("Iniciando arreglo");
             for (int i = 0; i < Caract; i++)
             {
                 temp = i;
@@ -191,10 +195,11 @@ void main()
                 }
                 ptrCadenaNum[temp] = posicion;
             }
-            printf("Ordenamiento correcto");
+            printf("\nOrdenamiento correcto");
             break;
         case 5:
             // Selection
+            printf("Iniciando arreglo");
             for (int i = 0; i < Caract; i++)
             {
                 minposition = i;
@@ -210,20 +215,19 @@ void main()
                 ptrCadenaNum[minposition] = ptrCadenaNum[i];
                 ptrCadenaNum[i] = temp;
             }
-            puts("Orden hecho correctamente");
+            puts("\nOrden hecho correctamente");
             break;
         case 6:
             // Merge
-            half = sizeof(CadenaNum) / sizeof(CadenaNum[0]) - 1;
-            int numcad = 0;
-            sort(CadenaNum, numcad, half);
-            printf("Ordenamiento hecho");
+            printf("Iniciando arreglo");
+            int posini = 0;
+            int posfin = Caract - 1;
+            sort(ptrCadenaNum, posini, posfin);
+            printf("\nOrdenamiento hecho");
             break;
         case 7:
-        /*
             Quick(ptrCadenaNum, 0, Caract - 1);
             break;
-        */
         default:
             // End Of The Program
             puts("Fin del programa");

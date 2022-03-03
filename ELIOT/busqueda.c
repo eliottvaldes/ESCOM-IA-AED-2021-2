@@ -1,7 +1,7 @@
 /**
  * @file busqueda.c
  * @author VALDES LUIS ELIOT FABIAN
- * @brief Programa que contiene algoritmos de busqueda
+ * @brief Programa que contiene algoritmos de busqueda secuencial y binaria
  * @version 0.1
  * @date 2022-03-02
  *

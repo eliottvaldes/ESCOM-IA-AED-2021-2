@@ -28,6 +28,11 @@ void loading()
     printf("]");
 }
 
+// CREAMOS PROTOTIPOS DE FUNCIONES
+void registrarEstructura();
+void mostrarEstructura();
+void buscarEnEstructura();
+
 
 // main function
 void main()

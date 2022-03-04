@@ -1,7 +1,7 @@
 /**
- * @file archivo
+ * @file menu sin repeticion con repeticion interna en cada ejercicio
  * @author VALDES LUIS ELIOT FABIAN
- * @brief plantilla de codigo de menu para ejercicios
+ * @brief plantilla de codigo de menu para ejercicios con repeticion interna
  * @version 0.1
  * @date 2022-03-03
  *
@@ -21,7 +21,7 @@ void loading()
     for (int i = 0; i < 3; i++)
     {
         printf("#");
-        // usar si no se quiere mostrar la animacion de animacion
+        // usar si no se quiere mostrar la animacion
         // sleep(1 / 2);
         sleep(1);
     }
@@ -89,7 +89,7 @@ void main()
         case 1:
             while (esEjercicioRepetido == true)
             {
-                puts("\tHas seleccionado la opcion de x");
+                puts("\n\t *** Has seleccionado la opcion de x ***\n ");
                 // Start Coding
 
                 // End of Code
@@ -102,7 +102,7 @@ void main()
         case 2:
             while (esEjercicioRepetido == true)
             {
-                puts("\tHas seleccionado la opcion de xx");
+                puts("\n\t *** Has seleccionado la opcion de xx ***\n ");
                 // Start Coding
 
                 // End of Code
@@ -116,7 +116,7 @@ void main()
         case 3:
             while (esEjercicioRepetido == true)
             {
-                puts("\tHas seleccionado la opcion de xxx");
+                puts("\n\t *** Has seleccionado la opcion de xxx ***\n ");
                 // Start Coding
 
                 // End of Code

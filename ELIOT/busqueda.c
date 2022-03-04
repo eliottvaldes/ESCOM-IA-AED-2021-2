@@ -13,13 +13,13 @@
 #include <stdbool.h>
 #include <stdlib.h>
 
-// print animation
+// FUNCIONES DE ANIMACION
 int sleep();
 int time();
 void animacion()
 {
     printf("[");
-    for (int i = 0; i < 5; i++)
+    for (int i = 0; i < 3; i++)
     {
         printf("#");
         sleep(1);
@@ -31,9 +31,10 @@ void animacion()
 // CREAMOS PROTOTIPOS DE FUNCIONES
 int *generarArrayNumerosAleatorios(int, int);
 void mostrarDatosEnArreglo(int *, int, int);
+bool verificarExistenciaDeArreglo(int);
 void ordenamientoQuickSort(int *, int, int);
 int busquedaSecuencial(int *, int, int);
-int busquedaBinaria(int *, int , int );
+int busquedaBinaria(int *, int, int);
 
 // funcion para creacion de numeros aleatorios
 int *generarArrayNumerosAleatorios(int extensionDeArreglo, int rangoDeArreglo)
@@ -61,6 +62,21 @@ void mostrarDatosEnArreglo(int *arrayNumerico, int extensionDeArreglo, int i)
     {
         printf("%d, ", arrayNumerico[i]);
     }
+}
+
+// funcion para verificar existencia de arreglo
+bool verificarExistenciaDeArreglo(int extensionDeArreglo)
+{
+    if (extensionDeArreglo > 0)
+    {
+        return true;
+    }
+    else
+    {
+        puts("\n+-+-+-+ Aun no has generado un arreglo de numeros aleatorios. Genera uno para poder realizar la accion +-+-+-+ \n");
+    }
+
+    return false;
 }
 
 // funcion para ordenamiento de Quick Sort
@@ -122,8 +138,7 @@ int pedirNumeroABuscar()
     int numeroABuscar = 0;
 
     // pedimos la cantidad de numeros en el array
-    puts("Digita el numero que quieres buscar en el arreglo");
-    fflush(stdin);
+    puts("Digita el numero que quieres buscar en el arreglo: ");
     scanf("%d", &numeroABuscar);
     fflush(stdin);
     puts("");
@@ -138,11 +153,11 @@ int busquedaSecuencial(int *arrayNumerico, int extensionDeArreglo, int numeroABu
     {
         if (arrayNumerico[i] == numeroABuscar)
         {
-            printf("Se ha encontrado el numero a buscar (%d) en la posicion [%d] del arreglo\n\n", arrayNumerico[i], i + 1);
+            printf("Se ha encontrado el valor a buscar (%d) en la posicion [%d] del arreglo\n\n", arrayNumerico[i], i + 1);
             return 1;
         }
     }
-    puts("El numero a buscar no se encontro dentro del arreglo numerico\n\n");
+    puts("El valor a buscar no se encontro dentro del arreglo numerico\n\n");
     return 0;
 }
 
@@ -159,7 +174,7 @@ int busquedaBinaria(int *arrayNumerico, int extensionDeArreglo, int numeroABusca
         // si el elemento a buscar es el numero del centro lo mostramos y terminamos el ciclo
         if (arrayNumerico[centro] == numeroABuscar)
         {
-            printf("Se ha encontrado el numero a buscar (%d) en la posicion [%d] del arreglo\n\n", arrayNumerico[centro], centro + 1);
+            printf("Se ha encontrado el valor a buscar (%d) en la posicion [%d] del arreglo\n\n", arrayNumerico[centro], centro + 1);
             return 1;
         }
         else
@@ -175,7 +190,7 @@ int busquedaBinaria(int *arrayNumerico, int extensionDeArreglo, int numeroABusca
         }
     }
 
-    puts("El numero a buscar no se encontro dentro del arreglo numerico\n\n");
+    puts("El valor a buscar no se encontro dentro del arreglo numerico\n\n");
     return 0;
 }
 
@@ -183,24 +198,24 @@ int busquedaBinaria(int *arrayNumerico, int extensionDeArreglo, int numeroABusca
 void main()
 {
 
-    // excersice variables
+    // variables de ejercicio
     int extensionDeArreglo = 0;
     int rangoDeArreglo = 0;
     int *arrayNumerico;
-    bool showMenu = true;
     int numeroABuscar = 0;
+    bool esArregloExistente;
+
+    // variables de menu
+    int opcionSeleccionMenu;
+    bool mostrarMenu = true;
 
     // print greetings
     puts("**************************************");
     puts("Bienvenido");
     puts("**************************************");
-    while (showMenu == true)
+    do
     {
-        // menu variables
-        bool repeatExercise = true;
-        char askForRepetition;
-        int exerciseSelection;
-
+        opcionSeleccionMenu = 0;
         // show Menu
         puts("--------------------------------------");
         puts("Digita la opcion que deseas realizar:");
@@ -210,27 +225,26 @@ void main()
         puts("4.- Busqueda binaria");
         puts("5.- Salir");
         puts("--------------------------------------");
+        scanf("%d", &opcionSeleccionMenu);
         fflush(stdin);
-        scanf("%d", &exerciseSelection);
 
-        switch (exerciseSelection)
+        switch (opcionSeleccionMenu)
         {
         case 1:
 
-            puts("\nHas seleccionado la opcion de generar array de numeros aleatorios\n");
+            puts("\n\t*** Has seleccionado la opcion de generar array de numeros aleatorios ***\n");
             // Start Coding
 
             // liberamos memoria del arreglo dinamico usando free
             free(arrayNumerico);
 
             // pedimos la cantidad de numeros en el array
-            puts("Digita la cantidad de numeros que quieres en el array");
-            fflush(stdin);
+            puts("Digita la cantidad de numeros que quieres en el array: ");
             scanf("%d", &extensionDeArreglo);
+            fflush(stdin);
 
             // pedimos el rango para la generacion de numeros aleatorios
-            puts("Digita el rango superior para los numeros del arreglo");
-            fflush(stdin);
+            puts("Digita el rango superior para los numeros del arreglo: ");
             scanf("%d", &rangoDeArreglo);
             fflush(stdin);
 
@@ -260,20 +274,22 @@ void main()
 
         case 2:
 
-            puts("\nHas seleccionado la opcion de imprimir datos\n");
             // Start Coding
 
             // verificamos que el usuario ya haya creado un arredo de datos numericos aleatorios
-            if (extensionDeArreglo > 0)
+            esArregloExistente = verificarExistenciaDeArreglo(extensionDeArreglo);
+            if (esArregloExistente == true)
             {
+                // mostramos mensaje de opcion
+                puts("\n\t*** Has seleccionado la opcion de imprimir datos ***\n");
+
+                puts("El array numerico aleatorio tiene los siguientes datos:\n");
+
+                // ciclo para imprimir los valores del array
                 for (int i = 0; i < extensionDeArreglo; i++)
                 {
                     mostrarDatosEnArreglo(arrayNumerico, extensionDeArreglo, i);
                 }
-            }
-            else
-            {
-                puts("\n*** Aun no has generado un arreglo de numeros aleatorios *** \n");
             }
 
             // End of Code
@@ -282,57 +298,61 @@ void main()
 
         case 3:
 
-            puts("\nHas seleccionado Busqueda Secuencial\n");
             // Start Coding
 
-            // ejecutamos funcion para pedirle a usuario un nuemro
-            numeroABuscar = pedirNumeroABuscar();
+            // verificamos que el usuario ya haya creado un arredo de datos numericos aleatorios
+            esArregloExistente = verificarExistenciaDeArreglo(extensionDeArreglo);
+            if (esArregloExistente == true)
+            {
+                // mostramos mensaje de opcion
+                puts("\n\t*** Has seleccionado Busqueda Secuencial ***\n");
 
-            // mostramos mensaje
-            printf("Iniciando busqueda secuencial ");
-            animacion();
+                // ejecutamos funcion para pedirle a usuario un nuemro
+                numeroABuscar = pedirNumeroABuscar();
 
-            // ejecutamos la funcion para la busqueda secuencial
-            busquedaSecuencial(arrayNumerico, extensionDeArreglo, numeroABuscar);
+                // ejecutamos la funcion para la busqueda secuencial
+                busquedaSecuencial(arrayNumerico, extensionDeArreglo, numeroABuscar);
 
-            puts("*** Busqueda completa ***\n");
-
+                puts("*** Busqueda completa ***\n");
+            }
             // End of Code
 
             break;
 
         case 4:
 
-            puts("\nHas seleccionado Busqueda Binaria\n");
             // Start Coding
 
-            // ejecutamos funcion para pedirle a usuario un nuemro
-            numeroABuscar = pedirNumeroABuscar();
+            // verificamos que el usuario ya haya creado un arredo de datos numericos aleatorios
+            esArregloExistente = verificarExistenciaDeArreglo(extensionDeArreglo);
+            if (esArregloExistente == true)
+            {
+                // mostramos mensaje de opcion
+                puts("\n\t*** Has seleccionado Busqueda Binaria ***\n");
 
-            printf("Iniciando busqueda binaria ");
-            animacion();
+                // ejecutamos funcion para pedirle a usuario un nuemro
+                numeroABuscar = pedirNumeroABuscar();
 
-            // ejecutamos la funcion para la busqueda binaria
-            busquedaBinaria(arrayNumerico, extensionDeArreglo, numeroABuscar);
+                // ejecutamos la funcion para la busqueda binaria
+                busquedaBinaria(arrayNumerico, extensionDeArreglo, numeroABuscar);
 
-            puts("*** Busqueda completa ***\n");
+                puts("*** Busqueda completa ***\n");
+            }
 
             // End of Code
 
             break;
 
         case 5:
-            printf("\nSaliendo del programa ");
+            printf("\nSALIENDO DEL PROGRAMA ");
             animacion();
             puts("\n *** ADIOS *** :)");
-            showMenu = false;
+            mostrarMenu = false;
             break;
 
         default:
             puts("Opcion no valida");
-            showMenu = true;
-            exerciseSelection = 0;
             break;
         }
-    }
+    } while (mostrarMenu == true);
 }

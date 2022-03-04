@@ -28,11 +28,13 @@ void loading()
     printf("]");
 }
 
+
 // main function
 void main()
 {
+    // variables de menu
     int opcionSalir = 4;
-    int opcionSeleccionadaMenu;
+    int opcionSeleccionMenu;
 
     // print greetings
     puts("**************************************");
@@ -41,24 +43,24 @@ void main()
 
     do
     {
-        opcionSeleccionadaMenu = 0;
+        opcionSeleccionMenu = 0;
         // print Menu
         puts("--------------------------------------");
         puts("Digita la opcion que deseas realizar:");
-        puts("1.- OPx");
-        puts("2.- OPx");
-        puts("3.- OPx");
-        puts("X.- Salir");
+        puts("1.- Registrar datos en estructura");
+        puts("2.- Mostrar datos de estructura");
+        puts("3.- Buscar datos en estructura");
+        puts("4.- Salir");
         puts("--------------------------------------");
-        scanf("%d", &opcionSeleccionadaMenu);
+        scanf("%d", &opcionSeleccionMenu);
         fflush(stdin);
 
-        switch (opcionSeleccionadaMenu)
+        switch (opcionSeleccionMenu)
         {
 
         case 1:
 
-            puts("\n\t *** Has seleccionado la opcion de x ***\n ");
+            puts("\n\t *** Has seleccionado la opcion para registrar datos en estructura ***\n ");
             // Start Coding
 
             // End of Code
@@ -67,7 +69,7 @@ void main()
 
         case 2:
 
-            puts("\n\t *** Has seleccionado la opcion de xx ***\n ");
+            puts("\n\t *** Has seleccionado la opcion para mostrar los datos de la estructura ***\n ");
             // Start Coding
 
             // End of Code
@@ -76,7 +78,7 @@ void main()
 
         case 3:
 
-            puts("\n\t *** Has seleccionado la opcion de xxx ***\n ");
+            puts("\n\t *** Has seleccionado la opcion de buscar datos en la estructura ***\n ");
             // Start Coding
 
             // End of Code
@@ -86,7 +88,7 @@ void main()
         case 4:
             printf("\nSALIENDO DEL PROGRAMA ");
             loading();
-            puts("\n *** ADIOS *** :)");
+            puts("\n\n *** ADIOS *** :)\n ");
             exit(0);
             break;
 
@@ -94,5 +96,5 @@ void main()
             puts("Opcion no valida");
             break;
         }
-    } while (opcionSeleccionadaMenu != opcionSalir);
+    } while (opcionSeleccionMenu != opcionSalir);
 }

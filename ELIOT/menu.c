@@ -1,7 +1,7 @@
 /**
  * @file archivo
  * @author VALDES LUIS ELIOT FABIAN
- * @brief
+ * @brief plantilla de codigo de menu para ejercicios
  * @version 0.1
  * @date 2022-03-03
  *
@@ -18,116 +18,117 @@ int sleep();
 void loading()
 {
     printf("[");
-    for (int i = 0; i < 5; i++)
+    for (int i = 0; i < 3; i++)
     {
         printf("#");
+        // usar si no se quiere mostrar la animacion de animacion
+        // sleep(1 / 2);
         sleep(1);
     }
     printf("]");
 }
 // ask for confirmation
-bool asking(char askForRepetition, bool repeatExercise)
+bool asking()
 {
+
+    char askForRepetition = 'y';
+    bool esRepetido = true;
+
+    puts("\nPara repetir el ejercicio digita ' y '. Para regresar al menu digita ' n '.");
+    scanf("%c", &askForRepetition);
+    fflush(stdin);
+
     if (askForRepetition == 'y')
     {
-        repeatExercise = true;
+        esRepetido = true;
     }
     else if (askForRepetition == 'n')
     {
-        repeatExercise = false;
+        esRepetido = false;
     }
     else
     {
         printf("\nOpcion no valida, regresando a menu principal ");
         loading();
         puts("\n\n");
-        repeatExercise = false;
+        esRepetido = false;
     }
-    return repeatExercise;
+    return esRepetido;
 }
 
 // main function
 void main()
 {
     int opcionSalir = 4;
-    int exerciseSelection = 1;
-    bool repeatExercise = true;
-    char askForRepetition = 'y';
+    int opcionSeleccionadaMenu;
+    bool esEjercicioRepetido;
 
     // print greetings
     puts("**************************************");
     puts("Bienvenido");
     puts("**************************************");
 
-    while (exerciseSelection != opcionSalir)
+    do
     {
-
+        opcionSeleccionadaMenu = 0;
+        esEjercicioRepetido = true;
         // print Menu
         puts("--------------------------------------");
         puts("Digita la opcion que deseas realizar:");
-        puts("1.- ");
-        puts("2.- ");
-        puts("3.- ");
+        puts("1.- OPx");
+        puts("2.- OPx");
+        puts("3.- OPx");
         puts("X.- Salir");
         puts("--------------------------------------");
-        scanf("%d", &exerciseSelection);
+        scanf("%d", &opcionSeleccionadaMenu);
         fflush(stdin);
 
-        switch (exerciseSelection)
+        switch (opcionSeleccionadaMenu)
         {
 
         case 1:
-            while (repeatExercise == true)
+            while (esEjercicioRepetido == true)
             {
-                puts("Has seleccionado el ejercicio 1");
+                puts("\tHas seleccionado la opcion de x");
                 // Start Coding
 
                 // End of Code
 
                 // Ask for confirmation
-                puts("Para repetir el ejercicio digita ' y '. Para regresar al menu digita ' n '.");
-                scanf("%c", &askForRepetition);
-                fflush(stdin);
-                repeatExercise = asking(askForRepetition, repeatExercise);
+                esEjercicioRepetido = asking();
             }
             break;
 
         case 2:
-            while (repeatExercise == true)
+            while (esEjercicioRepetido == true)
             {
-                puts("Has seleccionado el ejercicio 2");
+                puts("\tHas seleccionado la opcion de xx");
                 // Start Coding
 
                 // End of Code
 
                 // Ask for confirmation
-                puts("Para repetir el ejercicio digita ' y '. Para regresar al menu digita ' n '.");
-                scanf("%c", &askForRepetition);
-                fflush(stdin);
-                repeatExercise = asking(askForRepetition, repeatExercise);
+                esEjercicioRepetido = asking();
             }
 
             break;
 
         case 3:
-            while (repeatExercise == true)
+            while (esEjercicioRepetido == true)
             {
-                puts("Has seleccionado el ejercicio 3");
+                puts("\tHas seleccionado la opcion de xxx");
                 // Start Coding
 
                 // End of Code
 
                 // Ask for confirmation
-                puts("Para repetir el ejercicio digita ' y '. Para regresar al menu digita ' n '.");
-                scanf("%c", &askForRepetition);
-                fflush(stdin);
-                repeatExercise = asking(askForRepetition, repeatExercise);
+                esEjercicioRepetido = asking();
             }
 
             break;
 
         case 4:
-            printf("\nSaliendo del programa ");
+            printf("\nSaliendo del programa :)");
             loading();
             exit(0);
             break;
@@ -136,5 +137,5 @@ void main()
             puts("Opcion no valida");
             break;
         }
-    }
+    } while (opcionSeleccionadaMenu != opcionSalir);
 }

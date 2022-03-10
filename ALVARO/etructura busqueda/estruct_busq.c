@@ -28,7 +28,7 @@ Tda2* reg(){
     char aux[5];
     int aent;
     float afl;
-    str=(Tda2*)malloc(sizeof(Tda2));
+    str=(Tda2*)calloc(1,sizeof(Tda2));
     if (str==NULL)
     {
         perror("No hay memoria suficiente");

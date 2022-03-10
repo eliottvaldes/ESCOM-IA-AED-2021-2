@@ -3,7 +3,13 @@
  #include<stdio.h>/*   []  \n */
  #include<stdlib.h>
  #include<string.h>
- #include<C:\Users\Montero\Desktop\ESCOM\2BV1\Estructura\p1\busqueda\Lib.h>
+ #include<C:\Users\Montero\Documents\AED-IA-ESCOM\ALVARO\busqueda\Lib.h>
+ 
+ int indexada(int *datos,int busca,int tam){
+
+
+ }
+ 
  int secuencial(int *datos,int busca,int tam){
      
      for (int i = 0; i < tam; i++)
@@ -47,13 +53,34 @@ int dato_medio(int tam,int *array,int valor){
      int *arreglo=NULL;
      puts("Introduce el tamaño del array\n");
      scanf("%i",&tam);
+     
+            array=(int*)malloc(tam*sizeof(int));
+            if (arreglo==NULL)
+            {
+                puts("Se termino la memoria");
+                return 0;
+            }   
+            for (int i = 0; i < tam; i++)
+            {
+                array[i]=rand();
+            }  
      arreglo=merge(tam);
      do
      {
-        puts("1.-Busqueda binaria\n2.-Busqueda secuencial\n3.-Crear nuevo arreglo\n4.-Salir del programa");
+        puts("0.-Busqueda indexada\n1.-Busqueda binaria\n2.-Busqueda secuencial\n3.-Crear nuevo arreglo\n4.-Salir del programa");
         scanf("%i",&cas);
      switch (cas)
      {
+     case 0:
+             puts("Introduce el numero que quieras buscar");
+     scanf("%i",&user);
+     val=indexada(arreglo,user,tam);
+     if(val==-1){
+         return -1;
+     }printf("la posicion de tu valor es %i\n",val);
+     system("pause");
+     break;
+
      case 1:
 
      puts("Introduce el numero que quieras buscar");

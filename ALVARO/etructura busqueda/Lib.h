@@ -51,22 +51,3 @@ Tda2 *struct_array;
 return str;
  }
 
- int dato_medio(int tam,Tda2 *array,int valor){
-    int medio, inf=0, sup=tam+1;
-    while (inf<=sup)
-    {
-        medio=((sup-inf)/2)+inf;
-        if (array[medio].nido.num_cuenta==valor)
-        {
-            return medio;
-        }
-        else if(valor<array[medio].nido.num_cuenta){
-            sup=medio-1;
-        }else{
-            inf=medio+1;
-        }
-    }
-    puts("ERROR");
-    system("pause");
-    return -1;
- }

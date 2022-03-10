@@ -3,7 +3,7 @@
  #include<stdio.h>/*   []  \n */
  #include<stdlib.h>
  #include<string.h>
- #include<C:\Users\Montero\Desktop\ESCOM\2BV1\Estructura\p1\etructura busqueda\Lib.h>
+ #include<C:\Users\Montero\Documents\AED-IA-ESCOM\ALVARO\etructura busqueda\Lib.h>
 
 
 int print_struct(Tda2 *str_ar,int tam){
@@ -116,12 +116,8 @@ Tda2* regplus(Tda2 *struct_array,int num){
                     print_struct(struct_array,count);
                     break;
 
-             case 3:
-                    puts("Introduce el numero de cuenta que quieras buscar\n");
-                    scanf("%i",&busc);
-                    val=dato_medio(count,struct_array,opt);
-                    printf("Tu dato esta en la posicion %i",val);
-                    break;
+             
+        
          
          default:
          puts("Introuce una opcion valida");

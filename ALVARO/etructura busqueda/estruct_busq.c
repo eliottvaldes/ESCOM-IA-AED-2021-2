@@ -61,7 +61,7 @@ Tda2* regplus(Tda2 *struct_array,int num){
     char aux[5];
     int aint;
     float aflot;
-    struct_array=(Tda2*)realloc(struct_array,num+1);
+    struct_array=(Tda2*)realloc(struct_array,(num+1)*sizeof(Tda2));
     
     
     puts("Introduce el area\n");

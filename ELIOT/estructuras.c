@@ -17,9 +17,9 @@
 typedef struct infoDireccion
 {
     char calle[40];
-    char numero[5];
+    char numero[10];
     char estado[40];
-    char codigoPostal[6];
+    char codigoPostal[10];
 
 } Direccion;
 
@@ -48,9 +48,10 @@ void loading()
 }
 
 // CREAMOS PROTOTIPOS DE FUNCIONES
-// void registrarUsuario(Usuario *usr);
-// void mostrarUsuario(Usuario usr);
+void registrarUsuario(Usuario *, int);
+void mostrarUsuario(Usuario, int);
 
+// funcion para registrar usuario en estructura
 void registrarUsuario(Usuario *usr, int contadorDeEstructuras)
 {
     // Obtenemos los datos del usuario
@@ -70,9 +71,10 @@ void registrarUsuario(Usuario *usr, int contadorDeEstructuras)
     fgets(usr->dir.estado, sizeof(usr->dir.estado), stdin);
     puts("Direccion codigo postal: ");
     fgets(usr->dir.codigoPostal, sizeof(usr->dir.codigoPostal), stdin);
-    puts("\n---------------------------------------------\n");    
+    puts("\n---------------------------------------------\n");
 };
 
+// funcion apra mostrar usuario
 void mostrarUsuario(Usuario usr, int contadorDeEstructuras)
 {
     for (int i = 0; i < contadorDeEstructuras; i++)
@@ -92,7 +94,7 @@ void mostrarUsuario(Usuario usr, int contadorDeEstructuras)
 void main()
 {
 
-    Usuario *usr = (Usuario*)malloc(50 * sizeof(Usuario));
+    Usuario *usr = (Usuario *)malloc(50 * sizeof(Usuario));
 
     // variables de menu
     int opcionSalir = 3;
@@ -127,7 +129,6 @@ void main()
 
             registrarUsuario(usr, contadorDeEstructuras);
             contadorDeEstructuras++;
-            // printf("\n\n\tHay %d Estructuras \n\n", contadorDeEstructuras);
             // End of Code
 
             break;

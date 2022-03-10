@@ -38,13 +38,12 @@ void main()
         puts("Que desea hacer?");
         puts("1.- Registrar una nueva tienda");
         puts("2.- Imprimir los datos de la ultima tienda registrada");
-        puts("3.- Buscar una tienda por el ID");
-        puts("4.- Salir del programa");
+        puts("3.- Salir del programa");
         scanf("%d", &opcionMenu);
         switch (opcionMenu)
         {
         case 1:
-            ptrTienda = (int *)realloc(ptrTienda, (noTienda + 1) * sizeof(int));
+            ptrTienda = malloc((noTienda+1)*sizeof(int));
             usuario[noTienda] = RegistrarTienda(noTienda);
             ptrTienda[noTienda] = usuario[noTienda].idTienda;
             noTienda++;
@@ -61,14 +60,14 @@ void main()
             printf("    Disponibilidad: %d", usuario[noTienda].escolar.disponibilidad);
             */
             break;
-        case 3:
+        /*case 3:
             ordenarDatos(ptrTienda, noTienda - 1);
             puts("Porfavor digite el ID de la tienda que desea buscar");
             scanf("%d", &numeroBusqueda);
             tiendaBusqueda = busquedaBinaria(ptrTienda, noTienda, numeroBusqueda);
             imprimirBusqueda(tiendaBusqueda, usuario);
-            break;
-        case 4:
+            break;*/
+        case 3:
             puts("Saliendo del programa");
             exit(0);
             break;
@@ -105,6 +104,7 @@ tienda RegistrarTienda()
     fflush(stdin);
     return usuario;
 }
+/*
 void ordenarDatos(int *cadenaNum, int limite)
 {
     for (int i = 0; i < limite; i++)
@@ -163,3 +163,4 @@ int imprimirBusqueda(int idbusqueda, tienda usuario[])
     printf("No hay nada por mostrar\n");
     return 0;
 }
+*/

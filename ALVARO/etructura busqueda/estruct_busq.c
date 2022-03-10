@@ -66,12 +66,15 @@ Tda2* regplus(Tda2 *struct_array,int num){
     
     puts("Introduce el area\n");
     scanf("%i",&aint);
+    fflush(stdin);
     struct_array[num].Area=aint;
     puts("Introduce el numero de cuenta\n");
     scanf("%i",&aint);
+    fflush(stdin);
     struct_array[num].nido.num_cuenta=aint;
     puts("\nIntroduce la cantiad de dinero\n");
     scanf("%f",&aflot);
+    fflush(stdin);
     struct_array[num].nido.dinero=aflot;
     puts("Introduce el nombre\n");
     fgets(aux,5,stdin);
@@ -82,6 +85,7 @@ Tda2* regplus(Tda2 *struct_array,int num){
     fgets(struct_array[num].jefe,20,stdin);
     puts("Introduce el tiempo\n");
     scanf("%f",&aflot);
+    fflush(stdin);
     struct_array[num].tiempo=aflot;
 
     return struct_array;

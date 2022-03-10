@@ -102,7 +102,7 @@ Tda2* regplus(Tda2 *struct_array,int num){
      {
          
          
-         puts("1.-Registrar nueva entrada\n2.-Imprimir\n3.-Buscar\n");
+         puts("1.-Registrar nueva entrada\n2.-Imprimir\n3.-Salir del programa");
          scanf("%i",&opt);
          switch (opt)
          {
@@ -120,14 +120,15 @@ Tda2* regplus(Tda2 *struct_array,int num){
                     break;
 
              
-        
+            case 3:
+                opt=5;
+            break;
          
          default:
          puts("Introuce una opcion valida");
              break;
          }
-         puts("Quieres salir del programa? 5.-si  ");
-         scanf("%i",&opt);
+         
          
      } while (opt!=5);
      }

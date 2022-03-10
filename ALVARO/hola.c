@@ -8,5 +8,6 @@ void main(){
 
 int mostar_numero(){
     puts("yeah");
+    puts("yeah dos");
     return 0;
 }

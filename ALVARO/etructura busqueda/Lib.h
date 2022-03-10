@@ -29,25 +29,5 @@ Tda2 *struct_array;
 
 
 
- Tda2* burbuja( Tda2 *str,int tam){
-            
-            
-             Tda2 *temp;
-            for (int i = 0; i < tam; i++)
-            {
-               for (int j = 0; j < tam-i; j++)
-               {
-                   if (str[j].nido.num_cuenta>str[j+1].nido.num_cuenta)
-                   {
-                       *temp=str[j];
-                       str[j]=str[j+1];
-                       str[j+1]=*temp;
-                   }
 
-               }
-               
-            }   
-   
-return str;
- }
 

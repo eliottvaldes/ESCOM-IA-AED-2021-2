@@ -109,7 +109,6 @@ Tda2* regplus(Tda2 *struct_array,int num){
                     struct_array=regplus(struct_array,count);
                     count++;
                     system("pause");
-                    struct_array=burbuja(struct_array,count);
                 
              break;
              case 2:

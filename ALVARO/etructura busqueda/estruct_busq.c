@@ -6,16 +6,16 @@
  #include<C:\Users\Montero\Documents\AED-IA-ESCOM\ALVARO\etructura busqueda\Lib.h>
 
 
-int print_struct(Tda2 *str_ar,int tam){
+int print_struct(Tda2 *struct_array,int tam){
     for (int i = 0; i < tam; i++)
     {
-        printf("Numero de cuenta: %i\n",str_ar[i].nido.num_cuenta);
-        printf("Nombre: %s",str_ar[i].nido.name);
-        printf("Alias: %s",str_ar[i].nido.alias);
-        printf("Area: %i\n",str_ar[i].Area);
-        printf("Jefe: %s",str_ar[i].jefe);
-        printf("Dinero: %.2f\n",str_ar[i].nido.dinero);
-        printf("Tiempo: %.2f\n",str_ar[i].tiempo);
+        printf("Numero de cuenta: %i\n",struct_array[i].nido.num_cuenta);
+        printf("Nombre: %s",struct_array[i].nido.name);
+        printf("Alias: %s",struct_array[i].nido.alias);
+        printf("Area: %i\n",struct_array[i].Area);
+        printf("Jefe: %s",struct_array[i].jefe);
+        printf("Dinero: %.2f\n",struct_array[i].nido.dinero);
+        printf("Tiempo: %.2f\n",struct_array[i].tiempo);
         printf("\n\n");
     }
     
@@ -102,7 +102,7 @@ Tda2* regplus(Tda2 *struct_array,int num){
      {
          
          
-         puts("1.-Registrar nueva entrada\n2.-Imprimir\n3.-Buscar\n");
+         puts("1.-Registrar nueva entrada\n2.-Imprimir\n3.-Buscar\n4.-Salir\n");
          scanf("%i",&opt);
          switch (opt)
          {
@@ -120,8 +120,21 @@ Tda2* regplus(Tda2 *struct_array,int num){
                     break;
 
              case 3:
-
+                puts("Que ID quieres buscar");
+                scanf("%i",busc);
+                val=secuencial(struct_array,busc,count+1);
+                int i=val;
+                puts("La cuenta que buscas es:\n");
+                printf("Numero de cuenta: %i\n",struct_array[i].nido.num_cuenta);
+                printf("Nombre: %s",struct_array[i].nido.name);
+                printf("Alias: %s",struct_array[i].nido.alias);
+                printf("Area: %i\n",struct_array[i].Area);
+                printf("Jefe: %s",struct_array[i].jefe);
+                printf("Dinero: %.2f\n",struct_array[i].nido.dinero);
+                printf("Tiempo: %.2f\n",struct_array[i].tiempo);
+                printf("\n\n");
              break;
+
             case 4:
                 opt=5;
             break;

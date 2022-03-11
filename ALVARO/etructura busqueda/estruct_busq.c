@@ -121,7 +121,7 @@ Tda2* regplus(Tda2 *struct_array,int num){
 
              case 3:
                 puts("Que ID quieres buscar");
-                scanf("%i",busc);
+                scanf("%i",&busc);
                 val=secuencial(struct_array,busc,count+1);
                 int i=val;
                 puts("La cuenta que buscas es:\n");

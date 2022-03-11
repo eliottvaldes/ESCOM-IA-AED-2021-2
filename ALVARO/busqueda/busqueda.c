@@ -5,7 +5,16 @@
  #include<string.h>
  #include<C:\Users\Montero\Documents\AED-IA-ESCOM\ALVARO\busqueda\Lib.h>
  
+int *index_arr(int tam){
+    int *arr;
+    arr=(int*)malloc(4*sizeof(int));//Se crean los apuntadores especiales
+
+}
  int indexada(int *datos,int busca,int tam){
+     int p,q,r;
+     int *arr;
+     arr=index_arr((tam/4)+1);
+     
 
 
  }

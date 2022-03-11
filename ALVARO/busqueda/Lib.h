@@ -9,6 +9,9 @@
 int *array=NULL;
  
 
+int div(){
+
+}
 
 
 

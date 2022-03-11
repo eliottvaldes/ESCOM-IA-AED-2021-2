@@ -8,7 +8,22 @@
 
 int *array=NULL;
 
- 
+ int secuencial(int *datos,int busca,int tam){
+     
+     for (int i = 0; i < tam; i++)
+     {
+         if (datos[i]==busca)
+         {
+             return i;
+         }
+
+         
+     }
+     puts("Dato no encontrado");
+     return -1;
+     system("pause");
+
+ }
 typedef struct
 {
     int num_cuenta;

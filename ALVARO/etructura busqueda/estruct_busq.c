@@ -102,7 +102,7 @@ Tda2* regplus(Tda2 *struct_array,int num){
      {
          
          
-         puts("1.-Registrar nueva entrada\n2.-Imprimir\n3.-Salir del programa");
+         puts("1.-Registrar nueva entrada\n2.-Imprimir\n3.-Buscar\n");
          scanf("%i",&opt);
          switch (opt)
          {
@@ -119,8 +119,10 @@ Tda2* regplus(Tda2 *struct_array,int num){
                     print_struct(struct_array,count);
                     break;
 
-             
-            case 3:
+             case 3:
+
+             break;
+            case 4:
                 opt=5;
             break;
          

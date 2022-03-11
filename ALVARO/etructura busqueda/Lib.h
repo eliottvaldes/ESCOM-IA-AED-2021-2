@@ -30,4 +30,19 @@ Tda2 *struct_array;
 
 
 
+int secuencial(Tda2 *datos,int busca,int tam){
+     
+     for (int i = 0; i < tam; i++)
+     {
+         if (datos[i].nido.num_cuenta==busca)
+         {
+             return i;
+         }
 
+         
+     }
+     puts("Dato no encontrado");
+     return -1;
+     system("pause");
+
+ }

@@ -9,6 +9,9 @@
 int *array=NULL;
  
 
+int div(){
+
+}
 
 
 
@@ -99,5 +102,3 @@ int* merge(int tam){
 
     return array;
 }
-
-

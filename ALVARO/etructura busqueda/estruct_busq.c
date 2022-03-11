@@ -6,16 +6,16 @@
  #include<C:\Users\Montero\Documents\AED-IA-ESCOM\ALVARO\etructura busqueda\Lib.h>
 
 
-int print_struct(Tda2 *str_ar,int tam){
+int print_struct(Tda2 *struct_array,int tam){
     for (int i = 0; i < tam; i++)
     {
-        printf("Numero de cuenta: %i\n",str_ar[i].nido.num_cuenta);
-        printf("Nombre: %s",str_ar[i].nido.name);
-        printf("Alias: %s",str_ar[i].nido.alias);
-        printf("Area: %i\n",str_ar[i].Area);
-        printf("Jefe: %s",str_ar[i].jefe);
-        printf("Dinero: %.2f\n",str_ar[i].nido.dinero);
-        printf("Tiempo: %.2f\n",str_ar[i].tiempo);
+        printf("Numero de cuenta: %i\n",struct_array[i].nido.num_cuenta);
+        printf("Nombre: %s",struct_array[i].nido.name);
+        printf("Alias: %s",struct_array[i].nido.alias);
+        printf("Area: %i\n",struct_array[i].Area);
+        printf("Jefe: %s",struct_array[i].jefe);
+        printf("Dinero: %.2f\n",struct_array[i].nido.dinero);
+        printf("Tiempo: %.2f\n",struct_array[i].tiempo);
         printf("\n\n");
     }
     
@@ -28,7 +28,7 @@ Tda2* reg(){
     char aux[5];
     int aent;
     float afl;
-    str=(Tda2*)malloc(sizeof(Tda2));
+    str=(Tda2*)calloc(1,sizeof(Tda2));
     if (str==NULL)
     {
         perror("No hay memoria suficiente");
@@ -61,17 +61,20 @@ Tda2* regplus(Tda2 *struct_array,int num){
     char aux[5];
     int aint;
     float aflot;
-    struct_array=(Tda2*)realloc(struct_array,num+1);
+    struct_array=(Tda2*)realloc(struct_array,(num+1)*sizeof(Tda2));
     
     
     puts("Introduce el area\n");
     scanf("%i",&aint);
+    fflush(stdin);
     struct_array[num].Area=aint;
     puts("Introduce el numero de cuenta\n");
     scanf("%i",&aint);
+    fflush(stdin);
     struct_array[num].nido.num_cuenta=aint;
     puts("\nIntroduce la cantiad de dinero\n");
     scanf("%f",&aflot);
+    fflush(stdin);
     struct_array[num].nido.dinero=aflot;
     puts("Introduce el nombre\n");
     fgets(aux,5,stdin);
@@ -82,6 +85,7 @@ Tda2* regplus(Tda2 *struct_array,int num){
     fgets(struct_array[num].jefe,20,stdin);
     puts("Introduce el tiempo\n");
     scanf("%f",&aflot);
+    fflush(stdin);
     struct_array[num].tiempo=aflot;
 
     return struct_array;
@@ -98,7 +102,7 @@ Tda2* regplus(Tda2 *struct_array,int num){
      {
          
          
-         puts("1.-Registrar nueva entrada\n2.-Imprimir\n3.-Buscar\n");
+         puts("1.-Registrar nueva entrada\n2.-Imprimir\n3.-Buscar\n4.-Salir\n");
          scanf("%i",&opt);
          switch (opt)
          {
@@ -115,15 +119,31 @@ Tda2* regplus(Tda2 *struct_array,int num){
                     print_struct(struct_array,count);
                     break;
 
-             
-        
+             case 3:
+                puts("Que ID quieres buscar");
+                scanf("%i",&busc);
+                val=secuencial(struct_array,busc,count+1);
+                int i=val;
+                puts("La cuenta que buscas es:\n");
+                printf("Numero de cuenta: %i\n",struct_array[i].nido.num_cuenta);
+                printf("Nombre: %s",struct_array[i].nido.name);
+                printf("Alias: %s",struct_array[i].nido.alias);
+                printf("Area: %i\n",struct_array[i].Area);
+                printf("Jefe: %s",struct_array[i].jefe);
+                printf("Dinero: %.2f\n",struct_array[i].nido.dinero);
+                printf("Tiempo: %.2f\n",struct_array[i].tiempo);
+                printf("\n\n");
+             break;
+
+            case 4:
+                opt=5;
+            break;
          
          default:
          puts("Introuce una opcion valida");
              break;
          }
-         puts("Quieres salir del programa? 5.-si  ");
-         scanf("%i",&opt);
+         
          
      } while (opt!=5);
      }

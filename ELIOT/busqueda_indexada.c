@@ -214,7 +214,7 @@ int busquedaBinaria(int *arrayNumerico, int extensionDeArreglo, int numeroABusca
 // funcion para Busqueda Indexada
 int busquedaIndexada(int *arrayNumerico, int *arrayIndices, int extensionDeArreglo, int numeroABuscar)
 {
-    int i, numAuxiliar = 0;
+    int posEnArray, numAuxiliar = 0;
     int indiceInicial = 0, inicioBusqueda, finBusqueda;
     bool esNumeroEnArreglo = false;
 
@@ -226,11 +226,11 @@ int busquedaIndexada(int *arrayNumerico, int *arrayIndices, int extensionDeArreg
     }
     else
     {
-        for (i = 1; i <= indiceInicial; i++)
-            if (numeroABuscar <= arrayNumerico[i])
+        for (posEnArray = 1; posEnArray <= indiceInicial; posEnArray++)
+            if (numeroABuscar <= arrayNumerico[posEnArray])
             {
-                inicioBusqueda = arrayIndices[i - 1];
-                finBusqueda = arrayIndices[i];
+                inicioBusqueda = arrayIndices[posEnArray - 1];
+                finBusqueda = arrayIndices[posEnArray];
                 numAuxiliar = 1;
                 break;
             }
@@ -238,14 +238,14 @@ int busquedaIndexada(int *arrayNumerico, int *arrayIndices, int extensionDeArreg
     // en caso de que no haya coincidencia reasignados el inicio y final de la busqueda
     if (numAuxiliar == 0)
     {
-        inicioBusqueda = arrayIndices[i - 1];
+        inicioBusqueda = arrayIndices[posEnArray - 1];
         finBusqueda = extensionDeArreglo;
     }
     // volvemos a  hacer la busqueda con los valores reasignados
-    for (i = inicioBusqueda; i <= finBusqueda; i++)
+    for (posEnArray = inicioBusqueda; posEnArray <= finBusqueda; posEnArray++)
     {
         // verificamos coincidencia
-        if (numeroABuscar == arrayNumerico[i])
+        if (numeroABuscar == arrayNumerico[posEnArray])
         {
             esNumeroEnArreglo = true;
             break;
@@ -254,7 +254,7 @@ int busquedaIndexada(int *arrayNumerico, int *arrayIndices, int extensionDeArreg
     // volvemos a verificar si el numero se ha encontrado
     if (esNumeroEnArreglo == true)
     {
-        printf("Se ha encontrado el valor a buscar (%d) en la posicion [%d] del arreglo\n\n", numeroABuscar, i);
+        printf("Se ha encontrado el valor a buscar (%d) en la posicion [%d] del arreglo\n\n", numeroABuscar, posEnArray);
     }
     else
     {

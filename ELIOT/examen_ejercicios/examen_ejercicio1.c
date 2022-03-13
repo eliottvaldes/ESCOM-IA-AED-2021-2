@@ -1,7 +1,7 @@
 /**
  * @file examen.c
  * @author VALDES LUIS ELIOT FABIAN
- * @brief archivo que contiene examen practico de primer parcial de AED
+ * @brief archivo que contiene EJERCICIO 1 del examen practico de primer parcial de AED
  * @version 0.1
  * @date 2022-03-12
  *
@@ -24,6 +24,10 @@ void ordenamientoQuickSort(int *, int, int);
 // funcion para creacion de numeros aleatorios
 int *generarArrayNumerosAleatorios(int extensionDeArreglo)
 {
+
+    // creamos semilla para generacion de numeros random
+    // usamos srand(time()); para no obtener los mismos numeros aleatorios en cada ejecucion ya que la semilla es la hora actual
+    srand(time(NULL));
 
     int *arrayNumerico = malloc(extensionDeArreglo * sizeof(int));
 
@@ -176,10 +180,11 @@ void ordenamientoQuickSort(int *arrayNumerico, int primerElemento, int ultimoEle
 // main function
 void main()
 {
-    int opcionSalir = 4;
+    int opcionSalir = 5;
     int opcionSeleccionadaMenu;
 
     int extensionDeArreglo = 0;
+    int extensionDeArregloNoRepetidos = 0;
     int *arrayNumerico;
     int *arrayNumericoNoRepetidos;
     int contador_eliminados;
@@ -195,10 +200,11 @@ void main()
         // print Menu
         puts("--------------------------------------");
         puts("Digita la opcion del ejercicio que deseas realizar:");
-        puts("1.- Numeros aleatorios entre 200-500");
-        puts("2.- OPx");
-        puts("3.- OPx");
-        puts("X.- Salir");
+        puts("1.- Gererar numeros aleatorios entre 200-500");
+        puts("2.- Ver datos inciales");
+        puts("3.- Ver datos sin repetidos");
+        puts("4.- Ver todos los datos");
+        puts("5.- Salir");
         puts("--------------------------------------");
         scanf("%d", &opcionSeleccionadaMenu);
         fflush(stdin);
@@ -207,10 +213,9 @@ void main()
         {
 
         case 1:
-            contador_eliminados = 0;
-            puts("\n\t *** Has seleccionado la opcion de x ***\n ");
+
             // Start Coding
-            puts("\nHas seleccionado la opcion de generar array de numeros aleatorios\n");
+            puts("\nHas seleccionado la opcion de generar numeros aleatorios\n");
             // Start Coding
 
             // liberamos memoria del arreglo dinamico usando free
@@ -222,10 +227,6 @@ void main()
             fflush(stdin);
             scanf("%d", &extensionDeArreglo);
 
-            // creamos semilla para generacion de numeros random
-            // usamos srand(time()); para no obtener los mismos numeros aleatorios en cada ejecucion ya que la semilla es la hora actual
-            srand(time(NULL));
-
             // mandamos a llamar a la funcion de crear numeros de datos aleatorios
             arrayNumerico = generarArrayNumerosAleatorios(extensionDeArreglo);
 
@@ -234,54 +235,77 @@ void main()
             int ultimoElemento = extensionDeArreglo - 1;
             // ejecutamos funcion del ordenamiento quick sort
             ordenamientoQuickSort(arrayNumerico, primerElemento, ultimoElemento);
-            // mandamos a llamar a la funcion eliminar los datos repetidos del array
-            arrayNumericoNoRepetidos = eliminarRepetidosDeArreglo(arrayNumerico, extensionDeArreglo);
-            contador_eliminados = contadorDeRepetidos(arrayNumerico, extensionDeArreglo);
+
+            puts("\n*** Arreglo generado exitosamente ***\n");
+            // End of Code
+
+            break;
+
+        case 2:
+
+            puts("\n\t *** Has seleccionado la opcion de mostar datos iniciales ***\n ");
 
             // Mostramos los arreglos obtenidos
-            puts("\n*** El arreglo inicial es: ***\n");
-
+            puts("\n*** El arreglo inicial (con numeros repetidos) es: ***\n");
+            // Start Coding
             for (int i = 0; i < extensionDeArreglo; i++)
             {
                 mostrarDatosEnArregloRepetidos(arrayNumerico, extensionDeArreglo, i);
             }
+            // End of Code
+
+            break;
+
+        case 3:
+            contador_eliminados = 0;
+
+            puts("\n\t *** Has seleccionado la opcion de mostrar datos sin numeros repetidos ***\n ");
+
+            // Start Coding
+            arrayNumericoNoRepetidos = eliminarRepetidosDeArreglo(arrayNumerico, extensionDeArreglo);
+            contador_eliminados = contadorDeRepetidos(arrayNumerico, extensionDeArreglo);
 
             puts("\n\n\n*** El arreglo sin repetidos es: ***\n");
 
-            extensionDeArreglo = (extensionDeArreglo - contador_eliminados);
-            for (int i = 0; i < extensionDeArreglo; i++)
+            extensionDeArregloNoRepetidos = (extensionDeArreglo - contador_eliminados);
+            for (int i = 0; i < extensionDeArregloNoRepetidos; i++)
             {
                 mostrarDatosEnArregloNoRepetidos(arrayNumericoNoRepetidos, extensionDeArreglo, i);
             }
 
-            printf("\nSe eliminaron %d elementos repetidos\n", contador_eliminados);
+            printf("\n\n +-+- Se eliminaron %d elementos repetidos\n", contador_eliminados);
 
             puts("\n*** Fin ***\n");
 
             // End of Code
 
             break;
-            // End of Code
-
-        case 2:
-
-            puts("\n\t *** Has seleccionado la opcion de xx ***\n ");
-            // Start Coding
-
-            // End of Code
-
-            break;
-
-        case 3:
-
-            puts("\n\t *** Has seleccionado la opcion de xxx ***\n ");
-            // Start Coding
-
-            // End of Code
-
-            break;
 
         case 4:
+            puts("\n\t *** Has seleccionado la opcion de mostrar todos los datos ***\n ");
+
+            // Mostramos los arreglos obtenidos
+            puts("\n*** El arreglo inicial (con numeros repetidos) es: ***\n");
+            // Start Coding
+            for (int i = 0; i < extensionDeArreglo; i++)
+            {
+                mostrarDatosEnArregloRepetidos(arrayNumerico, extensionDeArreglo, i);
+            }
+
+            puts("\n\n\n*** El arreglo sin numeros repetidos es: ***\n");
+
+            for (int i = 0; i < extensionDeArregloNoRepetidos; i++)
+            {
+                mostrarDatosEnArregloNoRepetidos(arrayNumericoNoRepetidos, extensionDeArreglo, i);
+            }
+
+            printf("\n\n +-+- Se eliminaron %d elementos repetidos\n", contador_eliminados);
+
+            puts("\n*** Fin ***\n");
+
+            break;
+
+        case 5:
             printf("\nSALIENDO DEL PROGRAMA ");
             puts("\n *** ADIOS *** :)");
             exit(0);

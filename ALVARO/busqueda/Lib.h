@@ -7,11 +7,60 @@
 
 
 int *array=NULL;
- 
-
-int div(){
+int *Arrayin(int tam){
+    int *array_indice=(int*)malloc(tam*sizeof(int));
+    for (int i = 0; i < tam; i++)
+    {
+        array_indice[i]=i;
+    }
+    return array_indice;
 
 }
+ 
+int Indexada(int* arrayNum,int* arrayIn,int tam,int buscar)
+{
+    int pos,Aux=0,val;
+    int indiceInicial=0, inicioBusqueda, finBusqueda;
+    int esNumeroEnArreglo=0;
+
+    // Si el numero que e quiere buscar es menor que el primer numero del arreglo
+    //O mayor que el ultimo numero, asumimos que no se encuentra dentro de este
+    if  (buscar<arrayNum[0]|buscar>arrayNum[tam])
+    {
+        puts("El valor introducido no se encuentra en el arreglo\n\n");
+        system("pause");
+        return -1;
+    }
+    else
+    {
+        for (pos=1;pos<=indiceInicial;pos++)
+            if  (buscar<=arrayNum[pos])
+            {
+                inicioBusqueda=arrayIn[pos- 1];
+                finBusqueda=arrayIn[pos];
+                Aux=1;
+                break;
+            }
+    }
+    // Si no se cumplio la condicion, cambiamos el inicio y el fin
+    if (Aux==0)
+    {
+        inicioBusqueda=arrayIn[pos-1];
+        finBusqueda=tam;
+    }
+    // Se vuelve a hacer la busquda con nuevos valores
+    for (pos=inicioBusqueda; pos <= finBusqueda; pos++)
+    {
+        // Se retorna el valor de la posicion, usamos busqueda secuencial buscando en el resultante
+        if  (buscar==arrayNum[pos])
+        {
+            val=pos;
+            return val;
+        }
+    } return -1;
+    
+}
+
 
 
 

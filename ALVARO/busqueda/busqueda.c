@@ -5,19 +5,11 @@
  #include<string.h>
  #include<C:\Users\Montero\Documents\AED-IA-ESCOM\ALVARO\busqueda\Lib.h>
  
-int *index_arr(int tam){
-    int *arr;
-    arr=(int*)malloc(4*sizeof(int));//Se crean los apuntadores especiales
-
-}
- int indexada(int *datos,int busca,int tam){
-     int p,q,r;
-     int *arr;
-     arr=index_arr((tam/4)+1);
-     
 
 
- }
+
+ 
+
  
  int secuencial(int *datos,int busca,int tam){
      
@@ -63,15 +55,16 @@ int dato_medio(int tam,int *array,int valor){
      puts("Introduce el tamaño del array\n");
      scanf("%i",&tam);
      
-            array=(int*)malloc(tam*sizeof(int));
+            arreglo=(int*)malloc(tam*sizeof(int));
             if (arreglo==NULL)
             {
                 puts("Se termino la memoria");
+                system("pause");
                 return 0;
             }   
             for (int i = 0; i < tam; i++)
             {
-                array[i]=rand();
+                arreglo[i]=rand();
             }  
      arreglo=merge(tam);
      do
@@ -83,8 +76,12 @@ int dato_medio(int tam,int *array,int valor){
      case 0:
              puts("Introduce el numero que quieras buscar");
      scanf("%i",&user);
-     val=indexada(arreglo,user,tam);
+     int *index;
+     index=Arrayin(tam);
+     val=Indexada(arreglo,index,tam,user);
      if(val==-1){
+         puts("El numero no se encuentra en el array");
+         system("pause");
          return -1;
      }printf("la posicion de tu valor es %i\n",val);
      system("pause");
@@ -118,6 +115,7 @@ int dato_medio(int tam,int *array,int valor){
      puts("Introduce el tamaño del array\n");
      scanf("%i",&tam);
      arreglo=merge(tam);
+     
 
 
      break;
@@ -130,6 +128,12 @@ int dato_medio(int tam,int *array,int valor){
      puts("Introduce una opcion valida");
          break;
      }
+     system("cls");
+     printf("Orden descendente\n");
+            for (int i = 0; i < tam; i++)
+             {
+                printf("%i\n",*(array+i));
+             }
      } while (cas!=4);
      
      

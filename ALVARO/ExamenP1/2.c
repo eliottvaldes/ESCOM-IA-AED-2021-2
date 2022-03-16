@@ -7,7 +7,7 @@
 
 
 void main(){
-    FILE *flujo=fopen("datos.tx","r");
+    FILE *flujo=fopen("datos.txt","r");
     if (flujo==NULL)
     {
         puts("error en abrir el archivo");
@@ -20,6 +20,6 @@ void main(){
         printf("%c",c);
         c=getc(flujo);
     }
-    
+    puts("\n");
     system("pause");
 }

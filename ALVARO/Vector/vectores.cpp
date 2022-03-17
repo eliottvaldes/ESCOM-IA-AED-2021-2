@@ -7,22 +7,19 @@
 using namespace std;
 
 int main(){
-stack<int> objeto;
-stack<int>aux;
+vector<int> objeto;
+vector<int>aux;
 for (int i = 0; i < 50; i++)
 {
-    objeto.push(rand()%10);
-    int n=objeto.top();
-    cout<<n;cout<<" ";
+    objeto.push_back(rand()%10);;
+   
 }
-cout<<endl;
 for (int i = 0; i < 50; i++)
 {
-    aux.push(objeto.top());
-    objeto.pop();
-    cout<<aux.top()<<" ";
+    cout<<objeto.at(i)<<" ";
+    
+}
 
-}
 
 system("pause");
 return 0;  

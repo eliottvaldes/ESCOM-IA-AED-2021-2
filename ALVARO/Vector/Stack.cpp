@@ -11,7 +11,7 @@ int impr_pila(stack<int> pila,int num);
 
 
 
-void main(){
+int main(){
     int num,mayor;
     int intaux;
     stack<int> pila;
@@ -29,7 +29,7 @@ void main(){
         mayor=numero_may(pila,num);
         cout<<"El numero mayor es: "<<mayor;
 
-
+return 0;
 }
 
 int numero_may(stack<int> pila, int num){

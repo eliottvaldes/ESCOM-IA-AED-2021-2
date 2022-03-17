@@ -15,7 +15,7 @@ int main(){
     int num,mayor;
     int intaux;
     stack<int> pila;
-    cout<<"Cuantos datos quieres guardar";
+    cout<<"Cuantos datos quieres guardar"<<endl;
     cin>>num;
     for (int i = 0; i < num; i++)
     {
@@ -27,8 +27,8 @@ int main(){
         impr_pila(pila,num);
         cout<<"Buscando numero mayor"<<endl;
         mayor=numero_may(pila,num);
-        cout<<"El numero mayor es: "<<mayor;
-
+        cout<<"El numero mayor es: "<<mayor<<endl;
+        system("pause");
 return 0;
 }
 
@@ -42,6 +42,7 @@ int numero_may(stack<int> pila, int num){
             pila.pop();
         }else{
             auxiliar.push(pila.top());
+            pila.pop();
         }
 
     }
@@ -54,6 +55,6 @@ int impr_pila(stack<int> pila,int num){
             cout<<pila.top()<<" ";
             pila.pop();
         }
-        
+        cout<<endl;
 
 }

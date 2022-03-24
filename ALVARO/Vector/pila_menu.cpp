@@ -12,7 +12,7 @@ void imp_ini(stack<string> pila);
 void imp_fin(stack<string> pila);
 stack<string> elim_inicio(stack<string> pila);
 stack<string> elim_fin(stack<string> pila);
-/*stack<string> elim_pos(stack<string> pila);*/
+stack<string> elim_pos(stack<string> pila);
 
 
 
@@ -52,6 +52,7 @@ int main(){
             pila=elim_fin(pila);
             break;
         case 8:
+            pila=elim_pos(pila);
             break;
         case 9:
             break;
@@ -89,7 +90,7 @@ stack<string> palabra_fin(stack<string> pila){
             aux_str.push(pila.top());
             pila.pop();
         }
-        cout<<"Introduce tu palabra";
+        cout<<"Introduce tu palabra"<<endl;
         string aux;
         cin>>aux;
         pila.push(aux);
@@ -108,16 +109,17 @@ stack<string> palabra_pos(stack<string> pila){
             int tam=pila.size();
             stack<string> P_aux;
             string aux;
-            cout<<"El arreglo tiene tamano "<<tam<<" En que posicion deseas escribir";
+            cout<<"El arreglo tiene tamano "<<tam<<" En que posicion deseas escribir"<<endl;
             int pos;
             cin>>pos;
             if (pos>tam)
             {
                 cout<<"Posicion no encontrada";
                 system("pause");
-                palabra_pos(pila);
+                pila=palabra_pos(pila);
+                return pila;
             }
-            cout<<"Introduce la nueva palabra";
+            cout<<"Introduce la nueva palabra"<<endl;
             cin>>aux;
             for (int i = 0; i < pos; i++)
             {
@@ -166,10 +168,12 @@ void imp_fin(stack<string> pila){
     system("pause");
 }
 
+
 stack<string> elim_inicio(stack<string> pila){
     pila.pop();
     return pila;
 }
+
 
 stack<string> elim_fin(stack<string> pila){
     int tam=pila.size();
@@ -186,5 +190,33 @@ stack<string> elim_fin(stack<string> pila){
         aux.pop();
     }
     
+    return pila;
+}
+
+
+stack<string> elim_pos(stack<string> pila){
+        int tam=pila.size(),pos;
+        stack<string> aux;
+        cout<<"El arreglo tiene "<<tam<<" posiciones, cual deseas eliminar";
+        cin>>pos;
+        if (pos>tam)
+        {
+            cout<<"Introduce un tamaño valido";
+            system("pause");
+            pila=elim_pos(pila);
+            return pila;
+        }
+        
+        for (int i = 0; i <pos-1 ; i++)
+        {
+            aux.push(pila.top());
+            pila.pop();
+        }
+            pila.pop();
+        for (int i = 0; i < pos-1; i++)
+        {
+            pila.push(aux.top());
+            aux.pop();
+        }
     return pila;
 }

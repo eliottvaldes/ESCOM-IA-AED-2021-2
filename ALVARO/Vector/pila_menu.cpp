@@ -8,11 +8,11 @@ using namespace std;
 stack<string> palabra_ini(stack<string> pila);
 stack<string> palabra_fin(stack<string> pila);
 stack<string> palabra_pos(stack<string> pila);
-stack<string> imp_ini(stack<string> pila);
-stack<string> imp_fin(stack<string> pila);
-/*stack<string> elim_inicio(stack<string> pila);
+void imp_ini(stack<string> pila);
+void imp_fin(stack<string> pila);
+stack<string> elim_inicio(stack<string> pila);
 stack<string> elim_fin(stack<string> pila);
-stack<string> elim_pos(stack<string> pila);*/
+/*stack<string> elim_pos(stack<string> pila);*/
 
 
 
@@ -39,8 +39,25 @@ int main(){
             break;
         case 4:
             imp_ini(pila);
+            opt=0;
+            break;
+        case 5:
+            imp_fin(pila);
+            opt=0;
+            break;
+        case 6:
+            pila=elim_inicio(pila);
+            break;
+        case 7:
+            pila=elim_fin(pila);
+            break;
+        case 8:
+            break;
+        case 9:
             break;
         default:
+            cout<<"Introduce una opcion valida"<<endl;
+            system("pause");
             break;
         }
 		
@@ -61,6 +78,7 @@ stack<string> palabra_ini(stack<string> pila){
         pila.push(aux);
         return pila;
 }
+
 
 stack<string> palabra_fin(stack<string> pila){
         //se copia toda la estructura y se procede a escribir al final
@@ -85,17 +103,42 @@ stack<string> palabra_fin(stack<string> pila){
 }
 
 
-
-
 stack<string> palabra_pos(stack<string> pila){
+            
+            int tam=pila.size();
+            stack<string> P_aux;
+            string aux;
+            cout<<"El arreglo tiene tamano "<<tam<<" En que posicion deseas escribir";
+            int pos;
+            cin>>pos;
+            if (pos>tam)
+            {
+                cout<<"Posicion no encontrada";
+                system("pause");
+                palabra_pos(pila);
+            }
+            cout<<"Introduce la nueva palabra";
+            cin>>aux;
+            for (int i = 0; i < pos; i++)
+            {
+                P_aux.push(pila.top());
+                pila.pop();
+            }
+            pila.push(aux);
+            for (int i = 0; i < pos; i++) 
+            {
+                pila.push(P_aux.top());
+                P_aux.pop();
+            }
+            
 
+
+            
+    return pila;
 }
 
 
-
-
-
-stack<string> imp_ini(stack<string> pila){
+void imp_ini(stack<string> pila){
     int tam=pila.size();
             for (int i = 0; i < tam; i++)
             {
@@ -107,7 +150,7 @@ stack<string> imp_ini(stack<string> pila){
 }
 
 
-stack<string> imp_fin(stack<string> pila){
+void imp_fin(stack<string> pila){
     int tam=pila.size();
     stack<string> str_aux;
     for (int i = 0; i < tam; i++)
@@ -115,5 +158,33 @@ stack<string> imp_fin(stack<string> pila){
         str_aux.push(pila.top());
         pila.pop();
     }
+    for (int i = 0; i < tam; i++)
+    {
+        cout<<str_aux.top()<<" ";
+        str_aux.pop();
+    }
+    system("pause");
+}
+
+stack<string> elim_inicio(stack<string> pila){
+    pila.pop();
+    return pila;
+}
+
+stack<string> elim_fin(stack<string> pila){
+    int tam=pila.size();
+    stack<string> aux;
+    for (int i = 0; i < tam-1; i++)
+    {
+        aux.push(pila.top());
+        pila.pop();
+    }
+    pila.pop();
+    for (int i = 0; i < tam-1; i++)
+    {
+        pila.push(aux.top());
+        aux.pop();
+    }
     
+    return pila;
 }

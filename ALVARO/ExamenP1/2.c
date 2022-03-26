@@ -7,7 +7,19 @@
 
 
 void main(){
-    
-
-
+    FILE *flujo=fopen("datos.txt","r");
+    if (flujo==NULL)
+    {
+        puts("error en abrir el archivo");
+        system("pause");
+        exit(1);
+    }
+    char c;
+    while (c!=EOF)
+    {
+        printf("%c",c);
+        c=getc(flujo);
+    }
+    puts("\n");
+    system("pause");
 }

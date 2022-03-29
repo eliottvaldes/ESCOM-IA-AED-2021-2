@@ -1,28 +1,34 @@
+/* ▪* Montero Barraza Alvaro David*
+ *2BV1 Ingenieria en IA ▪*  ▪*/
 #include<iostream>
 #include<stdlib.h>
+using namespace std;
 
-typedef struct{
+
+
+typedef struct Nodo{
         int dato;
         Nodo *sig;
 }Nodo;
 
-void nuevo_nodo(Nodo *&lista,int num);
+
 
 int main(){
-    Nodo * inicio=NULL;
+    Nodo *inicio;
+    Nodo *collect;
+    Nodo *aux1,*aux2;
+    inicio->sig=NULL;
     int cond=0;
     do
     {
         if (inicio==NULL)
         {
-            //nuevo nodo
-            //enlace sig nuevo
-            //nodo a null
-            //poner datos
-            //actualiza inicio
-            
+            collect=(Nodo*)calloc(1,sizeof(Nodo));
+            collect->sig=NULL;
+            collect->dato=15;
+            inicio->sig=collect;
         }
-
+        
 
     } while (cond==0);
     

@@ -1,5 +1,6 @@
 {
     "files.associations": {
-        "ejercicio1.h": "c"
+        "ejercicio1.h": "c",
+        "iostream": "cpp"
     }
 }

@@ -1,5 +1,5 @@
 /**
- * @file cola.cpp
+ * @file Cola.cpp
  * @author Valdés Luis Eliot Fabián
  * @brief archivo que contiene el menu de cola
  * @version 0.1
@@ -41,16 +41,16 @@ int main()
     // creamos la cola y la cola auxiliar
     queue<tenis> cola;
     queue<tenis> colaAux;
-    int tam, pos;
+    int tamCola, pos;
 
-    tenis auxStruct;
+    tenis tenisAux;
 
     do
     {
 
         cout << "\n======================================================" << endl;
         cout << "\tDigita la opcion que deseas llevar a cabo" << endl;
-        cout << "======================================================" << endl;        
+        cout << "======================================================" << endl;
         cout << "1.- Agregar una elemento al inicio" << endl;
         cout << "2.- Agregar una elemento al final" << endl;
         cout << "3.- Agregar una elemento en una posicion especifica" << endl;
@@ -65,30 +65,30 @@ int main()
         switch (opcionMenu)
         {
         case 1:
-            auxStruct = agregarRegistro();
-            cola.push(auxStruct);
+            tenisAux = agregarRegistro();
+            cola.push(tenisAux);
             break;
 
         case 2:
-            tam = cola.size();
-            cola = agregarFin(cola, colaAux, auxStruct, tam);
+            tamCola = cola.size();
+            cola = agregarFin(cola, colaAux, tenisAux, tamCola);
             break;
 
         case 3:
             cout << "Digita la posicion en la que quieras agregar:";
             cin >> pos;
-            tam = cola.size();
-            cola = agregarPosN(cola, colaAux, auxStruct, tam, pos);
+            tamCola = cola.size();
+            cola = agregarPosN(cola, colaAux, tenisAux, tamCola, pos);
             break;
 
         case 4:
-            tam = cola.size();
-            mostrarAsc(cola, auxStruct, tam);
+            tamCola = cola.size();
+            mostrarAsc(cola, tenisAux, tamCola);
             break;
 
         case 5:
-            tam = cola.size();
-            mostrarDesc(cola, auxStruct, tam);
+            tamCola = cola.size();
+            mostrarDesc(cola, tenisAux, tamCola);
             break;
 
         case 6:
@@ -96,15 +96,15 @@ int main()
             break;
 
         case 7:
-            tam = cola.size() - 1;
-            cola = eliminarFin(cola, colaAux, auxStruct, tam);
+            tamCola = cola.size() - 1;
+            cola = eliminarFin(cola, colaAux, tenisAux, tamCola);
             break;
 
         case 8:
-            cout << "Digita la posicion de la estructura a eliminar";
+            cout << "Digita la posicion de la estructura a eliminar: ";
             cin >> pos;
-            tam = cola.size();
-            cola = eliminarPosN(cola, colaAux, auxStruct, tam, pos);
+            tamCola = cola.size();
+            cola = eliminarPosN(cola, colaAux, tenisAux, tamCola, pos);
             break;
 
         case 9:
@@ -123,6 +123,7 @@ int main()
 tenis agregarRegistro()
 {
     tenis nuevo;
+
     cout << "\nDigita la marca del tenis: " << endl;
     cin >> nuevo.marca;
     cout << "Digita el color del tenis" << endl;
@@ -133,44 +134,51 @@ tenis agregarRegistro()
     return nuevo;
 }
 
-queue<tenis> agregarFin(queue<tenis> cola, queue<tenis> colaAux, tenis auxTenis, int tam)
+queue<tenis> agregarFin(queue<tenis> cola, queue<tenis> colaAux, tenis auxTenis, int tamCola)
 {
-    int fin = tam - 1;
+    int fin = tamCola - 1;
+
     for (int i = 0; i < fin; i++)
     {
         colaAux.push(cola.front());
         cola.pop();
     }
+
     auxTenis = agregarRegistro();
     colaAux.push(auxTenis);
-    for (int i = 0; i < tam; i++)
+
+    for (int i = 0; i < tamCola; i++)
     {
         colaAux.push(cola.front());
         cola.pop();
     }
+
     return colaAux;
 }
 
-queue<tenis> agregarPosN(queue<tenis> cola, queue<tenis> colaAux, tenis auxTenis, int tam, int pos)
+queue<tenis> agregarPosN(queue<tenis> cola, queue<tenis> colaAux, tenis auxTenis, int tamCola, int pos)
 {
     for (int i = 0; i < pos; i++)
     {
         colaAux.push(cola.front());
         cola.pop();
     }
+
     auxTenis = agregarRegistro();
     colaAux.push(auxTenis);
-    for (int i = 0; i < tam; i++)
+
+    for (int i = 0; i < tamCola; i++)
     {
         colaAux.push(cola.front());
         cola.pop();
     }
+
     return colaAux;
 }
 
-int mostrarAsc(queue<tenis> cola, tenis auxTenis, int tam)
+int mostrarAsc(queue<tenis> cola, tenis auxTenis, int tamCola)
 {
-    for (int i = 0; i < tam; i++)
+    for (int i = 0; i < tamCola; i++)
     {
         auxTenis = cola.front();
         cout << "\nMarca => " << auxTenis.marca << endl;
@@ -178,27 +186,34 @@ int mostrarAsc(queue<tenis> cola, tenis auxTenis, int tam)
         cout << "Tamano de calzado: " << auxTenis.tamanoCalzado << endl;
         cola.pop();
     }
+
     return 0;
 }
 
-int mostrarDesc(queue<tenis> cola, tenis auxTenis, int tam)
+int mostrarDesc(queue<tenis> cola, tenis auxTenis, int tamCola)
 {
     queue<tenis> colaAux;
+
     auxTenis = cola.back();
+
     cout << "\nMarca => " << auxTenis.marca << endl;
     cout << "Color: " << auxTenis.color << endl;
     cout << "Tamano de calzado: " << auxTenis.tamanoCalzado << endl;
-    if (tam - 1 == 0)
+
+    if (tamCola - 1 == 0)
     {
         return 0;
     }
-    for (int i = 0; i < tam - 1; i++)
+
+    for (int i = 0; i < tamCola - 1; i++)
     {
         colaAux.push(cola.front());
         cola.pop();
     }
-    tam = colaAux.size();
-    mostrarDesc(colaAux, auxTenis, tam);
+
+    tamCola = colaAux.size();
+    mostrarDesc(colaAux, auxTenis, tamCola);
+
     return 0;
 }
 
@@ -209,7 +224,9 @@ queue<tenis> eliminarFin(queue<tenis> cola, queue<tenis> colaAux, tenis auxTenis
         colaAux.push(cola.front());
         cola.pop();
     }
+
     auxTenis = cola.back();
+
     cout << "\n\tSe ha eliminado la estructura: " << endl;
     cout << "Marca: " << auxTenis.marca << endl;
     cout << "Color: " << auxTenis.color << endl;
@@ -226,23 +243,28 @@ queue<tenis> eliminarFin(queue<tenis> cola, queue<tenis> colaAux, tenis auxTenis
     return colaAux;
 }
 
-queue<tenis> eliminarPosN(queue<tenis> cola, queue<tenis> colaAux, tenis auxTenis, int tam, int pos)
+queue<tenis> eliminarPosN(queue<tenis> cola, queue<tenis> colaAux, tenis auxTenis, int tamCola, int pos)
 {
     for (int i = 0; i < pos; i++)
     {
         colaAux.push(cola.front());
         cola.pop();
     }
+
     auxTenis = cola.back();
+
     cout << "\n\tSe ha eliminado la estructura: " << endl;
     cout << "Marca: " << auxTenis.marca << endl;
     cout << "Color: " << auxTenis.color << endl;
     cout << "Tamano de calzado: " << auxTenis.tamanoCalzado << endl;
+
     cola.pop();
-    for (int i = pos; i < tam - 1; i++)
+
+    for (int i = pos; i < tamCola - 1; i++)
     {
         colaAux.push(cola.front());
         cola.pop();
     }
+
     return colaAux;
 }

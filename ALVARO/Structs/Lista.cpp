@@ -22,7 +22,7 @@ int main(){
     int cond=0,num;
     do
     {
-        cout<<"1.-insertar inicio "<<endl<<"2.-insertar fin"<<endl<<"3.-ver lista"<<endl<<"4.-salir"<<endl;
+        cout<<endl<<"introduce la opción deseada"<<endl<<"1.-Agregar datos a inicio"<<endl<<"2.-Agregar datos fin"<<endl<<"3.-Agregar datos pos N"<<endl<<"4.-Imprimir inicio a fin"<<endl<<"5.-Elimina al inicio"<<endl<<"6.-Elimina al final"<<endl<<"7.-Elimina en posicion"<<endl<<"8.-Salir"<<endl;
         cin>>cond;
         switch (cond)
         {
@@ -47,7 +47,7 @@ int main(){
         }
         
         
-    } while (cond!=4);
+    } while (cond!=8);
     
     system("pause");
 

@@ -14,12 +14,13 @@ typedef struct Nodo{
 void ins_listini(Nodo *lista,int dato);
 void most_list(Nodo *lista);
 void ins_listfin(Nodo *lista,int dato);
+void ins_listpos(Nodo *lista,int dato, int pos);
 int sizeof_nodo(Nodo* Lista);
 
 int main(){
     Nodo *inicio=NULL;
     inicio=new Nodo();
-    int cond=0,num;
+    int cond=0,num,tam;
     do
     {
         cout<<endl<<"introduce la opción deseada"<<endl<<"1.-Agregar datos a inicio"<<endl<<"2.-Agregar datos fin"<<endl<<"3.-Agregar datos pos N"<<endl<<"4.-Imprimir inicio a fin"<<endl<<"5.-Elimina al inicio"<<endl<<"6.-Elimina al final"<<endl<<"7.-Elimina en posicion"<<endl<<"8.-Salir"<<endl;
@@ -37,10 +38,25 @@ int main(){
             ins_listfin(inicio,num);
             break;
         case 3:
-            system("cls");
-            most_list(inicio);
+            tam=sizeof_nodo(inicio);
+            cout<<"hay "<<tam<<" posiciones"<<endl<<"Introduce la posicion que quieres cambiar";
+            int pos;
+            cin>>pos;
+            if (pos>tam||tam<0)
+            {
+                cout<<"Introduce una opcion valida";
+                break;
+            }
+            
+            cout<<"Introduce un numero";
+            cin>>num;
+            
+            
+            ins_listpos(inicio,num,pos);
             break;
         case 4:
+            system("cls");
+            most_list(inicio);
             break;
         default:
             break;
@@ -101,15 +117,29 @@ void most_list(Nodo *lista){
 
 int sizeof_nodo(Nodo* Lista){
     Nodo *iterador;
-    int counter;
+    int counter=0;
     iterador=Lista;
-    while (iterador!=NULL)
+    while (iterador->sig!=NULL)
     {
         counter++;
         iterador=iterador->sig;
     }
     return counter;
 }
-//crea nodo nuevo
-//poner datos
-//Enlace a siguiente null
+
+
+void ins_listpos(Nodo *lista,int dato, int pos){
+    Nodo *iterador;
+    iterador=lista;
+    for (int i = 0; i < pos-1; i++)
+    {
+        iterador=iterador->sig;
+    }
+    Nodo *nuevo_nodo=new Nodo();
+    nuevo_nodo->dato=dato;
+    nuevo_nodo->sig=iterador->sig;
+    iterador->sig=nuevo_nodo;
+
+
+    
+}

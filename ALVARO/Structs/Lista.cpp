@@ -11,48 +11,101 @@ typedef struct Nodo{
         Nodo *sig;
 }Nodo;
 
-void ins_list(Nodo *&lista,int dato);
+void ins_listini(Nodo *lista,int dato);
+void most_list(Nodo *lista);
+void ins_listfin(Nodo *lista,int dato);
+int sizeof_nodo(Nodo* Lista);
 
 int main(){
     Nodo *inicio=NULL;
     int cond=0,num;
     do
     {
-        cout<<"Introduce EL numero que quieras insertar"<<endl;
-        cin>>num;
-        ins_list(inicio,num);
+        cout<<"1.-insertar inicio "<<endl<<"2.-insertar fin"<<endl<<"3.-ver lista"<<endl<<"4.-salir"<<endl;
+        cin>>cond;
+        switch (cond)
+        {
+        case 1:
+            cout<<"Introduce un numero"<<endl;
+            cin>>num;
+            ins_listini(inicio,num);
+            break;
+        case 2:
+            cout<<"Introduce un numero"<<endl;
+            cin>>num;
+            ins_listfin(inicio,num);
+            break;
+        case 3:
+            most_list(inicio);
+            break;
+        case 4:
+            break;
+        default:
+            break;
+        }
         
-
-    } while (cond==0);
+        
+    } while (cond!=4);
     
-
+    system("pause");
 
     return 0;
 }
 
 
 
-void ins_list(Nodo *&lista,int dato){
-      Nodo *nuevo_nodo=new Nodo();
-      nuevo_nodo->dato=dato;
-      Nodo *aux1=lista;
-      Nodo *aux2;
-      while (aux1!=NULL&&aux1->dato<dato)
-      {
-          aux2=aux1;
-          aux1=aux1->sig;
-      }
-      if (lista==aux1)
-      {
-          lista=nuevo_nodo;
-      }
-      else{
-          aux2->sig=nuevo_nodo;
-      }
-      nuevo_nodo->sig=aux1;
+void ins_listini(Nodo *lista,int dato){
+      Nodo *nuevo_nodo=new Nodo();//1
+      nuevo_nodo->sig=NULL;//2
+      nuevo_nodo->dato=dato;//3
       
-      cout<<"Numero "<<nuevo_nodo->dato<<" insertado correctamente"<<endl;
-  
+      if (lista==NULL)
+      {
+          lista->sig=nuevo_nodo;
+      }else{
+          nuevo_nodo->sig=lista->sig;
+          lista->sig=nuevo_nodo;
+      }
+      
+}
+
+
+void ins_listfin(Nodo *lista,int dato){
+    Nodo *iterador;
+    iterador=lista;
+    while (iterador->sig!=NULL)
+    {
+        iterador=iterador->sig;
+    }
+    Nodo *nuevo_nodo=new Nodo();
+    nuevo_nodo->sig=NULL;
+    iterador->sig=nuevo_nodo;
+    nuevo_nodo->dato=dato;
+    
+}
+
+
+void most_list(Nodo *lista){
+    Nodo *iterador;
+    iterador=lista;
+    while (iterador!=NULL)
+    {
+        
+        iterador=iterador->sig;
+    }
+    cout<<endl;
+}
+
+int sizeof_nodo(Nodo* Lista){
+    Nodo *iterador;
+    int counter;
+    iterador=Lista;
+    while (iterador!=NULL)
+    {
+        counter++;
+        iterador=iterador->sig;
+    }
+    return counter;
 }
 //crea nodo nuevo
 //poner datos

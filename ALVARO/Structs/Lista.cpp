@@ -18,6 +18,7 @@ int sizeof_nodo(Nodo* Lista);
 
 int main(){
     Nodo *inicio=NULL;
+    inicio=new Nodo();
     int cond=0,num;
     do
     {
@@ -36,6 +37,7 @@ int main(){
             ins_listfin(inicio,num);
             break;
         case 3:
+            system("cls");
             most_list(inicio);
             break;
         case 4:
@@ -59,8 +61,9 @@ void ins_listini(Nodo *lista,int dato){
       nuevo_nodo->sig=NULL;//2
       nuevo_nodo->dato=dato;//3
       
+      
       if (lista==NULL)
-      {
+      {    
           lista->sig=nuevo_nodo;
       }else{
           nuevo_nodo->sig=lista->sig;
@@ -88,10 +91,10 @@ void ins_listfin(Nodo *lista,int dato){
 void most_list(Nodo *lista){
     Nodo *iterador;
     iterador=lista;
-    while (iterador!=NULL)
+    while (iterador->sig!=NULL)
     {
-        
         iterador=iterador->sig;
+        cout<<iterador->dato<<"-->";
     }
     cout<<endl;
 }

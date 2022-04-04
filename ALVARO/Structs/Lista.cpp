@@ -4,10 +4,15 @@
 #include<stdlib.h>
 using namespace std;
 
-
+typedef struct{
+        string nombre;
+        string apellido;
+        int edad;
+        int id;
+}Dato;
 
 typedef struct Nodo{
-        int dato;
+        Dato dato;
         Nodo *sig;
 }Nodo;
 
@@ -19,6 +24,8 @@ int sizeof_nodo(Nodo* Lista);
 void elim_ini(Nodo *lista);
 void elim_fin(Nodo *Lista);
 void elim_pos(Nodo *Lista,int pos);
+ostream& operator<<(ostream& print,Nodo list);
+istream& operator>>(istream save,Nodo list);
 
 int main(){
     Nodo *inicio=NULL;
@@ -94,7 +101,7 @@ int main(){
 
 
 
-void ins_listini(Nodo *lista,int dato){
+void ins_listini(Nodo *lista,Dato dato){
       Nodo *nuevo_nodo=new Nodo();//1
       nuevo_nodo->sig=NULL;//2
       nuevo_nodo->dato=dato;//3
@@ -111,7 +118,7 @@ void ins_listini(Nodo *lista,int dato){
 }
 
 
-void ins_listfin(Nodo *lista,int dato){
+void ins_listfin(Nodo *lista,Dato dato){
     Nodo *iterador;
     iterador=lista;
     while (iterador->sig!=NULL)
@@ -132,7 +139,7 @@ void most_list(Nodo *lista){
     while (iterador->sig!=NULL)
     {
         iterador=iterador->sig;
-        cout<<iterador->dato<<"-->";
+        cout<<(*iterador);//sobrecarga de la funcion
     }
     cout<<endl;
 }
@@ -150,7 +157,7 @@ int sizeof_nodo(Nodo* Lista){
 }
 
 
-void ins_listpos(Nodo *lista,int dato, int pos){
+void ins_listpos(Nodo *lista,Dato dato, int pos){
     Nodo *iterador;
     iterador=lista;
     for (int i = 0; i < pos-1; i++)
@@ -212,4 +219,21 @@ void elim_pos(Nodo *Lista,int pos){
 
     
 
+}
+
+
+ostream& operator<<(ostream& print,Nodo list){
+    print<<list.dato.id<<" "<<list.dato.nombre<<" "<<list.dato.apellido<<endl<<"Edad: "<<list.dato.edad<<endl;
+    return print;
+}
+
+
+istream& operator>>(istream save,Nodo list){
+    cout<<"Introduce el nombre";
+    save>>list.dato.nombre;
+    cout<<"introduce el apellido";
+    save>>list.dato.apellido;
+    cout<<"introduce la edad";
+    save>>list.dato.edad;
+    return save;
 }

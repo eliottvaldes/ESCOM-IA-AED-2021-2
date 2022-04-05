@@ -16,21 +16,24 @@ typedef struct Nodo{
         Nodo *sig;
 }Nodo;
 
-void ins_listini(Nodo *lista,int dato);
+void ins_listini(Nodo *lista,Dato dato);
 void most_list(Nodo *lista);
-void ins_listfin(Nodo *lista,int dato);
-void ins_listpos(Nodo *lista,int dato, int pos);
+void ins_listfin(Nodo *lista,Dato dato);
+void ins_listpos(Nodo *lista,Dato dato, int pos);
 int sizeof_nodo(Nodo* Lista);
 void elim_ini(Nodo *lista);
-void elim_fin(Nodo *Lista);
+int elim_fin(Nodo *Lista);
 void elim_pos(Nodo *Lista,int pos);
 ostream& operator<<(ostream& print,Nodo list);
-istream& operator>>(istream save,Nodo list);
+//istream& operator>>(istream& save,Nodo list);
+Dato istr();
 
 int main(){
     Nodo *inicio=NULL;
     inicio=new Nodo();
-    int cond=0,num,tam,pos;
+    int cond=0,tam,pos;
+    Dato num;
+    
     do
     {
         cout<<endl<<"introduce la opción deseada"<<endl<<"1.-Agregar datos a inicio"<<endl<<"2.-Agregar datos fin"<<endl<<"3.-Agregar datos pos N"<<endl<<"4.-Imprimir inicio a fin"<<endl<<"5.-Elimina al inicio"<<endl<<"6.-Elimina al final"<<endl<<"7.-Elimina en posicion"<<endl<<"8.-Salir"<<endl;
@@ -38,13 +41,14 @@ int main(){
         switch (cond)
         {
         case 1:
-            cout<<"Introduce un numero"<<endl;
-            cin>>num;
+            
+            num=istr();
             ins_listini(inicio,num);
             break;
         case 2:
-            cout<<"Introduce un numero"<<endl;
-            cin>>num;
+            
+           // cin>>num;
+            num=istr();
             ins_listfin(inicio,num);
             break;
         case 3:
@@ -57,10 +61,8 @@ int main(){
                 break;
             }
             
-            cout<<"Introduce un numero"<<endl;
-            cin>>num;
-            
-            
+            //cin>>num;
+            num=istr(); 
             ins_listpos(inicio,num,pos);
             break;
         case 4:
@@ -88,6 +90,7 @@ int main(){
         case 8:
             break;
         default:
+            cout<<"Introduce una opcion valida"<<endl;
             break;
         }
         
@@ -183,10 +186,16 @@ void elim_ini(Nodo *lista){
 }
 
 
-void elim_fin(Nodo *Lista){
+int elim_fin(Nodo *Lista){
     Nodo *iterador;
     Nodo *antes;
     iterador=Lista->sig;
+    if (iterador==NULL)
+    {
+        cout<<"No hay lista que borrar";
+        return 0;
+    }
+    
     while (iterador->sig!=NULL)
     {   
         antes=iterador;
@@ -195,6 +204,7 @@ void elim_fin(Nodo *Lista){
     }
     antes->sig=NULL;
     delete iterador;
+    return 0;
 }
 
 
@@ -227,13 +237,23 @@ ostream& operator<<(ostream& print,Nodo list){
     return print;
 }
 
-
-istream& operator>>(istream save,Nodo list){
-    cout<<"Introduce el nombre";
-    save>>list.dato.nombre;
-    cout<<"introduce el apellido";
-    save>>list.dato.apellido;
-    cout<<"introduce la edad";
-    save>>list.dato.edad;
-    return save;
+Dato istr(){
+    Dato list;
+    cout<<"Introduce el nombre ";
+    cin>>list.nombre;
+    cout<<"introduce el apellido ";
+    cin>>list.apellido;
+    cout<<"introduce la edad ";
+    cin>>list.edad;
+    list.id=rand()%100;
+    return list;
 }
+/*istream& operator>>(istream& save,Dato list){
+    cout<<"Introduce el nombre";
+    save>>list.nombre;
+    cout<<"introduce el apellido";
+    save>>list.apellido;
+    cout<<"introduce la edad";
+    save>>list.edad;
+    return save;
+}*/

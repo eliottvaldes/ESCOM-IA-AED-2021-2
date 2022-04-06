@@ -1,5 +1,9 @@
-/* ▪* Montero Barraza Alvaro David*
- *2BV1 Ingenieria en IA ▪*  ▪*/
+/*
+======================================
+ ▪* Montero Barraza Alvaro David*
+    *2BV1 Ingenieria en IA ▪*  
+=======================================
+ */
 #include<iostream>
 #include<stdlib.h>
 using namespace std;
@@ -15,6 +19,7 @@ typedef struct Nodo{
 
 //Prototipos de funciones
 bool ins_elem(Nodo *list,int tam,int dato);
+bool elim_elem(Nodo *list,int tam);
 int size_que(Nodo *list);
 
 int main(){
@@ -66,3 +71,29 @@ bool ins_elem(Nodo *list,int tam,int dato){
     
 
 }
+
+
+bool elim_elem(Nodo *list,int tam){
+    Nodo *iterator;
+    Nodo *antes;
+    iterator=list->sig;
+    while (iterator->sig!=NULL)
+    {   
+        antes=iterator;
+        iterator=iterator->sig;
+    }
+    antes->sig=NULL;
+    delete iterator;
+}
+
+/*
+================================================
+===============Doble apuntador==================
+================================================
+int **arr=(int**)malloc(n,sizeof(int*));
+
+for(int i;i<3,i++){
+    arr[i]=(int*)malloc(n*sizeof(int))
+}
+*Se puede sustituir malloc con calloc*
+*/

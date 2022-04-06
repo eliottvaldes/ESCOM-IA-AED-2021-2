@@ -63,9 +63,6 @@ bool ins_elem(Nodo *list,int tam,int dato){
         list->sig=new_nod;
         return true;
     }
-   
-    
-    
     
 
 }

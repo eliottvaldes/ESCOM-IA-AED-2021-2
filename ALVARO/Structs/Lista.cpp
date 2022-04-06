@@ -248,7 +248,7 @@ Dato istr(){
     list.id=rand()%100;
     return list;
 }
-/*istream& operator>>(istream& save,Dato list){
+/*istream& operator>>(istream& save,Dato &list){
     cout<<"Introduce el nombre";
     save>>list.nombre;
     cout<<"introduce el apellido";

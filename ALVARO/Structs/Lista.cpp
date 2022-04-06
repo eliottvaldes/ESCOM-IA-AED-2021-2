@@ -1,6 +1,5 @@
 /* ▪* Montero Barraza Alvaro David*
  *2BV1 Ingenieria en IA ▪*  ▪*/
-//prueba git
 #include<iostream>
 #include<stdlib.h>
 using namespace std;
@@ -56,7 +55,7 @@ int main(){
             tam=sizeof_nodo(inicio);
             cout<<"Hay "<<tam<<" posiciones"<<endl<<"Introduce la posicion que quieres cambiar"<<endl;
             cin>>pos;
-            if (pos>tam||tam<0)
+                if (pos>tam||tam<0)
             {
                 cout<<"Introduce una opcion valida";
                 break;

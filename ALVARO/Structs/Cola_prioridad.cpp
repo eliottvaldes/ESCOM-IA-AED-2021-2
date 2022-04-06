@@ -14,11 +14,11 @@ typedef struct Nodo{
 }Nodo;
 
 //Prototipos de funciones
-int ins_elem(Nodo *list,int tam);
+int ins_elem(Nodo *list,int tam,int dato);
 int size_que(Nodo *list);
 
 int main(){
-    int opt,tam;
+    int opt,tam,dato;
     Nodo *inicio;
     inicio=new Nodo();
     do
@@ -27,8 +27,10 @@ int main(){
         switch (opt)
         {
         case 1:
+            cout<<"Inserta un numero";
+            cin>>dato;
             tam=size_que(inicio);
-            ins_elem(inicio,tam);
+            ins_elem(inicio,tam,dato);
             
             break;
         
@@ -53,19 +55,17 @@ int size_que(Nodo *list){
     return a;
 }
 
-int ins_elem(Nodo *list,int tam){
+int ins_elem(Nodo *list,int tam,int dato){
     Nodo *new_nod;
-    int dato;
     new_nod=new Nodo();
     if (list==NULL)
     {
         list->sig=new_nod;
         return 0;
     }
-    while (list->dato<=dato)
-    {
-        
-    }
+   
+    
+    
     
 
 }

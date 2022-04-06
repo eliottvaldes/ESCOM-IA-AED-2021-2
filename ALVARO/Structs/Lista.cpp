@@ -1,5 +1,6 @@
 /* ▪* Montero Barraza Alvaro David*
  *2BV1 Ingenieria en IA ▪*  ▪*/
+//prueba git
 #include<iostream>
 #include<stdlib.h>
 using namespace std;
@@ -53,7 +54,7 @@ int main(){
             break;
         case 3:
             tam=sizeof_nodo(inicio);
-            cout<<"hay "<<tam<<" posiciones"<<endl<<"Introduce la posicion que quieres cambiar"<<endl;
+            cout<<"Hay "<<tam<<" posiciones"<<endl<<"Introduce la posicion que quieres cambiar"<<endl;
             cin>>pos;
             if (pos>tam||tam<0)
             {

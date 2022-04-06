@@ -55,11 +55,16 @@ int size_que(Nodo *list){
 
 int ins_elem(Nodo *list,int tam){
     Nodo *new_nod;
+    int dato;
     new_nod=new Nodo();
     if (list==NULL)
     {
         list->sig=new_nod;
         return 0;
+    }
+    while (list->dato<=dato)
+    {
+        
     }
     
 

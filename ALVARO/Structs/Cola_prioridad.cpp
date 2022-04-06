@@ -14,7 +14,7 @@ typedef struct Nodo{
 }Nodo;
 
 //Prototipos de funciones
-int ins_elem(Nodo *list,int tam,int dato);
+bool ins_elem(Nodo *list,int tam,int dato);
 int size_que(Nodo *list);
 
 int main(){
@@ -55,13 +55,13 @@ int size_que(Nodo *list){
     return a;
 }
 
-int ins_elem(Nodo *list,int tam,int dato){
+bool ins_elem(Nodo *list,int tam,int dato){
     Nodo *new_nod;
     new_nod=new Nodo();
     if (list==NULL)
     {
         list->sig=new_nod;
-        return 0;
+        return true;
     }
    
     

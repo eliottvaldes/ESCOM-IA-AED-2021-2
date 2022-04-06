@@ -1,7 +1,6 @@
 #include <iostream>
 #include <stack>
 #include <time.h>
-
 using namespace std;
 
 int imprimirPila(stack<int> pila, int numero);

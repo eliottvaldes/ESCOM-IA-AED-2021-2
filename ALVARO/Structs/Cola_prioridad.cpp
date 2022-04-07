@@ -18,13 +18,13 @@ typedef struct Nodo{
 }Nodo;
 
 //Prototipos de funciones
-bool ins_elem(Nodo *list,int tam,int dato);
+bool ins_elem(Nodo *list,int dato);
 bool elim_elem(Nodo *list,int tam);
 int size_que(Nodo *list);
-void most_que(Nodo *list);
+bool most_que(Nodo *list);
 
 int main(){
-    int opt,tam,dato;
+    int opt,tam=0,dato;
     Nodo *inicio;
     inicio=new Nodo();
     inicio->sig=NULL;
@@ -37,17 +37,18 @@ int main(){
         case 1:
             cout<<"Inserta un numero"<<endl;
             cin>>dato;
-            tam=size_que(inicio);
-            ins_elem(inicio,tam,dato);
+            ins_elem(inicio,dato);
             
             break;
         case 2:
+            tam=size_que(inicio);
             elim_elem(inicio,tam);
             break;
         case 3:
-
+            most_que(inicio);
             break;
         default:
+            cout<<"Introduce una opcion valida";
             break;
         }
     } while (opt!=5);
@@ -58,7 +59,7 @@ int main(){
 int size_que(Nodo *list){
     Nodo *iterador;
     int a;
-    iterador=list;
+    iterador=list->sig;
     while (iterador->sig!=NULL)
     {
         iterador=iterador->sig;
@@ -68,23 +69,27 @@ int size_que(Nodo *list){
     return a;
 }
 
-bool ins_elem(Nodo *list,int tam,int dato){
+bool ins_elem(Nodo *list,int dato){
     Nodo *new_nod;
     Nodo *iterador=list->sig;
     Nodo *antes;
+    
     new_nod=new Nodo();
+    new_nod->sig=NULL;
     if (list->sig==NULL)
     {
         list->sig=new_nod;
+        cout<<"Primer Numero insertado exitosamente"<<endl;
         return true;
     }
-    while (iterador->sig!=NULL && iterador->dato<dato)
+    while ((iterador->sig!=NULL) && (iterador->dato<dato))
     {
         antes=iterador;
         iterador=iterador->sig;
     }
-
-
+    system("pause");
+    antes->sig=new_nod;//aqui se muere el programa
+    new_nod->sig=iterador;
     return true;
 }
 
@@ -104,16 +109,23 @@ bool elim_elem(Nodo *list,int tam){
 }
 
 
-void most_que(Nodo *list){
+bool most_que(Nodo *list){
     Nodo *iterador;
     iterador=list->sig;
+    if (iterador==NULL)
+    {
+        cout<<"No hay elementos"<<endl;
+        return false;
+
+    }
+    
     while (iterador->sig!=NULL)
     {
         cout<<iterador->dato<<"-->";
         iterador=iterador->sig;
     }
     cout<<endl;
-    
+    return true;
 }
 
 /*

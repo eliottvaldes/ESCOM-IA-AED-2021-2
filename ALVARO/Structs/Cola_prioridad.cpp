@@ -21,24 +21,32 @@ typedef struct Nodo{
 bool ins_elem(Nodo *list,int tam,int dato);
 bool elim_elem(Nodo *list,int tam);
 int size_que(Nodo *list);
+void most_que(Nodo *list);
 
 int main(){
     int opt,tam,dato;
     Nodo *inicio;
     inicio=new Nodo();
+    inicio->sig=NULL;
     do
     {   
-        cout<<"1.-Insertar elemento"<<endl<<"2.-Eliminar elemento"<<endl<<"3.-Ver elementos";
+        cout<<"1.-Insertar elemento"<<endl<<"2.-Eliminar elemento"<<endl<<"3.-Ver elementos"<<endl;
+        cin>>opt;
         switch (opt)
         {
         case 1:
-            cout<<"Inserta un numero";
+            cout<<"Inserta un numero"<<endl;
             cin>>dato;
             tam=size_que(inicio);
             ins_elem(inicio,tam,dato);
             
             break;
-        
+        case 2:
+            elim_elem(inicio,tam);
+            break;
+        case 3:
+
+            break;
         default:
             break;
         }
@@ -62,14 +70,22 @@ int size_que(Nodo *list){
 
 bool ins_elem(Nodo *list,int tam,int dato){
     Nodo *new_nod;
+    Nodo *iterador=list->sig;
+    Nodo *antes;
     new_nod=new Nodo();
-    if (list==NULL)
+    if (list->sig==NULL)
     {
         list->sig=new_nod;
         return true;
     }
-    
+    while (iterador->sig!=NULL && iterador->dato<dato)
+    {
+        antes=iterador;
+        iterador=iterador->sig;
+    }
 
+
+    return true;
 }
 
 
@@ -84,6 +100,20 @@ bool elim_elem(Nodo *list,int tam){
     }
     antes->sig=NULL;
     delete iterator;
+    return true;
+}
+
+
+void most_que(Nodo *list){
+    Nodo *iterador;
+    iterador=list->sig;
+    while (iterador->sig!=NULL)
+    {
+        cout<<iterador->dato<<"-->";
+        iterador=iterador->sig;
+    }
+    cout<<endl;
+    
 }
 
 /*

@@ -18,8 +18,8 @@ typedef struct Nodo{
 }Nodo;
 
 //Prototipos de funciones
-bool ins_elem(Nodo *list,int dato);
-bool elim_elem(Nodo *list,int tam);
+bool ins_elem(Nodo **list,int dato);
+bool elim_elem(Nodo **list,int tam);
 int size_que(Nodo *list);
 bool most_que(Nodo *list);
 
@@ -37,12 +37,12 @@ int main(){
         case 1:
             cout<<"Inserta un numero"<<endl;
             cin>>dato;
-            ins_elem(inicio,dato);
+            ins_elem(&inicio,dato);
             
             break;
         case 2:
             tam=size_que(inicio);
-            elim_elem(inicio,tam);
+            elim_elem(&inicio,tam);
             break;
         case 3:
             most_que(inicio);
@@ -69,16 +69,16 @@ int size_que(Nodo *list){
     return a;
 }
 
-bool ins_elem(Nodo *list,int dato){
+bool ins_elem(Nodo **list,int dato){
     Nodo *new_nod;
-    Nodo *iterador=list->sig;
+    Nodo *iterador=(*list)->sig;
     Nodo *antes;
     
     new_nod=new Nodo();
     new_nod->sig=NULL;
-    if (list->sig==NULL)
+    if ((*list)->sig==NULL)
     {
-        list->sig=new_nod;
+        (*list)->sig=new_nod;
         cout<<"Primer Numero insertado exitosamente"<<endl;
         return true;
     }
@@ -94,10 +94,10 @@ bool ins_elem(Nodo *list,int dato){
 }
 
 
-bool elim_elem(Nodo *list,int tam){
+bool elim_elem(Nodo **list,int tam){
     Nodo *iterator;
     Nodo *antes;
-    iterator=list->sig;
+    iterator=(*list)->sig;
     while (iterator->sig!=NULL)
     {   
         antes=iterator;

@@ -18,22 +18,24 @@ typedef struct{
 typedef struct Nodo{
         Dato dato;
         Nodo *sig;
+        Nodo *ant;
 }Nodo;
 
-void ins_listini(Nodo *lista,Dato dato);
+void ins_listini(Nodo **lista,Dato dato);
 void most_list(Nodo *lista);
-void ins_listfin(Nodo *lista,Dato dato);
-void ins_listpos(Nodo *lista,Dato dato, int pos);
+void ins_listfin(Nodo **lista,Dato dato);
+void ins_listpos(Nodo **lista,Dato dato, int pos);
 int sizeof_nodo(Nodo* Lista);
-void elim_ini(Nodo *lista);
-int elim_fin(Nodo *Lista);
-void elim_pos(Nodo *Lista,int pos);
+void elim_ini(Nodo **lista);
+int elim_fin(Nodo **Lista);
+void elim_pos(Nodo **Lista,int pos);
 ostream& operator<<(ostream& print,Nodo list);
 //istream& operator>>(istream& save,Nodo list);
 Dato istr();
 
 int main(){
     Nodo *inicio=NULL;
+    inicio->ant=NULL;
     inicio=new Nodo();
     int cond=0,tam,pos;
     Dato num;
@@ -47,13 +49,13 @@ int main(){
         case 1:
             
             num=istr();
-            ins_listini(inicio,num);
+            ins_listini(&inicio,num);
             break;
         case 2:
             
            // cin>>num;
             num=istr();
-            ins_listfin(inicio,num);
+            ins_listfin(&inicio,num);
             break;
         case 3:
             tam=sizeof_nodo(inicio);
@@ -67,17 +69,23 @@ int main(){
             
             //cin>>num;
             num=istr(); 
-            ins_listpos(inicio,num,pos);
+            ins_listpos(&inicio,num,pos);
             break;
         case 4:
             system("cls");
             most_list(inicio);
             break;
         case 5:
-            elim_ini(inicio);
+            elim_ini(&inicio);
             break;
         case 6:
-            elim_fin(inicio);
+            tam=sizeof_nodo(inicio);
+            if(tam==1){
+                elim_ini(&inicio);
+            }else{
+                elim_fin(&inicio);
+            }
+            
             break;
         case 7:
             tam=sizeof_nodo(inicio);
@@ -88,7 +96,7 @@ int main(){
                 cout<<"Introduce una opcion valida";
                 break;
             }
-            elim_pos(inicio,pos);
+            elim_pos(&inicio,pos);
 
             break;
         case 8:
@@ -108,7 +116,7 @@ int main(){
 
 
 
-void ins_listini(Nodo *lista,Dato dato){
+void ins_listini(Nodo **lista,Dato dato){
       Nodo *nuevo_nodo=new Nodo();//1
       nuevo_nodo->sig=NULL;//2
       nuevo_nodo->dato=dato;//3
@@ -116,18 +124,20 @@ void ins_listini(Nodo *lista,Dato dato){
       
       if (lista==NULL)
       {    
-          lista->sig=nuevo_nodo;
+          (*lista)->sig=nuevo_nodo;
       }else{
-          nuevo_nodo->sig=lista->sig;
-          lista->sig=nuevo_nodo;
+          nuevo_nodo->sig=(*lista)->sig;
+          nuevo_nodo->ant=*lista;
+
+          (*lista)->sig=nuevo_nodo;
       }
       
 }
 
 
-void ins_listfin(Nodo *lista,Dato dato){
+void ins_listfin(Nodo **lista,Dato dato){
     Nodo *iterador;
-    iterador=lista;
+    iterador=*lista;
     while (iterador->sig!=NULL)
     {
         iterador=iterador->sig;
@@ -164,9 +174,9 @@ int sizeof_nodo(Nodo* Lista){
 }
 
 
-void ins_listpos(Nodo *lista,Dato dato, int pos){
+void ins_listpos(Nodo **lista,Dato dato, int pos){
     Nodo *iterador;
-    iterador=lista;
+    iterador=*lista;
     for (int i = 0; i < pos-1; i++)
     {
         iterador=iterador->sig;
@@ -178,22 +188,20 @@ void ins_listpos(Nodo *lista,Dato dato, int pos){
 }
 
 
-void elim_ini(Nodo *lista){
+void elim_ini(Nodo **lista){
     Nodo *aux;
     Nodo *aux2;
-    aux=lista->sig;
+    aux=(*lista)->sig;
     aux2=aux->sig;
-    lista->sig=aux2;
+    (*lista)->sig=aux2;
     delete aux;
-
-
 }
 
 
-int elim_fin(Nodo *Lista){
+int elim_fin(Nodo **Lista){
     Nodo *iterador;
     Nodo *antes;
-    iterador=Lista->sig;
+    iterador=(*Lista)->sig;
     if (iterador==NULL)
     {
         cout<<"No hay lista que borrar";
@@ -212,10 +220,10 @@ int elim_fin(Nodo *Lista){
 }
 
 
-void elim_pos(Nodo *Lista,int pos){
+void elim_pos(Nodo **Lista,int pos){
     Nodo *iterador;
     Nodo *Antes=new Nodo();
-    iterador=Lista;
+    iterador=*Lista;
     for (int i = 0; i < pos; i++)
     {   
         Antes=iterador;

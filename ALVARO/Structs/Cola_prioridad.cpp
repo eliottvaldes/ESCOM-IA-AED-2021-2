@@ -7,16 +7,12 @@
 #include<iostream>
 #include<stdlib.h>
 #include<queue>
+#include<ctime>
 using namespace std;
 
 
 
 
-typedef struct Nodo{
-        int dato;
-        Nodo *sig;
-
-}Nodo;
 
 //Prototipos de funciones
 bool ins_elem();
@@ -25,7 +21,9 @@ bool elim_elem();
 bool most_que();
 
 int main(){
+    srand(time(0));
     int opt,tam=0,dato;
+    priority_queue<int> pq;
     do
     {   
         cout<<"1.-Insertar elemento"<<endl<<"2.-Eliminar elemento"<<endl<<"3.-Ver elementos"<<endl;
@@ -33,8 +31,13 @@ int main(){
         switch (opt)
         {
         case 1:
-            cout<<"Inserta un numero"<<endl;
+            cout<<"Cuantos elementos quieres"<<endl;
             cin>>dato;
+            for (int i = 0; i < dato; i++)
+            {
+                pq.push(rand()%1000);
+            }
+            
             
             
             break;

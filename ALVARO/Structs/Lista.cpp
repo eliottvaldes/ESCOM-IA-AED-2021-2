@@ -29,6 +29,7 @@ int sizeof_nodo(Nodo* Lista);
 void elim_ini(Nodo **lista);
 int elim_fin(Nodo **Lista);
 void elim_pos(Nodo **Lista,int pos);
+bool desp_lat(Nodo **Lista);
 ostream& operator<<(ostream& print,Nodo list);
 //istream& operator>>(istream& save,Nodo list);
 Dato istr();
@@ -42,7 +43,7 @@ int main(){
     
     do
     {
-        cout<<endl<<"introduce la opción deseada"<<endl<<"1.-Agregar datos a inicio"<<endl<<"2.-Agregar datos fin"<<endl<<"3.-Agregar datos pos N"<<endl<<"4.-Imprimir inicio a fin"<<endl<<"5.-Elimina al inicio"<<endl<<"6.-Elimina al final"<<endl<<"7.-Elimina en posicion"<<endl<<"8.-Salir"<<endl;
+        cout<<endl<<"introduce la opción deseada"<<endl<<"1.-Agregar datos a inicio"<<endl<<"2.-Agregar datos fin"<<endl<<"3.-Agregar datos pos N"<<endl<<"4.-Imprimir inicio a fin"<<endl<<"5.-Elimina al inicio"<<endl<<"6.-Elimina al final"<<endl<<"7.-Elimina en posicion"<<endl<<"8.-Desplazamiento lateral"<<endl<<"9.-Salir"<<endl;
         cin>>cond;
         switch (cond)
         {
@@ -100,6 +101,9 @@ int main(){
 
             break;
         case 8:
+            desp_lat(&inicio);
+            break;
+        case 9:
             break;
         default:
             cout<<"Introduce una opcion valida"<<endl;
@@ -107,7 +111,7 @@ int main(){
         }
         
         
-    } while (cond!=8);
+    } while (cond!=9);
     
     system("pause");
 
@@ -258,6 +262,73 @@ void elim_pos(Nodo **Lista,int pos){
     
 
     
+
+}
+
+
+bool desp_lat(Nodo **Lista){
+    int cond=1,contador=1;
+    Nodo *iterador=*Lista;
+    string opt;
+    bool dir;
+    int tam=sizeof_nodo(*Lista);
+    cout<<"Desplazamiento lateral"<<endl<<endl;
+    cout<<"Actualmente se encuentra en pos "<<contador<<endl;
+    iterador=iterador->sig;
+    cout<<(*iterador);
+    do
+    {
+        if(contador>1){
+            cout<<"Actualmente se encuentra en pos "<<contador<<endl;
+            cout<<(*iterador)<<endl;
+        }
+
+        if (contador>1&&tam>2)
+        {
+            cout<<"Deseas ir a la izquierda o a la derecha?"<<endl;
+            cin>>opt;
+            opt=="izquierda"?dir=false:dir=true;
+            if (dir=true)
+            {
+                iterador=iterador->sig;
+                contador++;
+            }else if(dir=false&&iterador->ant!=NULL){
+                iterador=iterador->ant;
+                contador--;
+            }
+            
+
+        }else{
+            cout<<"Deseas Moverte una posicion a la derecha?"<<endl;
+            cin>>opt;
+            opt=="si"?dir=true:cond=0;
+            if(iterador->sig==NULL){
+            
+            }else{
+                if (cond==0)
+                {
+                    cond=0;
+                }else if(dir==true){
+                    iterador=iterador->sig;
+                    contador++;
+
+                }
+                
+            }
+            
+        }
+        if(iterador==NULL){
+            
+        }
+        cout<<endl;
+        cout<<(*iterador);
+        
+
+        cout<<"Deseas salir al menu principal? 0.-si  1.- no"<<endl;
+        cin>>cond;
+    } while (cond==1);
+    
+
 
 }
 

@@ -11,7 +11,7 @@
 using namespace std;
 
 
-
+//push,pop,empty,size,front,top="elemento de mayor prioridad"
 
 
 //Prototipos de funciones

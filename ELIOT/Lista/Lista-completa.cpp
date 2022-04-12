@@ -161,7 +161,7 @@ void agregarFinal(nodo **inicio)
     else
     {
         nodo *nuevo = new (nodo);
-        nodo *iterador1 = *inicio;
+        nodo *ite_aux_1 = *inicio;
         nuevo->siguiente = NULL;
 
         cout << "\nMarca: " << endl;
@@ -173,18 +173,18 @@ void agregarFinal(nodo **inicio)
         cout << "\nAnio de fabricacion: " << endl;
         cin >> nuevo->anio_de_fabricacion;
 
-        while (iterador1->siguiente != NULL)
+        while (ite_aux_1->siguiente != NULL)
         {
-            iterador1 = iterador1->siguiente;
+            ite_aux_1 = ite_aux_1->siguiente;
         }
-        iterador1->siguiente = nuevo;
+        ite_aux_1->siguiente = nuevo;
     }
 }
 
 void agregarPosN(nodo **inicio)
 {
     nodo *nuevo = new (nodo);
-    nodo *iterador1 = *inicio;
+    nodo *ite_aux_1 = *inicio;
     int posN = 0, contador = 1;
     nuevo->siguiente = NULL;
     cout << "\nDigita la posicion donde quieres insertar un nuevo elemento: " << endl;
@@ -205,19 +205,19 @@ void agregarPosN(nodo **inicio)
 
         while (contador < posN - 1)
         {
-            iterador1 = iterador1->siguiente;
+            ite_aux_1 = ite_aux_1->siguiente;
             contador++;
         }
-        nuevo->siguiente = iterador1->siguiente;
-        iterador1->siguiente = nuevo;
+        nuevo->siguiente = ite_aux_1->siguiente;
+        ite_aux_1->siguiente = nuevo;
     }
 }
 
 void mostrarInicio(nodo *inicio)
 {
     int cont = 0;
-    nodo *iterador1;
-    iterador1 = inicio;
+    nodo *ite_aux_1;
+    ite_aux_1 = inicio;
     nodo *vacio;
     if (inicio != NULL)
     {
@@ -227,22 +227,22 @@ void mostrarInicio(nodo *inicio)
             vacio = vacio->siguiente;
             cont++;
         }
-        while (iterador1->siguiente != NULL)
+        while (ite_aux_1->siguiente != NULL)
         {
             cout << "\n\n---------------------------------------------" << endl;
-            cout << "\nMarca => " << iterador1->modelo << endl;
-            cout << "\nModelo => " << iterador1->marca << endl;
-            cout << "\nPrecio => " << iterador1->anio_de_fabricacion << endl;
-            cout << "\nAnio de fabricacion => " << iterador1->anio_de_fabricacion << endl;
+            cout << "\nMarca => " << ite_aux_1->modelo << endl;
+            cout << "\nModelo => " << ite_aux_1->marca << endl;
+            cout << "\nPrecio => " << ite_aux_1->anio_de_fabricacion << endl;
+            cout << "\nAnio de fabricacion => " << ite_aux_1->anio_de_fabricacion << endl;
             cout << "\n\n---------------------------------------------" << endl;
 
-            iterador1 = iterador1->siguiente;
+            ite_aux_1 = ite_aux_1->siguiente;
         }
         cout << "\n\n---------------------------------------------" << endl;
-        cout << "Marca => " << iterador1->modelo << endl;
-        cout << "\nModelo => " << iterador1->marca << endl;
-        cout << "\nPrecio => " << iterador1->anio_de_fabricacion << endl;
-        cout << "\nAnio de fabricacion => " << iterador1->anio_de_fabricacion << endl;
+        cout << "Marca => " << ite_aux_1->modelo << endl;
+        cout << "\nModelo => " << ite_aux_1->marca << endl;
+        cout << "\nPrecio => " << ite_aux_1->anio_de_fabricacion << endl;
+        cout << "\nAnio de fabricacion => " << ite_aux_1->anio_de_fabricacion << endl;
         cout << "---------------------------------------------" << endl;
     }
 }
@@ -256,27 +256,27 @@ void eliminarInicio(nodo **inicio)
 
 void eliminarFinal(nodo **inicio)
 {
-    nodo *iterador1 = *inicio;
-    nodo *iterador2 = *inicio;
+    nodo *ite_aux_1 = *inicio;
+    nodo *ite_aux_2 = *inicio;
     int contador = 0;
-    while (iterador1->siguiente != NULL)
+    while (ite_aux_1->siguiente != NULL)
     {
-        iterador1 = iterador1->siguiente;
+        ite_aux_1 = ite_aux_1->siguiente;
         contador++;
     }
     for (size_t i = 0; i < contador - 1; i++)
     {
-        iterador2 = iterador2->siguiente;
+        ite_aux_2 = ite_aux_2->siguiente;
     }
-    delete iterador1;
-    iterador2->siguiente = NULL;
+    delete ite_aux_1;
+    ite_aux_2->siguiente = NULL;
 }
 
 void eliminarPosN(nodo **inicio)
 {
     int posN = 0, contador = 1;
-    nodo *iterador1 = *inicio;
-    nodo *iterador2 = *inicio;
+    nodo *ite_aux_1 = *inicio;
+    nodo *ite_aux_2 = *inicio;
     cout << "\nDigita la posicion del elemento que deseas eliminar: " << endl;
     cin >> posN;
     if (posN == 1)
@@ -287,37 +287,19 @@ void eliminarPosN(nodo **inicio)
     {
         while (contador < posN - 1)
         {
-            iterador1 = iterador1->siguiente;
+            ite_aux_1 = ite_aux_1->siguiente;
             contador++;
         }
-        iterador2 = iterador1->siguiente;
-        iterador1->siguiente = iterador1->siguiente->siguiente;
+        ite_aux_2 = ite_aux_1->siguiente;
+        ite_aux_1->siguiente = ite_aux_1->siguiente->siguiente;
 
-        if (iterador1 == NULL)
+        if (ite_aux_1 == NULL)
         {
             eliminarFinal(inicio);
         }
         else
         {
-            delete iterador2;
+            delete ite_aux_2;
         }
     }
-}
-
-ostream &operator<<(ostream &os, nodo est)
-{
-    os << "\nMarca =>" << est.marca;
-    os << "\nModelo =>" << est.modelo;
-    os << "\nPrecio =>" << est.precio;
-    os << "\nAnio de fabricacion =>" << est.anio_de_fabricacion;
-    return os;
-}
-
-istream &operator>>(istream &in, nodo &est)
-{
-    cin >> est.marca;
-    cin >> est.modelo;
-    cin >> est.precio;
-    cin >> est.anio_de_fabricacion;
-    return in;
 }

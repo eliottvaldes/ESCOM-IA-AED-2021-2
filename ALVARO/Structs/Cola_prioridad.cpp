@@ -15,9 +15,6 @@ using namespace std;
 
 
 //Prototipos de funciones
-bool ins_elem();
-bool elim_elem();
-
 bool most_que();
 
 int main(){
@@ -58,9 +55,6 @@ int main(){
 
 
 
-bool ins_elem(){
-   
-}
 
 
 bool elim_elem(){

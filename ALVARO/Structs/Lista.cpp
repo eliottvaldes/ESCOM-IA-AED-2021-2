@@ -1,5 +1,9 @@
-/* ▪* Montero Barraza Alvaro David*
- *2BV1 Ingenieria en IA ▪*  ▪*/
+/*
+======================================
+ ▪* Montero Barraza Alvaro David*
+     *2BV1 Ingenieria en IA ▪*  
+=======================================
+ */
 #include<iostream>
 #include<stdlib.h>
 using namespace std;
@@ -14,16 +18,18 @@ typedef struct{
 typedef struct Nodo{
         Dato dato;
         Nodo *sig;
+        Nodo *ant;
 }Nodo;
 
-void ins_listini(Nodo *lista,Dato dato);
+void ins_listini(Nodo **lista,Dato dato);
 void most_list(Nodo *lista);
-void ins_listfin(Nodo *lista,Dato dato);
-void ins_listpos(Nodo *lista,Dato dato, int pos);
+bool ins_listfin(Nodo **lista,Dato dato);
+void ins_listpos(Nodo **lista,Dato dato, int pos);
 int sizeof_nodo(Nodo* Lista);
-void elim_ini(Nodo *lista);
-int elim_fin(Nodo *Lista);
-void elim_pos(Nodo *Lista,int pos);
+void elim_ini(Nodo **lista);
+int elim_fin(Nodo **Lista);
+void elim_pos(Nodo **Lista,int pos);
+bool desp_lat(Nodo **Lista);
 ostream& operator<<(ostream& print,Nodo list);
 //istream& operator>>(istream& save,Nodo list);
 Dato istr();
@@ -31,25 +37,26 @@ Dato istr();
 int main(){
     Nodo *inicio=NULL;
     inicio=new Nodo();
+    inicio->ant=NULL;
     int cond=0,tam,pos;
     Dato num;
     
     do
     {
-        cout<<endl<<"introduce la opción deseada"<<endl<<"1.-Agregar datos a inicio"<<endl<<"2.-Agregar datos fin"<<endl<<"3.-Agregar datos pos N"<<endl<<"4.-Imprimir inicio a fin"<<endl<<"5.-Elimina al inicio"<<endl<<"6.-Elimina al final"<<endl<<"7.-Elimina en posicion"<<endl<<"8.-Salir"<<endl;
+        cout<<endl<<"introduce la opción deseada"<<endl<<"1.-Agregar datos a inicio"<<endl<<"2.-Agregar datos fin"<<endl<<"3.-Agregar datos pos N"<<endl<<"4.-Imprimir inicio a fin"<<endl<<"5.-Elimina al inicio"<<endl<<"6.-Elimina al final"<<endl<<"7.-Elimina en posicion"<<endl<<"8.-Desplazamiento lateral"<<endl<<"9.-Salir"<<endl;
         cin>>cond;
         switch (cond)
         {
         case 1:
             
             num=istr();
-            ins_listini(inicio,num);
+            ins_listini(&inicio,num);
             break;
         case 2:
             
            // cin>>num;
             num=istr();
-            ins_listfin(inicio,num);
+            ins_listfin(&inicio,num);
             break;
         case 3:
             tam=sizeof_nodo(inicio);
@@ -63,17 +70,23 @@ int main(){
             
             //cin>>num;
             num=istr(); 
-            ins_listpos(inicio,num,pos);
+            ins_listpos(&inicio,num,pos);
             break;
         case 4:
             system("cls");
             most_list(inicio);
             break;
         case 5:
-            elim_ini(inicio);
+            elim_ini(&inicio);
             break;
         case 6:
-            elim_fin(inicio);
+            tam=sizeof_nodo(inicio);
+            if(tam==1){
+                elim_ini(&inicio);
+            }else{
+                elim_fin(&inicio);
+            }
+            
             break;
         case 7:
             tam=sizeof_nodo(inicio);
@@ -84,10 +97,13 @@ int main(){
                 cout<<"Introduce una opcion valida";
                 break;
             }
-            elim_pos(inicio,pos);
+            elim_pos(&inicio,pos);
 
             break;
         case 8:
+            desp_lat(&inicio);
+            break;
+        case 9:
             break;
         default:
             cout<<"Introduce una opcion valida"<<endl;
@@ -95,7 +111,7 @@ int main(){
         }
         
         
-    } while (cond!=8);
+    } while (cond!=9);
     
     system("pause");
 
@@ -104,7 +120,7 @@ int main(){
 
 
 
-void ins_listini(Nodo *lista,Dato dato){
+void ins_listini(Nodo **lista,Dato dato){
       Nodo *nuevo_nodo=new Nodo();//1
       nuevo_nodo->sig=NULL;//2
       nuevo_nodo->dato=dato;//3
@@ -112,26 +128,41 @@ void ins_listini(Nodo *lista,Dato dato){
       
       if (lista==NULL)
       {    
-          lista->sig=nuevo_nodo;
+          nuevo_nodo->ant=NULL;
+          (*lista)->sig=nuevo_nodo;
       }else{
-          nuevo_nodo->sig=lista->sig;
-          lista->sig=nuevo_nodo;
+          nuevo_nodo->sig=(*lista)->sig;
+          nuevo_nodo->ant=NULL;
+
+          (*lista)->sig=nuevo_nodo;
       }
       
 }
 
 
-void ins_listfin(Nodo *lista,Dato dato){
+bool ins_listfin(Nodo **lista,Dato dato){
     Nodo *iterador;
-    iterador=lista;
+    Nodo *nuevo_nodo=new Nodo();
+    Nodo *antes;
+    iterador=*lista;
+    if (iterador->sig==NULL)
+    {
+        nuevo_nodo->ant=NULL;
+        (*lista)->sig=nuevo_nodo;
+        return true;
+    }
+    
     while (iterador->sig!=NULL)
     {
+        antes=iterador;
         iterador=iterador->sig;
     }
-    Nodo *nuevo_nodo=new Nodo();
+    
     nuevo_nodo->sig=NULL;
     iterador->sig=nuevo_nodo;
+    nuevo_nodo->ant=antes;
     nuevo_nodo->dato=dato;
+    return true;
     
 }
 
@@ -160,36 +191,39 @@ int sizeof_nodo(Nodo* Lista){
 }
 
 
-void ins_listpos(Nodo *lista,Dato dato, int pos){
+void ins_listpos(Nodo **lista,Dato dato, int pos){
     Nodo *iterador;
-    iterador=lista;
+    Nodo *antes;
+    iterador=*lista;
     for (int i = 0; i < pos-1; i++)
     {
+        antes=iterador;
         iterador=iterador->sig;
     }
     Nodo *nuevo_nodo=new Nodo();
     nuevo_nodo->dato=dato;
-    nuevo_nodo->sig=iterador->sig;
-    iterador->sig=nuevo_nodo;
+    antes->sig=nuevo_nodo;
+    nuevo_nodo->ant=antes;
+    nuevo_nodo->sig=iterador;
+    iterador->ant=nuevo_nodo;
 }
 
 
-void elim_ini(Nodo *lista){
+void elim_ini(Nodo **lista){
     Nodo *aux;
     Nodo *aux2;
-    aux=lista->sig;
+    aux=(*lista)->sig;
     aux2=aux->sig;
-    lista->sig=aux2;
+    aux2->ant=NULL;
+    (*lista)->sig=aux2;
     delete aux;
-
-
 }
 
 
-int elim_fin(Nodo *Lista){
+int elim_fin(Nodo **Lista){
     Nodo *iterador;
     Nodo *antes;
-    iterador=Lista->sig;
+    iterador=(*Lista)->sig;
     if (iterador==NULL)
     {
         cout<<"No hay lista que borrar";
@@ -208,10 +242,10 @@ int elim_fin(Nodo *Lista){
 }
 
 
-void elim_pos(Nodo *Lista,int pos){
+void elim_pos(Nodo **Lista,int pos){
     Nodo *iterador;
     Nodo *Antes=new Nodo();
-    iterador=Lista;
+    iterador=*Lista;
     for (int i = 0; i < pos; i++)
     {   
         Antes=iterador;
@@ -232,8 +266,75 @@ void elim_pos(Nodo *Lista,int pos){
 }
 
 
+bool desp_lat(Nodo **Lista){
+    int cond=1,contador=1;
+    Nodo *iterador=*Lista;
+    string opt;
+    bool dir;
+    int tam=sizeof_nodo(*Lista);
+    cout<<"Desplazamiento lateral"<<endl<<endl;
+    cout<<"Actualmente se encuentra en pos "<<contador<<endl;
+    iterador=iterador->sig;
+    cout<<(*iterador);
+    do
+    {
+        if(contador>1){
+            cout<<"Actualmente se encuentra en pos "<<contador<<endl;
+            cout<<(*iterador)<<endl;
+        }
+
+        if (contador>1&&tam>2)
+        {
+            cout<<"Deseas ir a la izquierda o a la derecha?"<<endl;
+            cin>>opt;
+            opt=="izquierda"?dir=false:dir=true;
+            if (dir=true)
+            {
+                iterador=iterador->sig;
+                contador++;
+            }else if(dir=false&&iterador->ant!=NULL){
+                iterador=iterador->ant;
+                contador--;
+            }
+            
+
+        }else{
+            cout<<"Deseas Moverte una posicion a la derecha?"<<endl;
+            cin>>opt;
+            opt=="si"?dir=true:cond=0;
+            if(iterador->sig==NULL){
+            
+            }else{
+                if (cond==0)
+                {
+                    cond=0;
+                }else if(dir==true){
+                    iterador=iterador->sig;
+                    contador++;
+
+                }
+                
+            }
+            
+        }
+        if(iterador==NULL){
+            
+        }
+        cout<<endl;
+        cout<<(*iterador);
+        
+
+        cout<<"Deseas salir al menu principal? 0.-si  1.- no"<<endl;
+        cin>>cond;
+    } while (cond==1);
+    
+
+
+}
+
+
 ostream& operator<<(ostream& print,Nodo list){
-    print<<list.dato.id<<" "<<list.dato.nombre<<" "<<list.dato.apellido<<endl<<"Edad: "<<list.dato.edad<<endl;
+    print<<list.dato.id<<" "<<list.dato.nombre<<" "<<list.dato.apellido<<endl<<"Edad: "<<list.dato.edad<<endl<<"direccion: ";printf("%p",&list);cout<<endl<<"Direccion apuntada: ";printf("%p",list.sig);cout<<endl;
     return print;
 }
 
@@ -248,7 +349,7 @@ Dato istr(){
     list.id=rand()%100;
     return list;
 }
-/*istream& operator>>(istream& save,Dato list){
+/*istream& operator>>(istream& save,Dato &list){
     cout<<"Introduce el nombre";
     save>>list.nombre;
     cout<<"introduce el apellido";

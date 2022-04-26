@@ -25,7 +25,8 @@ void imprimirInicio();
 void imprimirFin();
 void eliminarInicio();
 void eliminarFin();
-void eliminarCustom();
+void eliminarCustom(); 
+
 
 int main()
 {

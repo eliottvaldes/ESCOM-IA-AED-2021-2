@@ -1,18 +1,20 @@
-#include<stdlib.h>
-#include<math.h>
-#include<stack>
-#include<queue>
-#include<string.h>
-#include<typeinfo>
-#include<iostream>
+#include <stdlib.h>
+#include <math.h>
+#include <stack>
+#include <queue>
+#include <string.h>
+#include <typeinfo>
+#include <iostream>
 #define TAM 250
 using namespace std;
 int prioridad(char simbolo);
 bool Inspectordeformulas_secuencias_T_T(char[]);
-float evaluar(stack<float>,stack<char>,stack<char>); 
-float CtF();
-int main(){   
-    int opcion,tamexp;
+float evaluar(stack<float>, stack<char>, stack<char>);
+// se utilizo la extencion -mintlif- y -Doxygen documentation- para "Documentar" el programa.
+// The above code is converting an infix expression to postfix and prefix expression.
+int main()
+{
+    int opcion, tamexp;
     stack<char> pila1;
     stack<string> pilaimpresiones;
     stack<string> pila_acomodos;
@@ -28,283 +30,402 @@ int main(){
     string cadena;
     do
     {
-        cout<<("\n-Seleccione la opcion que desea\n 1.-Convertir una Expresion de Infija a Postfija\n 2.-Convertir una Expresion de Infija a Prefija\n 3.-Salir del Menu\n");
-        cin>>(opcion);
+        cout << ("\n-Seleccione la opcion que desea\n 1.-Convertir una Expresion de Infija a Postfija\n 2.-Convertir una Expresion de Infija a Prefija\n 3.-Salir del Menu\n");
+        cin >> (opcion);
         switch (opcion)
         {
         case 1:
-            cout<<("\n Ingrese la expresion:\n");
-            cin>>(expinf);
-            if(Inspectordeformulas_secuencias_T_T(expinf)){
-            tamexp=strlen(expinf);
-            for (int i = 0; i < tamexp; i++)
+            cout << ("\n Ingrese la expresion:\n");
+            cin >> (expinf);
+            if (Inspectordeformulas_secuencias_T_T(expinf))
             {
-                simbolo=expinf[i];
-                if (simbolo == '(')
+                tamexp = strlen(expinf);
+                for (int i = 0; i < tamexp; i++)
                 {
-                    pila1.push(simbolo);
-                }
-                else if (simbolo == ')')
-                {
-                    while (pila1.top()!= '(')
-                    { auxiliar[0]=pila1.top();
-                    auxiliar[1]='\0';
-                        Ex_postfiija.push(auxiliar);
+                    simbolo = expinf[i];
+                    if (simbolo == '(')
+                    {
+                        pila1.push(simbolo);
+                    }
+                    else if (simbolo == ')')
+                    {
+                        while (pila1.top() != '(')
+                        {
+                            auxiliar[0] = pila1.top();
+                            auxiliar[1] = '\0';
+                            Ex_postfiija.push(auxiliar);
+                            pila1.pop();
+                        }
                         pila1.pop();
                     }
+                    else if ((simbolo >= 'a') && (simbolo <= 'z') || (simbolo >= 'A') && (simbolo <= 'Z') || isdigit(simbolo))
+                    {
+                        if (isdigit(simbolo))
+                        {
+                            int x = 0;
+                            while (isdigit(expinf[i]))
+                            {
+                                auxiliar[x] = expinf[i];
+                                ++i;
+                                ++x;
+                            }
+                            auxiliar[x] = '\0';
+                        }
+                        else
+                        {
+                            auxiliar[0] = simbolo;
+                            auxiliar[1] = '\0';
+                        }
+                        Ex_postfiija.push(auxiliar);
+                        i--;
+                        cout << Ex_postfiija.top();
+                    }
+                    else
+                    {
+                        while (!pila1.empty() && (prioridad(simbolo) <= prioridad(pila1.top())))
+                        {
+                            auxiliar[0] = pila1.top();
+                            auxiliar[1] = '\0';
+                            Ex_postfiija.push(auxiliar);
+                            pila1.pop();
+                        }
+                        pila1.push(simbolo);
+                    }
+                }
+                while (!pila1.empty())
+                {
+                    auxiliar[0] = pila1.top();
+                    auxiliar[1] = '\0';
+                    Ex_postfiija.push(auxiliar);
                     pila1.pop();
                 }
-                else if ((simbolo >= 'a') && (simbolo <= 'z') || (simbolo >= 'A') && (simbolo <= 'Z')||isdigit(simbolo))
-                {   if(isdigit(simbolo)){int x=0;
-                    while (isdigit(expinf[i]))
-                {  
-                    auxiliar[x]=expinf[i];
-                    ++i;
-                    ++x;
-                }
-                auxiliar[x]='\0';
-                }
-                else{auxiliar[0]=simbolo;auxiliar[1]='\0';}
-                Ex_postfiija.push(auxiliar);
-                i--;
-                cout<<Ex_postfiija.top();
-                }
-                else
+                while (!Ex_postfiija.empty())
                 {
-                    while (!pila1.empty()&& (prioridad(simbolo)<=prioridad(pila1.top())))
-                    {   auxiliar[0]=pila1.top();auxiliar[1]='\0';
-                        Ex_postfiija.push(auxiliar);
-                        pila1.pop();
-                    }
-                    pila1.push(simbolo);
-                    }
-                }
-                while(!pila1.empty()){
-                    auxiliar[0]=pila1.top();auxiliar[1]='\0';
-                    Ex_postfiija.push(auxiliar);
-                    pila1.pop();}
-                while(!Ex_postfiija.empty()){
                     pila_evaluacion.push(Ex_postfiija.top());
                     pilaimpresiones.push(Ex_postfiija.top());
-                    Ex_postfiija.pop();}
-                    cout<<"\nLa expresion en postfija es:\n";
-                while (!pilaimpresiones.empty()){
-                    cout<<pilaimpresiones.top();
+                    Ex_postfiija.pop();
+                }
+                cout << "\nLa expresion en postfija es:\n";
+                while (!pilaimpresiones.empty())
+                {
+                    cout << pilaimpresiones.top();
                     pilaimpresiones.pop();
                 }
                 for (size_t l = 0; l < tamexp; l++)
-        {   if(!pila_evaluacion.empty()){
-            //cout<<"\n"<<pila_evaluacion.top()[0];
-            if(isdigit(pila_evaluacion.top()[0]))while(isdigit(pila_evaluacion.top()[0])){
-                cadena=pila_evaluacion.top();
-                pila_evaluacion.pop();
-                for(size_t i = 0;i<cadena.length();i++)
                 {
-                auxiliar[i]=cadena[i];
+                    if (!pila_evaluacion.empty())
+                    {
+                        // cout<<"\n"<<pila_evaluacion.top()[0];
+                        if (isdigit(pila_evaluacion.top()[0]))
+                            while (isdigit(pila_evaluacion.top()[0]))
+                            {
+                                int tamcadena = 0;
+                                cadena = pila_evaluacion.top();
+                                pila_evaluacion.pop();
+                                for (size_t i = 0; i < cadena.length(); i++)
+                                {
+                                    if (cadena.length() == tamcadena)
+                                        auxiliar[i] = cadena[i];
+                                    else
+                                    {
+                                        auxiliar[i] = cadena[i];
+                                        auxiliar[i + 1] = '\0';
+                                    }
+                                }
+                                tamcadena = cadena.length();
+                                pila_operandos.push(atof(auxiliar));
+                            }
+                        else
+                        {
+                            operadores2.push(pila_evaluacion.top()[0]);
+                            pila_evaluacion.pop();
+                            if (!pila_operandos.empty())
+                            {
+                                float temp = evaluar(pila_operandos, operadores, operadores2);
+                                pila_operandos.pop();
+                                pila_operandos.pop();
+                                operadores2.pop();
+                                pila_operandos.push(temp);
+                            }
+                        }
+                    }
                 }
-                pila_operandos.push(atof(auxiliar));
-                cout<<"\n"<<pila_operandos.top()<<" ";
+
+                cout << "=" << evaluar(pila_operandos, operadores, operadores2);
             }
-            else{operadores2.push(pila_evaluacion.top()[0]);
-            pila_evaluacion.pop();
-            if(!pila_operandos.empty()){float temp=evaluar(pila_operandos,operadores,operadores2);
-            pila_operandos.pop();
-            pila_operandos.pop();
-            operadores2.pop();
-            pila_operandos.push(temp);}
-            }
-            }
-        }
-        
-        cout<<"="<<evaluar(pila_operandos,operadores,operadores2);
-        }
-        else cout<<"Los parentesis no estan balanceados\n";
-        break;
-         case 2:
+            else
+                cout << "Los parentesis no estan balanceados\n";
+            break;
+        case 2:
             printf("\n Ingrese la expresion:\n");
-            cin>>(expinf);
-            if(Inspectordeformulas_secuencias_T_T(expinf)){
-            tamexp=strlen(expinf);
-            for (int i=tamexp-1; i>=0; i--){
-                simbolo=expinf[i];
-                if(simbolo==')'){
-                pila1.push(simbolo);
+            cin >> (expinf);
+            if (Inspectordeformulas_secuencias_T_T(expinf))
+            {
+                tamexp = strlen(expinf);
+                for (int i = tamexp - 1; i >= 0; i--)
+                {
+                    simbolo = expinf[i];
+                    if (simbolo == ')')
+                    {
+                        pila1.push(simbolo);
+                    }
+                    else if (simbolo == '(')
+                    {
+                        while (pila1.top() != ')')
+                        {
+                            auxiliar[0] = pila1.top();
+                            auxiliar[1] = '\0';
+                            Ex_prefija.push(auxiliar);
+                            pila1.pop();
+                        }
+                        pila1.pop();
+                    }
+                    else if ((simbolo >= 'a') && (simbolo <= 'z') || (simbolo >= 'A') && (simbolo <= 'Z') || isdigit(simbolo))
+                    {
+                        if (isdigit(simbolo))
+                        {
+                            int x = 0, y = 0;
+                            char temp;
+                            while (isdigit(expinf[i]) && i >= 0)
+                            {
+                                auxiliar[x] = expinf[i];
+                                ++x;
+                                --i;
+                                y++;
+                            }
+                            y--;
+                            ++i;
+                            for (size_t m = 0; m < y; m++)
+                            {
+                                temp = auxiliar[y - m];
+                                cout << temp;
+                                auxiliar[y - m] = auxiliar[m];
+                                auxiliar[m] = temp;
+                            }
+                            auxiliar[x] = '\0';
+                            if (isdigit(auxiliar[x + 1]))
+                                auxiliar[x + 1] = '\0';
+                        }
+                        else
+                        {
+                            auxiliar[0] = simbolo;
+                            auxiliar[1] = '\0';
+                        }
+                        Ex_prefija.push(auxiliar);
+                    }
+                    else
+                    {
+                        while (!pila1.empty() && (prioridad(simbolo) < prioridad(pila1.top())))
+                        {
+                            auxiliar[0] = pila1.top();
+                            auxiliar[1] = '\0';
+                            Ex_prefija.push(auxiliar);
+                            pila1.pop();
+                        }
+                        pila1.push(simbolo);
+                    }
                 }
-                else if(simbolo=='('){
-                while (pila1.top()!=')'){
-                    auxiliar[0]=pila1.top();
-                    auxiliar[1]='\0';
+                while (!pila1.empty())
+                {
+                    auxiliar[0] = pila1.top();
+                    auxiliar[1] = '\0';
                     Ex_prefija.push(auxiliar);
                     pila1.pop();
                 }
-                pila1.pop();
-                }
-                else if((simbolo>= 'a')&&(simbolo<='z') || (simbolo>= 'A')&&(simbolo<= 'Z')||isdigit(simbolo)){
-                 if(isdigit(simbolo)){
-                    int x=0,y=0;
-                    char temp;
-                    while (isdigit(expinf[i])&&i>=0)
-                    { 
-                    auxiliar[x]=expinf[i];
-                    ++x;
-                    --i;
-                    y++;
-                    }
-                    y--;
-                    ++i;
-                    for (size_t m = 0; m <y; m++)
-                    {
-                        temp=auxiliar[y-m];
-                        cout<<temp;
-                        auxiliar[y-m]=auxiliar[m];
-                        auxiliar[m]=temp;
-                    }
-                    auxiliar[x]='\0';
-                    if(isdigit(auxiliar[x+1]))
-                    auxiliar[x+1]='\0';
-                }
-                else {auxiliar[0]=simbolo;
-                auxiliar[1]='\0';}
-                Ex_prefija.push(auxiliar);
-                }
-                else{
-                while (!pila1.empty()&&(prioridad (simbolo) <prioridad (pila1.top()))){
-                    auxiliar[0]=pila1.top();
-                    auxiliar[1]='\0';
-                    Ex_prefija.push(auxiliar);
-                    pila1.pop();}
-                    pila1.push(simbolo);
-                }
-            }
-            while (!pila1.empty()){
-            auxiliar[0]=pila1.top();
-            auxiliar[1]='\0';
-            Ex_prefija.push(auxiliar);
-            pila1.pop();
-        }
-         cout<<"La expresion en prefija es:\n";
-            while (!Ex_prefija.empty()){
-            cout<<Ex_prefija.top();
-            pila_evaluacion.push(Ex_prefija.top());
-            Ex_prefija.pop();
-            }
-        for (size_t l = 0; l < tamexp; l++)
-        {   if(!pila_evaluacion.empty()){
-            //cout<<"\n"<<pila_evaluacion.top()[0];
-            if(isdigit(pila_evaluacion.top()[0]))while(isdigit(pila_evaluacion.top()[0])){
-                cadena=pila_evaluacion.top();
-                pila_evaluacion.pop();
-                for(size_t i = 0;i<cadena.length();i++)
+                cout << "La expresion en prefija es:\n";
+                while (!Ex_prefija.empty())
                 {
-                auxiliar[i]=cadena[i];
+                    cout << Ex_prefija.top();
+                    pila_evaluacion.push(Ex_prefija.top());
+                    Ex_prefija.pop();
                 }
-                pila_operandos.push(atof(auxiliar));
-                cout<<"\n"<<pila_operandos.top()<<" ";
+                for (size_t l = 0; l < tamexp; l++)
+                {
+                    if (!pila_evaluacion.empty())
+                    {
+                        // cout<<"\n"<<pila_evaluacion.top()[0];
+                        if (isdigit(pila_evaluacion.top()[0]))
+                            while (isdigit(pila_evaluacion.top()[0]))
+                            {
+                                int tamcadena = 0;
+                                cadena = pila_evaluacion.top();
+                                pila_evaluacion.pop();
+                                for (size_t i = 0; i < cadena.length(); i++)
+                                {
+                                    if (cadena.length() == tamcadena)
+                                        auxiliar[i] = cadena[i];
+                                    else
+                                    {
+                                        auxiliar[i] = cadena[i];
+                                        auxiliar[i + 1] = '\0';
+                                    }
+                                }
+                                pila_operandos.push(atof(auxiliar));
+                            }
+                        else
+                        {
+                            operadores2.push(pila_evaluacion.top()[0]);
+                            pila_evaluacion.pop();
+                            float temp = evaluar(pila_operandos, operadores, operadores2);
+                            pila_operandos.pop();
+                            pila_operandos.pop();
+                            operadores2.pop();
+                            pila_operandos.push(temp);
+                        }
+                    }
+                }
+
+                cout << "=" << evaluar(pila_operandos, operadores, operadores2);
             }
-            else{operadores2.push(pila_evaluacion.top()[0]);
-            pila_evaluacion.pop();
-            float temp=evaluar(pila_operandos,operadores,operadores2);
-            pila_operandos.pop();
-            pila_operandos.pop();
-            operadores2.pop();
-            pila_operandos.push(temp);
-            }
-            }
-        }
-        
-        cout<<"="<<evaluar(pila_operandos,operadores,operadores2);
-        } else cout<<"Los parentesis no estan balanceados\n";
+            else
+                cout << "Los parentesis no estan balanceados\n";
             break;
-            case 3:
-            cout<<"Hasta luego ^.^";
+        case 3:
+            cout << "Hasta luego ^.^";
             break;
-            default: printf("\n Opcion no valida\n");
-            break;}
-    } 
-    while (opcion!=3);
-}
-int prioridad(char simbolo){
-     int priori;
-switch(simbolo){
-case '^': priori = 3; break;
-case '/': priori = 2; break;
-case '*': priori = 2; break;
-case '-': priori = 1; break;
-case '+': priori = 1; break;
-case ')': priori = 0; break;
-case '(': priori = 0; break;
-}
-return priori;
-}
-float evaluar(stack<float>pila,stack<char>operadores,stack<char>operadores2) {
- float op1, op2;
- //este while lo pueden poner en el main para que no se note el copypaste
-         while (!operadores2.empty())
-        {
-            operadores.push(operadores2.top());
-            operadores2.pop();
-            cout<<"\n"<<operadores.top()<<" ";
+        default:
+            printf("\n Opcion no valida\n");
+            break;
         }
- while (!operadores.empty())
- {
-  switch (operadores.top()) {
-   case '^':
-    op2 = pila.top(); pila.pop();
-    op1 = pila.top(); pila.pop();
-    pila.push(pow(op1, op2));
-    operadores.pop();
-    break;
-   case '*':
-    op2 = pila.top(); pila.pop();
-    op1 = pila.top(); pila.pop();
-    pila.push(op1*op2);
-    operadores.pop();
-    break;
-   case '/':
-    op2 = pila.top(); pila.pop();
-    op1 = pila.top(); pila.pop();
-    pila.push(op1 / op2);
-    operadores.pop();
-    break;
-   case '+':
-    op2 = pila.top(); pila.pop();
-    op1 = pila.top(); pila.pop();
-    pila.push(op1 + op2);
-    operadores.pop();
-    break;
-   case '-':
-    op2 = pila.top(); pila.pop();
-    op1 = pila.top(); pila.pop();
-    pila.push(op1 - op2);
-    operadores.pop();
-    break;
-  }
- }
- return pila.top();
+    } while (opcion != 3);
 }
-float CtF(char*elementos)
+// A function that returns the priority of the operators.
+/**
+ * @brief
+ *
+ * @param simbolo es el operador al que se le "asigna" una prioridad.
+ * @return int es la prioridad del operador.
+ */
+int prioridad(char simbolo)
 {
-	float aux;
-	aux = atof(elementos);
-	return aux;
-}
-//este si pongan el suyo pq sino nos va a cachar
-bool Inspectordeformulas_secuencias_T_T(char formula[]){
-    if(strlen(formula)==0)return true;
-    else{
-    stack<char>pila1;
-    for (size_t i = 0; i <strlen(formula); i++)
+    int priori;
+    switch (simbolo)
     {
-       if(formula[i]=='('||formula[i]=='['||formula[i]=='{')pila1.push(formula[i]);
-       else if(formula[i]==')'||formula[i]==']'||formula[i]=='}')
-       {   if(pila1.empty())return false;
-           if(formula[i]==')'&&pila1.top()=='(')pila1.pop();
-           else if(formula[i]==']'&&pila1.top()=='[')pila1.pop();
-           else if(formula[i]=='}'&&pila1.top()=='{')pila1.pop();
-           else return false;
-       }
+    case '^':
+        priori = 3;
+        break;
+    case '/':
+        priori = 2;
+        break;
+    case '*':
+        priori = 2;
+        break;
+    case '-':
+        priori = 1;
+        break;
+    case '+':
+        priori = 1;
+        break;
+    case ')':
+        priori = 0;
+        break;
+    case '(':
+        priori = 0;
+        break;
     }
-    if(!pila1.empty())return false;
-    else true;
+    return priori;
+}
+// The above code is evaluating the expression.
+/**
+ * @brief
+ *
+ * @param pila contiene los  digitos que se evaluaran
+ * @param operadores son los operadores a evaluar
+ * @param operadores2 ordena los operadores para su evaluacion
+ * @return float
+ */
+float evaluar(stack<float> pila, stack<char> operadores, stack<char> operadores2)
+{
+    float op1, op2;
+    while (!operadores2.empty())
+    {
+        operadores.push(operadores2.top());
+        operadores2.pop();
+    }
+    while (!operadores.empty())
+    {
+        switch (operadores.top())
+        {
+        case '^':
+            op2 = pila.top();
+            pila.pop();
+            op1 = pila.top();
+            pila.pop();
+            pila.push(pow(op1, op2));
+            operadores.pop();
+            break;
+        case '*':
+            op2 = pila.top();
+            pila.pop();
+            op1 = pila.top();
+            pila.pop();
+            pila.push(op1 * op2);
+            operadores.pop();
+            break;
+        case '/':
+            op2 = pila.top();
+            pila.pop();
+            op1 = pila.top();
+            pila.pop();
+            pila.push(op1 / op2);
+            operadores.pop();
+            break;
+        case '+':
+            op2 = pila.top();
+            pila.pop();
+            op1 = pila.top();
+            pila.pop();
+            pila.push(op1 + op2);
+            operadores.pop();
+            break;
+        case '-':
+            op2 = pila.top();
+            pila.pop();
+            op1 = pila.top();
+            pila.pop();
+            pila.push(op1 - op2);
+            operadores.pop();
+            break;
+        }
+    }
+    return pila.top();
+}
+// The above code is checking if the formula is correct or not.
+/**
+ * @brief
+ *
+ * @param formula es la formula a  evaluar
+ * @return true si la formula esta balanciada
+ * @return false si la formula no esta balanciada
+ */
+bool Inspectordeformulas_secuencias_T_T(char formula[])
+{
+    if (strlen(formula) == 0)
+        return true;
+    else
+    {
+        stack<char> pila1;
+        for (size_t i = 0; i < strlen(formula); i++)
+        {
+            if (formula[i] == '(' || formula[i] == '[' || formula[i] == '{')
+                pila1.push(formula[i]);
+            else if (formula[i] == ')' || formula[i] == ']' || formula[i] == '}')
+            {
+                if (pila1.empty())
+                    return false;
+                if (formula[i] == ')' && pila1.top() == '(')
+                    pila1.pop();
+                else if (formula[i] == ']' && pila1.top() == '[')
+                    pila1.pop();
+                else if (formula[i] == '}' && pila1.top() == '{')
+                    pila1.pop();
+                else
+                    return false;
+            }
+        }
+        if (!pila1.empty())
+            return false;
+        else
+            true;
     }
 }

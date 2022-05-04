@@ -102,9 +102,7 @@ int main(){
             elim_pos(&inicio,pos);
 
             break;
-        case 8:
-            desp_lat(&inicio);
-            break;
+        
         case 9:
             break;
         default:
@@ -263,79 +261,6 @@ void elim_pos(Nodo **Lista,int pos){
 }
 
 
-bool desp_lat(Nodo **inicio,Nodo **fin){
-    int cond=1,contador=1;
-    Nodo *iterador=*inicio;
-    string opt;
-    bool dir;
-    int tam=sizeof_nodo(*inicio);
-    cout<<"Desplazamiento lateral"<<endl<<endl;
-    cout<<"Quieres empezar por el inicio o el final?";
-    cin>>opt;
-    if (opt[0]=='d'||opt[0]=='D')
-    {
-        /* code */
-    }else if(opt[0]=='I'||opt[0]=='i'){
-
-    
-    
-    cout<<"Actualmente se encuentra en pos "<<contador<<endl;
-    iterador=iterador->sig;
-    cout<<(*iterador);
-    do
-    {
-        if(contador>1){
-            cout<<"Actualmente se encuentra en pos "<<contador<<endl;
-            cout<<(*iterador)<<endl;
-        }
-
-        if (contador>1&&tam>2)
-        {
-            cout<<"Deseas ir a la izquierda o a la derecha?"<<endl;
-            cin>>opt;
-            opt=="izquierda"?dir=false:dir=true;
-            if (dir=true)
-            {
-                iterador=iterador->sig;
-                contador++;
-            }else if(dir=false&&iterador->ant!=NULL){
-                iterador=iterador->ant;
-                contador--;
-            }
-            
-
-        }else{
-            cout<<"Deseas Moverte una posicion a la derecha?"<<endl;
-            cin>>opt;
-            opt=="si"?dir=true:cond=0;
-            if(iterador->sig==NULL){
-            
-            }else{
-                if (cond==0)
-                {
-                    cond=0;
-                }else if(dir==true){
-                    iterador=iterador->sig;
-                    contador++;
-
-                }
-                
-            }
-            
-        }
-        if(iterador==NULL){
-            
-        }
-        cout<<endl;
-        cout<<(*iterador);
-    
-
-    
-    } while (opt!="salir");
-    
-
-
-}}
 
 
 ostream& operator<<(ostream& print,Nodo list){

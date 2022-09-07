@@ -28,6 +28,7 @@ void eliminarInicio(Nodo **);
 void eliminarFin(Nodo **);
 void eliminarCustom(Nodo **, int);
 
+
 int main()
 {
     Nodo *inicio = NULL;

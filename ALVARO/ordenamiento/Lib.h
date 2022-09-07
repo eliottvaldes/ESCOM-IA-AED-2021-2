@@ -151,8 +151,8 @@ void merge_sort(int *array,int p, int q, int r){
         
 
 
-        int *L=malloc(n1*sizeof(int));
-        int *R=malloc(n2*sizeof(int));
+        int *L=(int*)malloc(n1*sizeof(int));
+        int *R=(int*)malloc(n2*sizeof(int));
 
         for ( i = 0; i < n1; i++)
         {
@@ -222,13 +222,9 @@ int* merge(int tam){
             
             mergesort(array,p,r);
             
-            printf("Orden descendente\n");
-            for (int i = 0; i < tam; i++)
-             {
-                printf("%i\n",*(array+i));
-             }
+           
 
-    return *array;
+    return array;
 }
 
 void QuickSort(int *array, int inicio, int final) {
